@@ -433,14 +433,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-07
+                    2020-04-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    126
+                    360
                 </div>
                 
 
@@ -469,12 +469,77 @@
 <p>-x: 解压缩文件或目录—进行<strong>解压</strong></p>
 <p>-v: 详细报告tar处理的文件信息</p>
 <p>-f: 使用文档名</p>
-<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><h3 id="rm-rf"><a href="#rm-rf" class="headerlink" title="rm -rf"></a>rm -rf</h3><p>-r:向下递归，不管有多少级目录，一并删除；</p>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><ul>
+<li>可以重载配置文件或执行shell脚本</li>
+<li>当对配置文件做了修改不需要重启，只需要用source重载一下被修改的配置文件即可</li>
+</ul>
+<h3 id="rm-rf"><a href="#rm-rf" class="headerlink" title="rm -rf"></a>rm -rf</h3><p>-r:向下递归，不管有多少级目录，一并删除；</p>
 <p>-f:直接强行删除，不做任何提示</p>
 <ul>
 <li><p>清空文件夹不删除文件夹(test)本身</p>
 <p>rm -rf /test/*</p>
 </li>
+</ul>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><pre class=" language-markdown"><code class="language-markdown">NAME
+<span class="token code keyword">       echo - display a line of text</span>
+
+SYNOPSIS
+<span class="token code keyword">       echo [SHORT-OPTION]... [STRING]...</span>
+<span class="token code keyword">       echo LONG-OPTION</span>
+
+DESCRIPTION
+<span class="token code keyword">       Echo the STRING(s) to standard output.</span>
+
+<span class="token code keyword">       -n     do not output the trailing newline</span>
+
+<span class="token code keyword">       -e     enable interpretation of backslash escapes</span>
+
+<span class="token code keyword">       -E     disable interpretation of backslash escapes (default)</span>
+
+<span class="token code keyword">       --help display this help and exit</span>
+
+<span class="token code keyword">       --version</span>
+<span class="token code keyword">              output version information and exit</span>
+
+<span class="token code keyword">       If -e is in effect, the following sequences are recognized:</span>
+
+<span class="token code keyword">       \\     backslash</span>
+
+<span class="token code keyword">       \a     alert (BEL)</span>
+
+<span class="token code keyword">       \b     backspace</span>
+
+<span class="token code keyword">       \c     produce no further output</span>
+
+<span class="token code keyword">       \e     escape</span>
+
+<span class="token code keyword">       \f     form feed</span>
+
+<span class="token code keyword">       \n     new line</span>
+
+<span class="token code keyword">       \r     carriage return</span>
+</code></pre>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><ul>
+<li>更新文件的访问和修改时间</li>
+</ul>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><ul>
+<li><p>Linux系统之间文件复制</p>
+</li>
+<li><p><code>scp [参数] [原路径] [目标路径]</code></p>
+<ul>
+<li><p>参数说明</p>
+<p>-r:递归复制整个目录</p>
+</li>
+</ul>
+</li>
+<li><p><code>scp 文件名 用户名@虚拟机ip地址:目标路径</code></p>
+</li>
+</ul>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><ul>
+<li>将整个文件的内容从上到下显示在屏幕上</li>
+</ul>
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><ul>
+<li>将整个文件的内容一页一页的显示</li>
 </ul>
 
             </div>
@@ -491,7 +556,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xlxlll.github.io" rel="external nofollow noreferrer">Manba_girl</a>
+                    <a href="https://xlxlll.github.io" rel="external nofollow noreferrer">Mamba_girl</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -514,7 +579,7 @@
                     All articles in this blog are used except for special statements
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     reprint polocy. If reproduced, please indicate source
-                    <a href="https://xlxlll.github.io" target="_blank">Manba_girl</a>
+                    <a href="https://xlxlll.github.io" target="_blank">Mamba_girl</a>
                     !
                 </span>
             </div>
@@ -706,52 +771,54 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;当前
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/07/Linux/">
+                <a href="/2020/04/08/Kafka/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Linux">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Kafka">
                         
-                        <span class="card-title">Linux</span>
+                        <span class="card-title">Kafka</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Linux常见操作命令
+                            Kafka学习笔记，持续更新..
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-07
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-08
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/big-data/" class="post-category">
+                                    big_data
                                 </a>
                             
-                            <a href="/categories/Linux/%E5%9F%BA%E7%A1%80/" class="post-category">
-                                    基础
+                            <a href="/categories/big-data/Kafka/" class="post-category">
+                                    Kafka
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/Kafka/">
+                        <span class="chip bg-color">Kafka</span>
+                    </a>
+                    
+                    <a href="/tags/zookeeper/">
+                        <span class="chip bg-color">zookeeper</span>
                     </a>
                     
                 </div>
@@ -862,7 +929,7 @@
         var url = document.location.href;
         newdiv.innerHTML += '<br />'
             + '来源: 博客乐园<br />'
-            + 'Manba_girl: Manba_girl<br />'
+            + 'Manba_girl: Mamba_girl<br />'
             + '链接: <a href="' + url + '">' + url + '</a><br />'
             + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
 
@@ -1002,13 +1069,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             Copyright&nbsp;&copy;
 			<span id="sitetime"></span>
             <span id="year">2019</span>
-            <a href="https://xlxlll.github.io" target="_blank">Manba_girl</a>
+            <a href="https://xlxlll.github.io" target="_blank">Mamba_girl</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">3.1k</span>&nbsp;字
+                class="white-color">4.1k</span>&nbsp;字
             
             
             
