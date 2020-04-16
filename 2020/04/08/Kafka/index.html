@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-08
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    227
+                    1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    5 分钟
                 </div>
                 
 				
@@ -467,7 +467,97 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><pre class=" language-markdown"><code class="language-markdown">FATAL Fatal error during KafkaServer startup. Prepare to shutdown (kafka.server.KafkaServer)
+                <p>[toc]</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#server.properties</span>
+<span class="token comment" spellcheck="true">############################# Server Basics #############################</span>
+
+<span class="token comment" spellcheck="true"># The id of the broker. This must be set to a unique integer for each broker.</span>
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+
+<span class="token comment" spellcheck="true">############################# Socket Server Settings #############################</span>
+
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://bigdata-pro01.bigDAta.com:9092</span>
+
+<span class="token comment" spellcheck="true"># The port the socket server listens on</span>
+<span class="token attr-name">port</span><span class="token punctuation">=</span><span class="token attr-value">9092</span>
+
+<span class="token comment" spellcheck="true"># Hostname the broker will bind to. If not set, the server will bind to all interfaces</span>
+<span class="token attr-name">host.name</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com</span>
+
+
+<span class="token comment" spellcheck="true"># The number of threads handling network requests</span>
+<span class="token attr-name">num.network.threads</span><span class="token punctuation">=</span><span class="token attr-value">3</span>
+
+<span class="token comment" spellcheck="true"># The number of threads doing disk I/O</span>
+<span class="token attr-name">num.io.threads</span><span class="token punctuation">=</span><span class="token attr-value">8</span>
+
+<span class="token comment" spellcheck="true"># The send buffer (SO_SNDBUF) used by the socket server</span>
+<span class="token attr-name">socket.send.buffer.bytes</span><span class="token punctuation">=</span><span class="token attr-value">102400</span>
+
+<span class="token comment" spellcheck="true"># The receive buffer (SO_RCVBUF) used by the socket server</span>
+<span class="token attr-name">socket.receive.buffer.bytes</span><span class="token punctuation">=</span><span class="token attr-value">102400</span>
+
+<span class="token comment" spellcheck="true"># The maximum size of a request that the socket server will accept (protection against OOM)</span>
+<span class="token attr-name">socket.request.max.bytes</span><span class="token punctuation">=</span><span class="token attr-value">104857600</span>
+
+
+<span class="token comment" spellcheck="true">############################# Log Basics #############################</span>
+
+<span class="token comment" spellcheck="true"># A comma seperated list of directories under which to store log files</span>
+
+<span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">/opt/modules/kafka_2.10-0.9.0.0/kafka-logs</span>
+<span class="token attr-name">num.partitions</span><span class="token punctuation">=</span><span class="token attr-value">1</span>
+<span class="token attr-name">num.recovery.threads.per.data.dir</span><span class="token punctuation">=</span><span class="token attr-value">1</span>
+<span class="token attr-name">log.retention.hours</span><span class="token punctuation">=</span><span class="token attr-value">168</span>
+<span class="token attr-name">log.segment.bytes</span><span class="token punctuation">=</span><span class="token attr-value">1073741824</span>
+<span class="token attr-name">log.retention.check.interval.ms</span><span class="token punctuation">=</span><span class="token attr-value">300000</span>
+<span class="token attr-name">log.cleaner.enable</span><span class="token punctuation">=</span><span class="token attr-value">false</span>
+
+<span class="token comment" spellcheck="true">############################# Zookeeper #############################</span>
+
+<span class="token comment" spellcheck="true"># Zookeeper connection string (see zookeeper docs for details).</span>
+<span class="token comment" spellcheck="true"># This is a comma separated host:port pairs, each corresponding to a zk</span>
+<span class="token comment" spellcheck="true"># server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".</span>
+<span class="token comment" spellcheck="true"># You can also append an optional chroot string to the urls to specify the</span>
+<span class="token comment" spellcheck="true"># root directory for all kafka znodes.</span>
+<span class="token attr-name">zookeeper.connect</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181</span>
+
+<span class="token comment" spellcheck="true"># Timeout in ms for connecting to zookeeper</span>
+<span class="token attr-name">zookeeper.connection.timeout.ms</span><span class="token punctuation">=</span><span class="token attr-value">6000</span>
+</code></pre>
+<h3 id="编写Kafka-Consumer执行脚本"><a href="#编写Kafka-Consumer执行脚本" class="headerlink" title="编写Kafka Consumer执行脚本"></a>编写Kafka Consumer执行脚本</h3><pre class=" language-shell"><code class="language-shell">#/bin/bash
+echo "bigDAta-kafka-consumer.sh start ......"
+bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --from-beginning --topic weblogs</code></pre>
+<h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><p><code>bin/kafka-server-start.sh config/server.properties</code></p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class=" language-shell"><code class="language-shell">#创建名为weblogs的topic:
+#partitions-topic分区数；控制topic将分片成多少个log。可以显示指定，如果不指定则会使用broker(server.properties)中的num.partitions配置的数量
+#replication-factor-topic每个分区的副本数；控制消息保存在几个broker(服务器)上，一般情况下等于broker的个数。
+#如果没有在创建时显示指定或通过API向一个不存在的topic生产消息时会使用broker(server.properties)中的default.replication.factor配置的数量
+1.$ bin/kafka-topics.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --create --topic weblogs --replication-factor 2 --partitions 1
+#查看所有topic列表
+2.$ bin/kafka-topics.sh --zookeeper bigdata-pro03.bigDAta.com:2181 --list
+#查看指定topic信息
+3.$ bin/kafka-topics.sh --zookeeper bigdata-pro03.bigDAta.com:2181 --describe --topic weblogs
+#控制台向topic生产数据
+4.$ bin/kafka-console-producer.sh --broker-list bigdata-pro03.bigDAta.com:9092 --topic weblogs
+#控制台消费topic的数据
+5.$ bin/kafka-console-consumer.sh  --zookeeper bigdata-pro03.bigDAta.com:2181  --topic weblogs --from-beginning
+#查看topic某分区偏移量最大（小）值 time为-1表示最大值，为-2时表示最小值
+6.$ bin/kafka-run-class.sh kafka.tools.GetOffsetShell --topic weblogs  --time -1 --broker-list bigdata-pro03.bigDAta.com:9092 --partitions 0
+#增加topic分区数:这里增加10个分区
+7.$ bin/kafka-topics.sh --zookeeper bigdata-pro03.bigDAta.com:2181  --alter --topic weblogs --partitions 10
+#删除topic：删除topic的前提是broker的delete.topic.enable = true；否则删除topic的请求，只是通过zookeeper对topic进行标记为marked for deletion而没有真正的删除；
+8.$ bin/kafka-topics.sh --zookeeper bigdata-pro03.bigDAta.com:2181/kafka-cluster --delete --topic weblogs
+    #如果上述命令无法正常删除topic，则需要对kafka在zookeeper中的存储信息进行删除
+    $ bin/zkCli.sh #进入zookeeper客户端
+    $ ls /brokers/topics #找到topic所在的目录
+    $ rmr /brokers/topics/topicName
+    #如何删除被标记了的topic
+    $ bin/zkCli.sh #进入zookeeper客户端
+    $ ls /admin/delete_topics #找到要删除的topic
+    $ rmr /admin/delete_topics/topicName #执行删除命令
+</code></pre>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><pre class=" language-markdown"><code class="language-markdown">FATAL Fatal error during KafkaServer startup. Prepare to shutdown (kafka.server.KafkaServer)
 kafka.common.InconsistentBrokerIdException: Configured brokerId 0 doesn't match stored brokerId 1 in meta.properties
 <span class="token code keyword">    at kafka.server.KafkaServer.getBrokerId(KafkaServer.scala:630)</span>
 <span class="token code keyword">    at kafka.server.KafkaServer.startup(KafkaServer.scala:175)</span>
@@ -722,56 +812,50 @@ Caused by: org.apache.kafka.common.config.ConfigException: DNS resolution failed
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;当前
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/08/Kafka/">
+                <a href="/2020/04/09/git/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Kafka">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="git">
                         
-                        <span class="card-title">Kafka</span>
+                        <span class="card-title">git</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Kafka学习笔记，持续更新..
+                            有关git的命令，持续更新...
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-08
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/big-data/" class="post-category">
-                                    big_data
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" class="post-category">
+                                    工具教程
                                 </a>
                             
-                            <a href="/categories/big-data/Kafka/" class="post-category">
-                                    Kafka
+                            <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    开发工具
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kafka/">
-                        <span class="chip bg-color">Kafka</span>
-                    </a>
-                    
-                    <a href="/tags/zookeeper/">
-                        <span class="chip bg-color">zookeeper</span>
+                    <a href="/tags/git/">
+                        <span class="chip bg-color">git</span>
                     </a>
                     
                 </div>
@@ -1012,7 +1096,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">4.1k</span>&nbsp;字
+                class="white-color">10.2k</span>&nbsp;字
             
             
             

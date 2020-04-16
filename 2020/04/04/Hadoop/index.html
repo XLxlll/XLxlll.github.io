@@ -441,21 +441,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-08
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    0
+                    506
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    2 分钟
                 </div>
                 
 				
@@ -471,7 +471,39 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[toc]</p>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><h4 id="一、HDFS"><a href="#一、HDFS" class="headerlink" title="一、HDFS"></a>一、HDFS</h4><h4 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h4><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
+<p>​    执行<code>./start-dfs.sh</code>之后，使用<code>jps</code>查询进程时，发现dataNode并未启动；执行<code>./stop-dfs.sh</code>之后，返现：<code>no datanode to stop</code></p>
+<p>分析过程:</p>
+<p>​    当使用<code>hdfs namenode -format</code>格式化namenode时，会重新生成集群的相关信息，特别是clusterID，每次刷新都会产生一个新 的clusterID；但是该操作却不会影响DataNode节点的集群信息；</p>
+<p>​    会在namenode数据文件夹中保存一个current/VERSION文件，记录clusterID,而datanode中保存的current/VERSION文件中的clusterID的值是第一次格式化保存的clusterID，这样导致datanode和namenode之间的ID不一致，从而出现问题；</p>
+<p>解决过程：</p>
+<ul>
+<li><p>查看<code>hdfs-site.xml</code>文件获取Hadoop数据存储的位置，分别找到…/dfs/name/current，…/dfs/data/current目录下的VERSION文件，查看NameNode和DataNode节点的clusterID</p>
+<ul>
+<li>修改namenode与datanode的clusterID的值；</li>
+<li>停止HDFS集群后，同时删除NameNode和DataNode节点中配置的存储Hadoop数据的文件目录的所有子目录及文件；</li>
+</ul>
+</li>
+<li><p>再次使用<code>hdfs namenode -format</code>命令格式化NameNode节点，重启HDFS集群。</p>
+<p>执行格式化过程中出现如下提示：</p>
+<pre class=" language-markdown"><code class="language-markdown">Call From bigdata-pro01.bigDAta.com/192.168.1.151 to bigdata-pro01.bigDAta.com:8485 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
+<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:223)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.hasSomeData(QuorumJournalManager.java:232)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.server.common.Storage.confirmFormat(Storage.java:884)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.FSImage.confirmFormat(FSImage.java:171)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:937)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1379)</span>
+<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1504)</span></code></pre>
+<p>解决过程：</p>
+<p>执行<code>[bigDAta@bigdata-pro01 hadoop-2.6.0]$ ./sbin/hadoop-daemon start journalnode</code>命令，在次执行格式化命令。</p>
+<p>在修复过程中出现namenode无法启动：</p>
+<pre class=" language-markdown"><code class="language-markdown">Directory /opt/modules/hadoop-2.6.0/data/tmp/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.</code></pre>
+<p>重新进行<code>namenode</code>格式化</p>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -725,7 +757,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            问题：问题描述：
+​    启动Hmaster之后一段时间，就会自动关闭。
+zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdat
                         
                     </div>
                     <div class="publish-info">
@@ -1017,7 +1051,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">4.1k</span>&nbsp;字
+                class="white-color">10.2k</span>&nbsp;字
             
             
             

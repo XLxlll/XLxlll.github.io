@@ -7,7 +7,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="zookeeper, 博客乐园">
-    <meta name="description" content="zookeeper | 博客乐园">
+    <meta name="description" content="问题：问题描述：
+​    启动Hmaster之后一段时间，就会自动关闭。
+zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdat">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -449,14 +451,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-08
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    0
+                    202
                 </div>
                 
 
@@ -479,7 +481,22 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h3><p>问题描述：</p>
+<p>​    启动Hmaster之后一段时间，就会自动关闭。</p>
+<pre class=" language-markdown"><code class="language-markdown">zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdata-pro01.bigDAta.com,60020,1586616
+507310, exception=org.apache.hadoop.hbase.NotServingRegionException: Region hbase:meta,,1 is not online on bigdata-pro01.bigDAta.com,60020,1586617997438
+<span class="token code keyword">    at org.apache.hadoop.hbase.regionserver.HRegionServer.getRegionByEncodedName(HRegionServer.java:2791)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.regionserver.RSRpcServices.getRegion(RSRpcServices.java:886)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.regionserver.RSRpcServices.getRegionInfo(RSRpcServices.java:1168)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.protobuf.generated.AdminProtos$AdminService$2.callBlockingMethod(AdminProtos.java:20862)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.ipc.RpcServer.call(RpcServer.java:2035)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.ipc.CallRunner.run(CallRunner.java:107)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.ipc.RpcExecutor.consumerLoop(RpcExecutor.java:130)</span>
+<span class="token code keyword">    at org.apache.hadoop.hbase.ipc.RpcExecutor$1.run(RpcExecutor.java:107)</span>
+<span class="token code keyword">    at java.lang.Thread.run(Thread.java:748)</span>
+</code></pre>
+<p>格式化HDFS后，因为zookeeper中某些遗留文件导致的，删除自定义dataDir目录下的除<code>myid</code>之外的所有文件，重新运行即可解决。</p>
+
             </div>
             <hr/>
 
@@ -1017,7 +1034,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">4.1k</span>&nbsp;字
+                class="white-color">10.2k</span>&nbsp;字
             
             
             

@@ -437,14 +437,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-08
+                    2020-04-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    0
+                    292
                 </div>
                 
 
@@ -467,7 +467,47 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[toc]</p>
+<h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
+<p>2.启动高可用下的hdfs，会在各个节点启动namenode，datanode，journalnode：执行<code>./sbin/start-dfs.sh</code>；在HA的namenode节点上启动zkfc线程（两个namenode都要启动）<code>./sbin/hadoop-daemon.sh start zkfc</code>;</p>
+<p>3.启动master：<code>./bin/hbase-daemon.sh start master</code></p>
+<p>4.启动regionServer：<code>./bin/hbase-daemon.sh start regionserver</code></p>
+<p>通过<code>bigdata-pro01.bigdata.com:60010/</code>网页进行查看。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><pre class=" language-markdown"><code class="language-markdown">retry.RetryInvocationHandler: Exception while invoking setSafeMode of class ClientNamenodeProtocolTranslatorPB over
+ bigdata-pro02.bigDAta.com/192.168.1.152:8020 after 1 fail over attempts. Trying to fail over after sleeping for 729ms.
+org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.ipc.StandbyException): Operation category READ is not supported in state standby
+</code></pre>
+<p>连接数据库：</p>
+<p><code>./bin/start-hbase.sh</code></p>
+<h3 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><h3 id="mysql在线安装"><a href="#mysql在线安装" class="headerlink" title="mysql在线安装"></a>mysql在线安装</h3><ul>
+<li><p>安装</p>
+<p><code>yum install mysql-server</code></p>
+</li>
+<li><p>查看mysql的位置、状态</p>
+<pre class=" language-shell"><code class="language-shell">#位置
+which mysql
+#状态
+service mysqld status</code></pre>
+</li>
+<li><p>启动mysql</p>
+<p><code>sudo service mysqld start</code></p>
+</li>
+<li><p>设置root用户的密码</p>
+<pre class=" language-shell"><code class="language-shell">PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
+To do so, start the server, then issue the following commands:
+
+/usr/bin/mysqladmin -u root password 'new-password'
+/usr/bin/mysqladmin -u root -h bigdata-pro01.bigDAta.com password 'new-password'
+</code></pre>
+</li>
+<li><p>使用上述的密码进入mysql</p>
+<p><code>mysql -uroot -p123456</code></p>
+<p>出现问题：</p>
+<p><code>ERROR 1045 (28000): Access denied for user &#39;bigDAta&#39;@&#39;localhost&#39; (using password: YES)</code></p>
+<p>解决方法：</p>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -786,7 +826,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            问题：问题描述：
+​    启动Hmaster之后一段时间，就会自动关闭。
+zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdat
                         
                     </div>
                     <div class="publish-info">
@@ -1017,7 +1059,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">4.1k</span>&nbsp;字
+                class="white-color">10.2k</span>&nbsp;字
             
             
             
