@@ -448,7 +448,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    105
+                    135
                 </div>
                 
 
@@ -471,16 +471,18 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class=" language-markdown"><code class="language-markdown">YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 15, column 11:
+                <pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span>正确的书写形式：属性名+:(英文冒号)+(英文空格)+属性值。</span>
+YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 15, column 11:
 <span class="token code keyword">    categories:</span>
-<span class="token code keyword">              ^</span>
-</code></pre>
-<p>正确的书写形式：属性名+:(英文冒号)+(英文空格)+属性值。</p>
-<pre class=" language-markdown"><code class="language-markdown">ERROR Process failed: languages/default.yml
+<span class="token code keyword">              ^</span></code></pre>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span>原因是：在default.yml文件中，有一个属性只有属性名没有属性值。添加属性值即可。</span>
+ERROR Process failed: languages/default.yml
 TypeError: Cannot convert undefined or null to object
 </code></pre>
-<p>原因是：在default.yml文件中，有一个属性只有属性名没有属性值。添加属性值即可。</p>
-<pre class=" language-markdown"><code class="language-markdown">YAMLException: end of the stream or a document separator is expected at line 2, column 1:</code></pre>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span>原因是在title属性前有一个空格，一般出现这个错误都与空格有关系</span>
+YAMLException: end of the stream or a document separator is expected at line 2, column 1:
+ author: Mamba_girl
+<span class="token code keyword">    ^</span></code></pre>
 
             </div>
             <hr/>
@@ -1011,7 +1013,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.2k</span>&nbsp;字
+                class="white-color">11.3k</span>&nbsp;字
             
             
             

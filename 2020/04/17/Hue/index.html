@@ -6,8 +6,12 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hadoop, 博客乐园">
-    <meta name="description" content="主要是记录在学习Hadoop过程中的一些知识点，持续更新...">
+    <meta name="keywords" content="Hue, 博客乐园">
+    <meta name="description" content="[toc]
+概述安装运行下载安装
+CDH版本： http://archive.cloudera.com/cdh5/ 
+官网：http://gethue.com/
+tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +19,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hadoop | 博客乐园</title>
+    <title>Hue | 博客乐园</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -275,12 +279,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hadoop</h1>
+                    <h1 class="description center-align post-title">Hue</h1>
                 </div>
             </div>
         </div>
@@ -395,37 +399,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/hadoop/">
-                                <span class="chip bg-color">hadoop</span>
-                            </a>
-                        
-                            <a href="/tags/hdfs/">
-                                <span class="chip bg-color">hdfs</span>
-                            </a>
-                        
-                            <a href="/tags/mapreduce/">
-                                <span class="chip bg-color">mapreduce</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/big-data/" class="post-category">
-                                big_data
-                            </a>
-                        
-                            <a href="/categories/big-data/hadoop/" class="post-category">
-                                hadoop
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -434,28 +413,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-04
+                    2020-04-17
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-16
+                    2020-04-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    506
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分钟
+                    5 分钟
                 </div>
                 
 				
@@ -472,35 +451,173 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><h4 id="一、HDFS"><a href="#一、HDFS" class="headerlink" title="一、HDFS"></a>一、HDFS</h4><h4 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h4><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
-<p>​    执行<code>./start-dfs.sh</code>之后，使用<code>jps</code>查询进程时，发现dataNode并未启动；执行<code>./stop-dfs.sh</code>之后，返现：<code>no datanode to stop</code></p>
-<p>分析过程:</p>
-<p>​    当使用<code>hdfs namenode -format</code>格式化namenode时，会重新生成集群的相关信息，特别是clusterID，每次刷新都会产生一个新 的clusterID；但是该操作却不会影响DataNode节点的集群信息；</p>
-<p>​    会在namenode数据文件夹中保存一个current/VERSION文件，记录clusterID,而datanode中保存的current/VERSION文件中的clusterID的值是第一次格式化保存的clusterID，这样导致datanode和namenode之间的ID不一致，从而出现问题；</p>
-<p>解决过程：</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h3 id="安装运行"><a href="#安装运行" class="headerlink" title="安装运行"></a>安装运行</h3><h4 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h4><ul>
+<li>CDH版本： <a href="http://archive.cloudera.com/cdh5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/</a> </li>
+<li>官网：<a href="http://gethue.com/" target="_blank" rel="noopener">http://gethue.com/</a></li>
+<li><code>tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C /opt/modules/</code></li>
+</ul>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><p>下载解压之后要进行编译之后才能用，且当前网络环境要能访问外网。</p>
+<p>安装各种依赖包</p>
+<pre class=" language-shell"><code class="language-shell">$ sudo yum install ant asciidoc cyrus-sasl-devel cyrus-sasl-gssapi cyrus-sasl-plain gcc gcc-c++ krb5-devel libffi-devel libxml2-devel libxslt-devel make mysql mysql-devel openldap-devel python-devel sqlite-devel gmp-devel</code></pre>
 <ul>
-<li><p>查看<code>hdfs-site.xml</code>文件获取Hadoop数据存储的位置，分别找到…/dfs/name/current，…/dfs/data/current目录下的VERSION文件，查看NameNode和DataNode节点的clusterID</p>
+<li>mvn (from apache-maven package or maven3 tarball)</li>
+<li>libtidy (for unit tests only)</li>
+<li>openssl-devel (for version 7+)</li>
+</ul>
+<p>进入hue安装目录输入命令<code>make apps</code></p>
+<pre class=" language-markdown"><code class="language-markdown">make<span class="token url-reference url"><span class="token punctuation">[</span><span class="token variable">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span> Leaving</span> directory `/opt/modules/hue-3.9.0-cdh5.15.0/apps'</code></pre>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><ul>
+<li><p>修改配置文件</p>
+<pre class=" language-ini"><code class="language-ini">#desktop/conf/hue.ini
+#密钥-官网copy
+<span class="token constant">secret_key</span><span class="token attr-value"><span class="token punctuation">=</span>jFE93j;2[290-eiw.KEiwN2s3['d;/.q[eIW^y#e=+Iei*@Mn &lt; qW5o</span>
+#host port
+<span class="token constant">http_host</span><span class="token attr-value"><span class="token punctuation">=</span>bigdata-pro03.bigDAta.com</span>
+<span class="token constant">http_port</span><span class="token attr-value"><span class="token punctuation">=</span>8888</span>
+#时区
+<span class="token constant">time_zone</span><span class="token attr-value"><span class="token punctuation">=</span>Asia/Shanghai</span></code></pre>
+</li>
+<li><p>修改desktop.db文件权限</p>
+<pre><code>chmod o+w desktop/desktop.db</code></pre></li>
+</ul>
+<h3 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h3><p>运行<code>/opt/modules/hue-3.9.0-cdh5.15.0/build/env/bin/supervisor</code></p>
+<p>切换回原来的网络，否则会报错<code>cannot assign requested address</code></p>
+<pre class=" language-shell"><code class="language-shell">starting server with options:
+{'daemonize': False,
+ 'host': 'bigdata-pro03.bigDAta.com',
+ 'pidfile': None,
+ 'port': 8888,
+ 'server_group': 'hue',
+ 'server_name': 'localhost',
+ 'server_user': 'hue',
+ 'ssl_certificate': None,
+ 'ssl_certificate_chain': None,
+ 'ssl_cipher_list': 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA',
+ 'ssl_private_key': None,
+ 'threads': 50,
+ 'workdir': None}
+</code></pre>
+<p>出现上述log，在浏览器输入<code>bigdata-pro03.bigDAta.com:8888</code></p>
+<p>第一次进入，会要求创建一个账户。</p>
+<h3 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h3><p>官网链接</p>
+<p> <a href="http://archive.cloudera.com/cdh5/cdh/5/hue-3.9.0-cdh5.5.0/manual.html" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/cdh/5/hue-3.9.0-cdh5.5.0/manual.html</a> </p>
+<h4 id="与HDFS集成"><a href="#与HDFS集成" class="headerlink" title="与HDFS集成"></a>与HDFS集成</h4><ul>
+<li><p>修改hadoop中core-site.xml配置文件(集群中所有机器都需要配置)</p>
+<pre class=" language-xml"><code class="language-xml">#core-site.xml
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.hue.hosts<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.hue.groups<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
+</li>
+<li><p>修改hue.ini配置文件</p>
+<pre class=" language-ini"><code class="language-ini">#在hue.ini文件中找到[hadoop]->[[hdfs_clusters]]->[[[default]]]
+<span class="token constant">fs_defaultfs</span><span class="token attr-value"><span class="token punctuation">=</span>hdfs://ns</span>
+<span class="token constant">webhdfs_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:50070/webhdfs/v1</span>
+<span class="token constant">hadoop_hdfs_home</span><span class="token attr-value"><span class="token punctuation">=</span>/opt/modules/hadoop-2.6.0</span>
+<span class="token constant">hadoop_bin</span><span class="token attr-value"><span class="token punctuation">=</span>/opt/modules/hadoop-2.6.0/bin</span>
+<span class="token constant">hadoop_conf_dir</span><span class="token attr-value"><span class="token punctuation">=</span>/opt/modules/hadoop-2.6.0/etc/hadoop</span></code></pre>
+</li>
+<li><p>启动hue</p>
+<p>先启动zookeeper，hdfs，再启动hue</p>
+</li>
+</ul>
+<h4 id="与YARN集成"><a href="#与YARN集成" class="headerlink" title="与YARN集成"></a>与YARN集成</h4><ul>
+<li><p>修改hue.ini配置文件(需要区分集群是否是HA)</p>
+<pre class=" language-ini"><code class="language-ini">#在hue.ini文件中找到[hadoop]->[[yarn_clusters]]
+#HA集群
+<span class="token selector">[[[default]</span>]]
+      # Enter the host on which you are running the ResourceManager
+<span class="token constant">      resourcemanager_host</span><span class="token attr-value"><span class="token punctuation">=</span>rs</span>
+      # The port where the ResourceManager IPC listens on
+<span class="token constant">      resourcemanager_port</span><span class="token attr-value"><span class="token punctuation">=</span>8032</span>
+<span class="token constant">      submit_to</span><span class="token attr-value"><span class="token punctuation">=</span>True</span>
+      #Resource Manager logical name (required for HA)
+<span class="token constant">      logical_name</span><span class="token attr-value"><span class="token punctuation">=</span>rm1</span>
+<span class="token constant">      resourcemanager_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:8088</span>
+<span class="token constant">      proxy_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:8088</span>
+<span class="token constant">      history_server_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:19888</span>
+<span class="token selector">[[[ha]</span>]]
+<span class="token constant">      logical_name</span><span class="token attr-value"><span class="token punctuation">=</span>rm2</span>
+<span class="token constant">      submit_to</span><span class="token attr-value"><span class="token punctuation">=</span>True</span>
+<span class="token constant">      resourcemanager_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro02.bigDAta.com:8088</span>
+<span class="token constant">      history_server_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:19888</span>
+------------------------------------------------------------------------------
+#非HA集群
+<span class="token selector">[[[default]</span>]]
+<span class="token constant">      resourcemanager_host</span><span class="token attr-value"><span class="token punctuation">=</span>rs</span>
+<span class="token constant">      resourcemanager_port</span><span class="token attr-value"><span class="token punctuation">=</span>8032</span>
+<span class="token constant">      submit_to</span><span class="token attr-value"><span class="token punctuation">=</span>True</span>
+<span class="token constant">      resourcemanager_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:8088</span>
+<span class="token constant">      proxy_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:8088</span>
+<span class="token constant">      history_server_api_url</span><span class="token attr-value"><span class="token punctuation">=</span>http://bigdata-pro01.bigDAta.com:19888</span></code></pre>
 <ul>
-<li>修改namenode与datanode的clusterID的值；</li>
-<li>停止HDFS集群后，同时删除NameNode和DataNode节点中配置的存储Hadoop数据的文件目录的所有子目录及文件；</li>
+<li><pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--resourcemanager_host对应于yarn-site.xml中配置的--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.cluster-id<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--logical_name名字对应于yarn-site.xml中配置的--></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.ha.rm-ids<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rm1,rm2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span> 
+<span class="token comment" spellcheck="true">&lt;!--resourcemanager_api_url配置资源管理的地址和端口，对应于yarn-site.xml中配置的--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:8088<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--history_server_api_url配置历史记录资源管理的地址和端口，对应mapred-site.xml--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.jobhistory.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:19888<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
+</li>
 </ul>
 </li>
-<li><p>再次使用<code>hdfs namenode -format</code>命令格式化NameNode节点，重启HDFS集群。</p>
-<p>执行格式化过程中出现如下提示：</p>
-<pre class=" language-markdown"><code class="language-markdown">Call From bigdata-pro01.bigDAta.com/192.168.1.151 to bigdata-pro01.bigDAta.com:8485 failed on connection exception: java.net.ConnectException: Connection refused; For more details see:  http://wiki.apache.org/hadoop/ConnectionRefused
-<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumException.create(QuorumException.java:81)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumCall.rethrowException(QuorumCall.java:223)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.qjournal.client.QuorumJournalManager.hasSomeData(QuorumJournalManager.java:232)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.server.common.Storage.confirmFormat(Storage.java:884)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.FSImage.confirmFormat(FSImage.java:171)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.format(NameNode.java:937)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1379)</span>
-<span class="token code keyword">    at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1504)</span></code></pre>
-<p>解决过程：</p>
-<p>执行<code>[bigDAta@bigdata-pro01 hadoop-2.6.0]$ ./sbin/hadoop-daemon start journalnode</code>命令，在次执行格式化命令。</p>
-<p>在修复过程中出现namenode无法启动：</p>
-<pre class=" language-markdown"><code class="language-markdown">Directory /opt/modules/hadoop-2.6.0/data/tmp/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.</code></pre>
-<p>重新进行<code>namenode</code>格式化</p>
+</ul>
+<h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4><ul>
+<li><p>修改hue.ini配置文件</p>
+<pre class=" language-ini"><code class="language-ini"><span class="token selector">[beeswax]</span>
+      # Host where HiveServer2 is running.
+<span class="token constant">      hive_server_host</span><span class="token attr-value"><span class="token punctuation">=</span>bigdata-pro03.bigDAta.com</span>
+      # Port where HiveServer2 Thrift server runs on.
+<span class="token constant">      hive_server_port</span><span class="token attr-value"><span class="token punctuation">=</span>10000</span>
+      # Hive configuration directory, where hive-site.xml is located
+<span class="token constant">      hive_conf_dir</span><span class="token attr-value"><span class="token punctuation">=</span>/opt/modules/hive-2.1.0/conf</span></code></pre>
+</li>
+</ul>
+<h4 id="与MySql集成"><a href="#与MySql集成" class="headerlink" title="与MySql集成"></a>与MySql集成</h4><ul>
+<li><p>修改hue.ini配置文件</p>
+<pre class=" language-ini"><code class="language-ini"><span class="token selector">[[[mysql]</span>]]
+<span class="token constant">      nice_name</span><span class="token attr-value"><span class="token punctuation">=</span>"My SQL DB"</span>
+      # For MySQL and PostgreSQL, name is the name of the database.
+      # For Oracle, Name is instance of the Oracle server. For express edition
+<span class="token constant">      name</span><span class="token attr-value"><span class="token punctuation">=</span>metastore</span>
+<span class="token constant">      engine</span><span class="token attr-value"><span class="token punctuation">=</span>mysql</span>
+<span class="token constant">      host</span><span class="token attr-value"><span class="token punctuation">=</span>bigdata-pro01.bigDAta.com</span>
+<span class="token constant">      port</span><span class="token attr-value"><span class="token punctuation">=</span>3306</span>
+<span class="token constant">      user</span><span class="token attr-value"><span class="token punctuation">=</span>root</span>
+<span class="token constant">      password</span><span class="token attr-value"><span class="token punctuation">=</span>123456</span></code></pre>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token comment" spellcheck="true">&lt;!--出现了database is locked异常--></span>
+1.需要在Hue中初始化数据库
+
+<span class="token comment" spellcheck="true">&lt;!--"Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)")--></span></code></pre>
+</li>
+</ul>
+<h4 id="与Hbase集成"><a href="#与Hbase集成" class="headerlink" title="与Hbase集成"></a>与Hbase集成</h4><ul>
+<li><p>修改hue.ini配置文件</p>
+<pre class=" language-ini"><code class="language-ini"><span class="token selector">[hbase]</span>
+<span class="token constant">   hbase_clusters</span><span class="token attr-value"><span class="token punctuation">=</span>(Cluster|bigdata-pro01.bigDAta.com:9090)</span>
+   # HBase configuration directory, where hbase-site.xml is located.
+<span class="token constant">   hbase_conf_dir</span><span class="token attr-value"><span class="token punctuation">=</span>/opt/modules/hbase-1.0.0-cdh5.4.0/conf</span>
+<span class="token constant">   thrift_transport</span><span class="token attr-value"><span class="token punctuation">=</span>buffered</span></code></pre>
+</li>
+<li><p>测试</p>
+<p> 先启动hbase,再启动HBase中启动thrift服务 /opt/modules/hbase-1.0.0-cdh5.4.0/bin/hbase-daemon.sh start thrift 然后启动hue</p>
 </li>
 </ul>
 
@@ -528,7 +645,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xlxlll.github.io/2020/04/04/Hadoop/">https://xlxlll.github.io/2020/04/04/Hadoop/</a>
+                    <a href="https://xlxlll.github.io/2020/04/17/Hue/">https://xlxlll.github.io/2020/04/17/Hue/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -565,19 +682,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/hadoop/">
-                                    <span class="chip bg-color">hadoop</span>
-                                </a>
-                            
-                                <a href="/tags/hdfs/">
-                                    <span class="chip bg-color">hdfs</span>
-                                </a>
-                            
-                                <a href="/tags/mapreduce/">
-                                    <span class="chip bg-color">mapreduce</span>
-                                </a>
-                            
+                            <span class="chip bg-color">No tag</span>
                         </div>
                     
                 </div>
@@ -745,66 +850,32 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/04/zookeeper/">
+                <a href="/2020/04/17/Spark/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="zookeeper">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Spark">
                         
-                        <span class="card-title">zookeeper</span>
+                        <span class="card-title">Spark</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            问题：问题描述：
-​    启动Hmaster之后一段时间，就会自动关闭。
-zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdat
+                            
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/big-data/" class="post-category">
-                                    big_data
-                                </a>
-                            
-                            <a href="/categories/big-data/zookeeper/" class="post-category">
-                                    zookeeper
-                                </a>
-                            
-                            <a href="/categories/big-data/zookeeper/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
-                                    分布式
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mamba_girl
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/zookeeper/">
-                        <span class="chip bg-color">zookeeper</span>
-                    </a>
-                    
-                    <a href="/tags/leader%E9%80%89%E4%B8%BE/">
-                        <span class="chip bg-color">leader选举</span>
-                    </a>
-                    
-                    <a href="/tags/ZAB%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">ZAB协议</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/">
-                        <span class="chip bg-color">数据一致性</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -816,56 +887,36 @@ zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigd
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/04/03/hexo%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">
+                <a href="/2020/04/14/Hive/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="hexo踩坑记录">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Hive">
                         
-                        <span class="card-title">hexo踩坑记录</span>
+                        <span class="card-title">Hive</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            填补使用hexo搭建博客过程中自己抛的坑
+                            [toc]
+Hive概述什么是Hive
+由Facebook开源用于解决海量结构化日志的数据统计；
+是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射成一张表，并提供类似SQL查询功能；
+构建在Hadoop之上的数据仓库：使用H
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/" class="post-category">
-                                    工具教程
-                                </a>
-                            
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/hexo/" class="post-category">
-                                    hexo
-                                </a>
-                            
-                            <a href="/categories/%E5%B7%A5%E5%85%B7%E6%95%99%E7%A8%8B/hexo/github/" class="post-category">
-                                    github
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mamba_girl
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/hexo/">
-                        <span class="chip bg-color">hexo</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-                        <span class="chip bg-color">博客搭建</span>
-                    </a>
-                    
                 </div>
                 
             </div>

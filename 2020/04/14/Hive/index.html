@@ -420,7 +420,7 @@ Hive概述什么是Hive
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-16
+                    2020-04-17
                 </div>
                 
 
@@ -475,7 +475,7 @@ Hive概述什么是Hive
  $ export PATH=$HIVE_HOME/bin:$PATH</code></pre>
 </li>
 </ul>
-<h4 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h4><pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#hive-log4j.properties</span>
+<h4 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h4><pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#hive-log4j.properties</span>
 <span class="token comment" spellcheck="true">#日志目录需要提前创建</span>
 <span class="token attr-name">hive.log.dir</span><span class="token punctuation">=</span><span class="token attr-value">/opt/modules/hive-2.1.0/logs</span></code></pre>
 <pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#hive-env.sh</span>
@@ -506,7 +506,9 @@ CREATE TABLE stu2(id INT,name STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY 
 #加载数据到表中,注意加载数据的格式是否符合表创建时的要求
 load data local inpath '/opt/datas/stu.txt' into table stu2;
 #打印hive启动过程中的log
-$ ./bin/hive -hiveconf hive.root.logger=DEBUG,console</code></pre>
+$ ./bin/hive -hiveconf hive.root.logger=DEBUG,console
+#进入hive查看有哪些表
+show tables;</code></pre>
 <h3 id="Hive-与-MySQL"><a href="#Hive-与-MySQL" class="headerlink" title="Hive 与 MySQL"></a>Hive 与 MySQL</h3><h4 id="为什么与mysql进行整合"><a href="#为什么与mysql进行整合" class="headerlink" title="为什么与mysql进行整合"></a>为什么与mysql进行整合</h4><p>默认情况下，Hive元数据保存在内嵌的Derby数据库中，只能允许一个会话连接，只适合简单的测试。实际生产环境中不使用，为了支持多用户会话，则需要一个独立的元数据库，使用MySQL作为元数据库，Hive内部对MySQL提供了很好的支持。</p>
 <h4 id="相关配置文件"><a href="#相关配置文件" class="headerlink" title="相关配置文件"></a>相关配置文件</h4><p>默认是没有hive-site.xml文件的，需要自己创建。</p>
 <pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#hive-site.xml</span>
@@ -800,34 +802,33 @@ Caused by: java.net.ConnectException: Connection refused</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;当前
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/14/Hive/">
+                <a href="/2020/04/17/Hue/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="Hive">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Hue">
                         
-                        <span class="card-title">Hive</span>
+                        <span class="card-title">Hue</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             [toc]
-Hive概述什么是Hive
-由Facebook开源用于解决海量结构化日志的数据统计；
-是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射成一张表，并提供类似SQL查询功能；
-构建在Hadoop之上的数据仓库：使用H
+概述安装运行下载安装
+CDH版本： http://archive.cloudera.com/cdh5/ 
+官网：http://gethue.com/
+tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-14
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -836,7 +837,6 @@ Hive概述什么是Hive
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1061,7 +1061,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">10.2k</span>&nbsp;字
+                class="white-color">11.3k</span>&nbsp;字
             
             
             
