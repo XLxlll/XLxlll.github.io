@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spark, 博客乐园">
-    <meta name="description" content="Spark | 博客乐园">
+    <meta name="description" content="Spark学习笔记，持续更新......">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -395,12 +395,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/big-data/">
+                                <span class="chip bg-color">big_data</span>
+                            </a>
+                        
+                            <a href="/tags/Spark/">
+                                <span class="chip bg-color">Spark</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/big-data/" class="post-category">
+                                big_data
+                            </a>
+                        
+                            <a href="/categories/big-data/Spark/" class="post-category">
+                                Spark
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -416,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-17
+                    2020-04-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    0
+                    1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    4 分钟
                 </div>
                 
 				
@@ -446,7 +467,140 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[toc]</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li><p>学习网站：</p>
+<p> <a href="http://spark.apache.org/" target="_blank" rel="noopener">http://spark.apache.org/</a>  —-官网</p>
+<p><a href="https://databricks.com/spark/about" target="_blank" rel="noopener">https://databricks.com/spark/about</a> —-关注其中的Blog</p>
+<p><a href="https://github.com/apache/spark" target="_blank" rel="noopener">https://github.com/apache/spark</a> —-相关源码</p>
+</li>
+</ul>
+<p>Apache Spark™是用于大规模数据处理的统一分析引擎。</p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>官网-download。</p>
+
+
+<p>将Spark源码下载并解压</p>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><ul>
+<li>编译方式<ul>
+<li>Maven编译</li>
+<li>SBT编译</li>
+<li>打包编译make-distribution.sh</li>
+</ul>
+</li>
+</ul>
+<p><strong>选择Maven方式编译</strong>。</p>
+
+
+<p>spark的编译对maven，java版本有要求，下载并解压相应版本的Maven和Java。</p>
+<p>(a)</p>
+<pre class=" language-shell"><code class="language-shell">#配置JAVA_HOME
+$ sudo vi /etc/profile
+export JAVA_HOME=/XXX/XXX/jdkX.X.X_XX
+export PATH=$PATH:$JAVA_HOME/bin</code></pre>
+<p>编辑退出后，使用<code>source /eytc/profile</code>使之生效；</p>
+<pre class=" language-shell"><code class="language-shell">#如果遇到不能加载当前版本的问题
+rpm -qa|grep jdk
+rpm -e --nodeps jdk版本
+which java 删除/usr/bin/java</code></pre>
+<p>(b)</p>
+<pre class=" language-shell"><code class="language-shell">$ sudo vi /etc/profile
+export MAVEN_HOME=
+export PATH=$PATH:$MAVEN_HOME/bin
+#configure Maven to use more memory than usual by setting MAVEN_OPTS
+export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024M -XX:ReservedCodeCacheSize=1024M"</code></pre>
+<p>​    PS：</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token comment" spellcheck="true">&lt;!--ReservedCodeCacheSize是可选的，但是不写的话可能会出错--></span>
+<span class="token title important"><span class="token punctuation">#</span>[INFO] Compiling 203 Scala sources and 9 Java sources to /Users/me/Development/spark/core/target/scala-2.12/classes...</span>
+<span class="token title important"><span class="token punctuation">#</span>[ERROR] Java heap space -> [Help 1]</span></code></pre>
+<p>编辑退出后，使用<code>source /eytc/profile</code>使之生效；</p>
+<pre class=" language-sh"><code class="language-sh">#/etc/resolv.conf:添加如下内容
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+#spark/dev/make-distribution.sh
+#Spark的版本
+VERSION=
+#Scala的版本
+SCALA_VERSION=
+#Hadoop的版本
+SPARK_HADOOP_VERSION=
+#支持spark on hive
+SPARK_HIVE=1
+#加快编译速度</code></pre>
+<pre class=" language-shell"><code class="language-shell">#编译时网络要外网连接
+$./dev/make-distribution.sh --name custom-spark --tgz -Phadoop-X.X -Phive -Phive-thriftserver  -Pyarn
+
+#编译完成之后解压
+
+tar -zxf spark-X.X.X-bin-custom-spark.tgz -C /opt/modules/</code></pre>
+<h4 id="Scala安装"><a href="#Scala安装" class="headerlink" title="Scala安装"></a>Scala安装</h4><p>官网中描述对于Sacla的版本也是有要求的，将相应版本的Scala下载解压到指定目录。</p>
+<p>配置环境变量</p>
+<pre class=" language-shell"><code class="language-shell">$ sudo vi /etc/profile
+export SCALA_HOME=/XXX/XXX/scala-X.XX.X
+export PATH=$PATH:$SCALA_HOME/bin
+$ source /etc/profile</code></pre>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>Spark运行模式：</p>
+<ul>
+<li><p>Local</p>
+<p>将网络切换至内网，进入Spark安装目录，执行<code>./bin/spark-shell</code></p>
+</li>
+<li><p>Standalone(Spark自身的集群管理)</p>
+<p>需要安装JDK、Scala、Hadoop、Spark Standalone</p>
+<pre class=" language-sh"><code class="language-sh">#spark-env.sh
+export JAVA_HOME=/XXX/XXX/jdkX.X.X_XX
+export SCALA_HOME=/XXX/XXX/scala-X.XX.X
+export HADOOP_CONF_DIR=/opt/modules/hadoop-X.X.X/etc/hadoop
+export SPARK_CONF_DIR=/opt/modules/spark-X.X.X/conf
+#填写hostname or IP address
+export SPARK_MASTER_HOST=
+export SPARK_MASTER_PORT=7077
+export SPARK_MASTER_WEBUI_PORT=8080
+export SPARK_WORKER_CORES=1
+export SPARK_WORKER_MEMORY=1g
+export SPARK_WORKER_PORT=7078
+export SPARK_WORKER_WEBUI_PORT=8081
+#slaves
+worker 所在的hotname</code></pre>
+</li>
+<li><p>YARN</p>
+</li>
+<li><p>Mesos(Spark初期支持)</p>
+</li>
+</ul>
+<h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><p>Maven安装与配置</p>
+<p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
+<p>打开官网：<a href="http://maven.apache.org/download.cgi，在`Previous" target="_blank" rel="noopener">http://maven.apache.org/download.cgi，在`Previous</a> Releases<code>处点击</code>archives<code>进入版本下载页面。下载并解压，配置环境变量新增</code>M2_HOME<code>,并修改</code>Path<code>，</code>cmd<code>窗口执行</code>mvn -v`看到maven的当前版本即配置成功。</p>
+<p>修改maven/conf/settings.xml</p>
+<pre class=" language-xml"><code class="language-xml"> <span class="token comment" spellcheck="true">&lt;!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  &lt;localRepository>/path/maven/repo&lt;/localRepository>
+  --></span>
+将注释去掉，将 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>修改为自定义repository的路径。</code></pre>
+<p>打开idea，进行maven配置：<code>File-Settings-Build,Execution,Deployment-Build Tools-Maven</code>修改’Maven home directory’、’User settings file’、’Local repository’，点击’apply’-‘ok’按钮结束。</p>
+<p>Scala for windows下载</p>
+<p>确保本地已安装JDK1.5以上版本，并设置了JAVA_HOME环境变量及JDK的bin目录。</p>
+<p>官网<a href="http://www.scala-lang.org/downloads下载Scala，安装完成之后，进行环境变量的配置，新建&#39;SCALA_HOME&#39;，编辑&#39;Path&#39;，cmd窗口输入&#39;scala&#39;检测是否成功。" target="_blank" rel="noopener">http://www.scala-lang.org/downloads下载Scala，安装完成之后，进行环境变量的配置，新建&#39;SCALA_HOME&#39;，编辑&#39;Path&#39;，cmd窗口输入&#39;scala&#39;检测是否成功。</a></p>
+<p>主要分为以下几个步骤（参考文献： <a href="https://blog.csdn.net/zkf541076398/article/details/79297820" target="_blank" rel="noopener">https://blog.csdn.net/zkf541076398/article/details/79297820</a> ）：</p>
+<ul>
+<li><p>安装Scala 插件</p>
+<p>可以在idea中直接通过File-&gt;Settings-&gt;Plugins安装；也可以去官网（ <a href="https://plugins.jetbrains.com/plugin/1347-scala/versions" target="_blank" rel="noopener">https://plugins.jetbrains.com/plugin/1347-scala/versions</a> ）下载对应的版本（在idea中确定插件的版本），将下载的.zip文件放在idea的plugins目录下，通过<code>Install plugin from disk...</code>进行安装。记得重启idea，使插件生效。</p>
+</li>
+<li><p>JDK和Sacla SDK</p>
+<p>为了不用每个项目都配置JDK和Library，从而进行全局配置<code>File-Other Settings-Default Project Structure</code>在<code>project</code>页面配置JDK，在<code>Global Libraries</code>页面添加Scala SDK</p>
+</li>
+<li><p>新建maven项目</p>
+</li>
+<li><p>导入spark依赖</p>
+<p>修改pom.xml,可以参考（ <a href="https://github.com/apache/spark/blob/master/examples/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/examples/pom.xml</a> ）例子</p>
+</li>
+<li><p>编写spark代码</p>
+</li>
+<li><p>打包在spark上运行</p>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -508,7 +662,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/big-data/">
+                                    <span class="chip bg-color">big_data</span>
+                                </a>
+                            
+                                <a href="/tags/Spark/">
+                                    <span class="chip bg-color">Spark</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -689,7 +851,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Spark学习笔记，持续更新......
                         
                     </div>
                     <div class="publish-info">
@@ -698,13 +860,33 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Mamba_girl
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/big-data/" class="post-category">
+                                    big_data
+                                </a>
+                            
+                            <a href="/categories/big-data/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/big-data/">
+                        <span class="chip bg-color">big_data</span>
+                    </a>
+                    
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -930,7 +1112,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">11.3k</span>&nbsp;字
+                class="white-color">13.2k</span>&nbsp;字
             
             
             

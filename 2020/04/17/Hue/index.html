@@ -420,21 +420,21 @@ tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C ">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-17
+                    2020-04-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1.1k
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分钟
+                    6 分钟
                 </div>
                 
 				
@@ -603,9 +603,14 @@ tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C ">
 <span class="token constant">      user</span><span class="token attr-value"><span class="token punctuation">=</span>root</span>
 <span class="token constant">      password</span><span class="token attr-value"><span class="token punctuation">=</span>123456</span></code></pre>
 <pre class=" language-markdown"><code class="language-markdown"><span class="token comment" spellcheck="true">&lt;!--出现了database is locked异常--></span>
-1.需要在Hue中初始化数据库
-
-<span class="token comment" spellcheck="true">&lt;!--"Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)")--></span></code></pre>
+1.Hue的元数据库是sqlite，容易产生database is locked的异常,那就是mysql没有配置成功，查看上述配置，果然engine前的##忘记去掉了。
+<span class="token comment" spellcheck="true">&lt;!--"Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)")--></span>
+2.不知怎么回事，host前面的##也没去掉
+mysql有两种连接方式
+  a.通过socket连接，该方式支持本机连接，需要在my.cnf文件中配置正确的socket，配置项：socket 配置    内容：/tmp/mysql.sock
+<span class="token code keyword">    执行方式:mysql -u [用户名] -p [密码]</span>
+<span class="token code keyword">    b.通过tcp连接，该方式支持远程连接</span>
+<span class="token code keyword">    执行方式:mysql -h [数据库地址] -u [用户名] -p [密码]</span></code></pre>
 </li>
 </ul>
 <h4 id="与Hbase集成"><a href="#与Hbase集成" class="headerlink" title="与Hbase集成"></a>与Hbase集成</h4><ul>
@@ -862,7 +867,7 @@ tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C ">
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Spark学习笔记，持续更新......
                         
                     </div>
                     <div class="publish-info">
@@ -871,11 +876,31 @@ tar -zxf hue-3.9.0-cdh5.15.0.tar.gz -C ">
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Mamba_girl
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/big-data/" class="post-category">
+                                    big_data
+                                </a>
+                            
+                            <a href="/categories/big-data/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/big-data/">
+                        <span class="chip bg-color">big_data</span>
+                    </a>
+                    
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1102,7 +1127,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">11.3k</span>&nbsp;字
+                class="white-color">13.2k</span>&nbsp;字
             
             
             

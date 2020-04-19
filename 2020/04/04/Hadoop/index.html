@@ -441,21 +441,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-16
+                    2020-04-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    506
+                    719
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分钟
+                    3 分钟
                 </div>
                 
 				
@@ -472,7 +472,21 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><h4 id="一、HDFS"><a href="#一、HDFS" class="headerlink" title="一、HDFS"></a>一、HDFS</h4><h4 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h4><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
+<h2 id="一、HDFS"><a href="#一、HDFS" class="headerlink" title="一、HDFS"></a>一、HDFS</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>HDFS（Hadoop Distributed File System,Hadoop分布式文件系统）组件为上层框架提供分布式存储的能力；</p>
+<p>是运行在通用硬件（commodity hardware）上，提供流式数据操作、能够处理超大文件的的分布式文件系统，具有高容错性、高吞吐量、容易扩展、高可靠性提供了一个高容错性和高吞吐量的海量数据存储解决方案，且已经成为各大网站等在线服务公司的海量存储事实标准。</p>
+<img src="/2020/04/04/Hadoop/HDFS%E6%9E%B6%E6%9E%84.png" class="">
+
+<p>组件、概念、经典的流程，各个组件间RPC接口的定义</p>
+<h3 id="RPC框架实现"><a href="#RPC框架实现" class="headerlink" title="RPC框架实现"></a>RPC框架实现</h3><p>设计模式、编程模型、语言技巧</p>
+<h3 id="NameNode实现"><a href="#NameNode实现" class="headerlink" title="NameNode实现"></a>NameNode实现</h3><p>Namenode HA</p>
+<h3 id="DataNode实现"><a href="#DataNode实现" class="headerlink" title="DataNode实现"></a>DataNode实现</h3><p>Federation NameNode</p>
+<h3 id="HDFS客户端实现"><a href="#HDFS客户端实现" class="headerlink" title="HDFS客户端实现"></a>HDFS客户端实现</h3><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<li>Java NIO</li>
+<li>动态代理</li>
+<li>protobuf</li>
+</ul>
+<h2 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h2><p>MapReduce组件为上层框架提供分布式计算的能力；</p>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
 <p>​    执行<code>./start-dfs.sh</code>之后，使用<code>jps</code>查询进程时，发现dataNode并未启动；执行<code>./stop-dfs.sh</code>之后，返现：<code>no datanode to stop</code></p>
 <p>分析过程:</p>
 <p>​    当使用<code>hdfs namenode -format</code>格式化namenode时，会重新生成集群的相关信息，特别是clusterID，每次刷新都会产生一个新 的clusterID；但是该操作却不会影响DataNode节点的集群信息；</p>
@@ -1051,7 +1065,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">11.3k</span>&nbsp;字
+                class="white-color">13.2k</span>&nbsp;字
             
             
             

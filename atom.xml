@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-17T00:07:13.228Z</updated>
+  <updated>2020-04-19T10:36:14.995Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -21,13 +21,32 @@
     <link href="https://xlxlll.github.io/2020/04/17/Spark/"/>
     <id>https://xlxlll.github.io/2020/04/17/Spark/</id>
     <published>2020-04-17T00:07:13.000Z</published>
-    <updated>2020-04-17T00:07:13.228Z</updated>
+    <updated>2020-04-19T10:36:14.995Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h3 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;学习网站：&lt;/p&gt;
+&lt;p&gt; &lt;a
+        
+      
     
     </summary>
     
     
+      <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
+    
+      <category term="Spark" scheme="https://xlxlll.github.io/categories/big-data/Spark/"/>
+    
+    
+      <category term="big_data" scheme="https://xlxlll.github.io/tags/big-data/"/>
+    
+      <category term="Spark" scheme="https://xlxlll.github.io/tags/Spark/"/>
     
   </entry>
   
@@ -36,7 +55,7 @@
     <link href="https://xlxlll.github.io/2020/04/17/Hue/"/>
     <id>https://xlxlll.github.io/2020/04/17/Hue/</id>
     <published>2020-04-17T00:06:59.000Z</published>
-    <updated>2020-04-17T15:07:50.795Z</updated>
+    <updated>2020-04-18T07:00:59.512Z</updated>
     
     <summary type="html">
     
@@ -196,7 +215,7 @@
     <link href="https://xlxlll.github.io/2020/04/07/Linux/"/>
     <id>https://xlxlll.github.io/2020/04/07/Linux/</id>
     <published>2020-04-07T12:24:51.000Z</published>
-    <updated>2020-04-16T15:23:16.113Z</updated>
+    <updated>2020-04-18T16:14:06.711Z</updated>
     
     <summary type="html">
     
@@ -205,7 +224,7 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h3 id=&quot;NTP设置集群内机器时间同步&quot;&gt;&lt;a href=&quot;#NTP设置集群内机器时间同步&quot; class=&quot;headerlink&quot;
+&lt;h2 id=&quot;A&quot;&gt;&lt;a href=&quot;#A&quot; class=&quot;headerlink&quot; title=&quot;A&quot;&gt;&lt;/a&gt;A&lt;/h2&gt;&lt;h2 id=&quot;B&quot;&gt;&lt;a href=&quot;#B&quot; class=&quot;headerlink&quot;
         
       
     
@@ -326,7 +345,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/Hadoop/"/>
     <id>https://xlxlll.github.io/2020/04/04/Hadoop/</id>
     <published>2020-04-04T13:55:06.000Z</published>
-    <updated>2020-04-16T15:42:46.374Z</updated>
+    <updated>2020-04-19T13:19:36.235Z</updated>
     
     <summary type="html">
     
@@ -335,7 +354,7 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h3 id=&quot;架构&quot;&gt;&lt;a href=&quot;#架构&quot; class=&quot;headerlink&quot; title=&quot;架构&quot;&gt;&lt;/a&gt;架构&lt;/h3&gt;&lt;h4 id=&quot;一、HDFS&quot;&gt;&lt;a href=&quot;#一、HDFS&quot; class=&quot;headerlink&quot;
+&lt;h2 id=&quot;一、HDFS&quot;&gt;&lt;a href=&quot;#一、HDFS&quot; class=&quot;headerlink&quot; title=&quot;一、HDFS&quot;&gt;&lt;/a&gt;一、HDFS&lt;/h2&gt;&lt;h3 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot;
         
       
     
