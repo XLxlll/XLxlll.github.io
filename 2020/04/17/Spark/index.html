@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-19
+                    2020-04-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1k
+                    3.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分钟
+                    14 分钟
                 </div>
                 
 				
@@ -497,7 +497,7 @@
 $ sudo vi /etc/profile
 export JAVA_HOME=/XXX/XXX/jdkX.X.X_XX
 export PATH=$PATH:$JAVA_HOME/bin</code></pre>
-<p>编辑退出后，使用<code>source /eytc/profile</code>使之生效；</p>
+<p>编辑退出后，使用<code>source /etc/profile</code>使之生效；</p>
 <pre class=" language-shell"><code class="language-shell">#如果遇到不能加载当前版本的问题
 rpm -qa|grep jdk
 rpm -e --nodeps jdk版本
@@ -510,8 +510,8 @@ export PATH=$PATH:$MAVEN_HOME/bin
 export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=1024M -XX:ReservedCodeCacheSize=1024M"</code></pre>
 <p>​    PS：</p>
 <pre class=" language-markdown"><code class="language-markdown"><span class="token comment" spellcheck="true">&lt;!--ReservedCodeCacheSize是可选的，但是不写的话可能会出错--></span>
-<span class="token title important"><span class="token punctuation">#</span>[INFO] Compiling 203 Scala sources and 9 Java sources to /Users/me/Development/spark/core/target/scala-2.12/classes...</span>
-<span class="token title important"><span class="token punctuation">#</span>[ERROR] Java heap space -> [Help 1]</span></code></pre>
+[INFO] Compiling 203 Scala sources and 9 Java sources to /Users/me/Development/spark/core/target/scala-2.12/classes...
+[ERROR] Java heap space -> [Help 1]</code></pre>
 <p>编辑退出后，使用<code>source /eytc/profile</code>使之生效；</p>
 <pre class=" language-sh"><code class="language-sh">#/etc/resolv.conf:添加如下内容
 nameserver 8.8.8.8
@@ -539,36 +539,246 @@ tar -zxf spark-X.X.X-bin-custom-spark.tgz -C /opt/modules/</code></pre>
 export SCALA_HOME=/XXX/XXX/scala-X.XX.X
 export PATH=$PATH:$SCALA_HOME/bin
 $ source /etc/profile</code></pre>
-<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>Spark运行模式：</p>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4>
+
+<p>Spark运行模式：</p>
 <ul>
 <li><p>Local</p>
 <p>将网络切换至内网，进入Spark安装目录，执行<code>./bin/spark-shell</code></p>
 </li>
 <li><p>Standalone(Spark自身的集群管理)</p>
-<p>需要安装JDK、Scala、Hadoop、Spark Standalone</p>
+<p>需要安装JDK、Scala、Hadoop、Spark Standalone（只需要在集群中每个节点上安装一个Spark的编译版本）</p>
 <img src="/2020/04/17/Spark/spark%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E5%9B%BE.png" class="">
 
+<p><code>$./sbin/start-master.sh</code>：启动一个standalone master服务，一旦启动，master将打印<code>spark://HOST:PORT</code>URL，这个URL可以连接workers，或者作为”master”参数传递给SparkContext，也可以在master’s的web UI中发现这个URL。</p>
+<p><code>$./sbin/start-slave.sh &lt;master-spark-URL&gt;</code>：启动workers，并连接master。</p>
+<p>使用脚本启动Spark standalone 集群，需要在Spark目录下创建conf/slaves文件，并在文件中写入计划运行Spark workers机器的hostname，如果该文件不存在，默认启动Local模式。注意：master机器可以无密钥连接每一个worker。</p>
+<pre class=" language-sh"><code class="language-sh">#slaves：一行一个
+worker1 所在的hotname
+worker2 所在的hotname</code></pre>
+<p>那么可以在<code>Spark master</code>上运行以下脚本：</p>
+<pre class=" language-shell"><code class="language-shell">#Starts a master instance on the machine the script is executed on.
+$ sbin/start-master.sh
+#Starts a slave instance on each machine specified in the conf/slaves file.
+$ sbin/start-slaves.sh  
+#Starts a slave instance on the machine the script is executed on.
+$ sbin/start-slave.sh
+#Starts both a master and a number of slaves as described above.
+$ sbin/start-all.sh
+ #Stops the master that was started via the sbin/start-master.sh script.
+$ sbin/stop-master.sh
+#Stops all slave instances on the machines specified in the conf/slaves file.
+$ sbin/stop-slaves.sh 
+ #Stops both the master and the slaves as described above
+$ sbin/stop-all.sh</code></pre>
+<p>通过<code>conf/spark-env.sh</code>进一步配置集群，可以参考<code>conf/spark-env.sh.template</code>，然后将该文件复制到所有worker机器上。</p>
 <pre class=" language-sh"><code class="language-sh">#spark-env.sh
 export JAVA_HOME=/XXX/XXX/jdkX.X.X_XX
 export SCALA_HOME=/XXX/XXX/scala-X.XX.X
+#配置这一项时，hadoop集群得启动
 export HADOOP_CONF_DIR=/opt/modules/hadoop-X.X.X/etc/hadoop
 export SPARK_CONF_DIR=/opt/modules/spark-X.X.X/conf
-#填写hostname or IP address
+#绑定master，填写hostname or IP address
 export SPARK_MASTER_HOST=
+#默认是7077
 export SPARK_MASTER_PORT=7077
+#master web UI的端口，默认是8080
 export SPARK_MASTER_WEBUI_PORT=8080
+#允许Spark 程序使用的内核总数
 export SPARK_WORKER_CORES=1
+#saprk程序使用的内存总数
 export SPARK_WORKER_MEMORY=1g
+#Spark worker启动的端口，默认random
 export SPARK_WORKER_PORT=7078
-export SPARK_WORKER_WEBUI_PORT=8081
-#slaves
-worker 所在的hotname</code></pre>
+#worker web UI的端口8081
+export SPARK_WORKER_WEBUI_PORT=8081</code></pre>
+<p>将应用程序连接到集群,只需要将master的URL（spark://IP:PORT）传递给SparkContext构造器。运行一个交互Spark shell：<code>$./bin/saprk-shell --master spark://IP:ROOT</code>。</p>
+<p><code>spark-submit</code>脚本提交编译的Spark应用程序到集群中。对于standalone集群，Spark有两种deploy modes：1.client（  the driver is launched in the same process as the client that submits the application ）2.cluster（ the driver is launched from one of the Worker processes inside the cluster, and the client process exits as soon as it fulfills its responsibility of submitting the application without waiting for the application to finish ）。如果你的应用程序通过Spark submit运行，则应用程序自动分发给所有的worker节点，应用程序所依赖的jar包，通过–jars jar1,jar2</p>
 </li>
 <li><p>YARN</p>
+<p>确保HADOOP_CONF_DIR或者YARN_CONF_DIR指向包含Hadoop集群客户端配置文件的目录。这些配置用于向HDFS执行写操作合连接YARN ResourceManager。</p>
+<p>在YARN上运行Spark应用程序有两种deploy mode：</p>
+<ul>
+<li>cluster mode：</li>
+<li>client mode：</li>
+</ul>
 </li>
 <li><p>Mesos(Spark初期支持)</p>
 </li>
 </ul>
+<h3 id="分布式弹性数据集"><a href="#分布式弹性数据集" class="headerlink" title="分布式弹性数据集"></a>分布式弹性数据集</h3><h4 id="RDD（resilient-dastributed-dataset）"><a href="#RDD（resilient-dastributed-dataset）" class="headerlink" title="RDD（resilient dastributed dataset）"></a>RDD（resilient dastributed dataset）</h4><h5 id="2大创建："><a href="#2大创建：" class="headerlink" title="2大创建："></a>2大创建：</h5><ul>
+<li><p>Parallelized Collections</p>
+<p>将已经存在的数据集转化成rdd/其他RDD转化形成新的RDD，<strong>一般在进行测试的时候使用</strong></p>
+<pre class=" language-shell"><code class="language-shell">#sc即SparkContext
+val data = Array(1,2,3,4,5)
+#第二个参数10是手动创建的partitions，可选参数
+val rdd = sc.parallelize(data,10)</code></pre>
+</li>
+<li><p>External Datasets</p>
+<p>由外部存储系统的数据集创建，包括本地的文件系统，还有所有Hadoop支持的数据集，比如HDFS、HBase。</p>
+<pre class=" language-shell"><code class="language-shell">#URI(Uniform Resource Identifier，统一资源标识符),而URL（URL：Uniform Resource Location统一资源定位符），URL是URI的子集
+#参数是文件的URI（file///，还可以是hdfs://,）
+val distFile = sc.textFile("data.txt")
+distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at textFile at <console>:26</code></pre>
+</li>
+</ul>
+<h5 id="5大特性"><a href="#5大特性" class="headerlink" title="5大特性"></a>5大特性</h5><pre class=" language-markdown"><code class="language-markdown"><span class="token comment" spellcheck="true">&lt;!--源码中的描述--></span>
+<span class="token list punctuation">*</span>  <span class="token list punctuation">-</span> A list of partitions
+<span class="token list punctuation">*</span>  <span class="token list punctuation">-</span> A function for computing each split
+<span class="token list punctuation">*</span>  <span class="token list punctuation">-</span> A list of dependencies on other RDDs
+<span class="token list punctuation">*</span>  <span class="token list punctuation">-</span> Optionally, a Partitioner for key-value RDDs (e.g. to say that the RDD is hash-partitioned)
+<span class="token list punctuation">*</span>  <span class="token list punctuation">-</span> Optionally, a list of preferred locations to compute each split on (e.g. block locations for an HDFS file)
+</code></pre>
+<ul>
+<li><p><strong>一组分片（Partition），即数据集的基本组成单位</strong>。 对于RDD来说，每个分片都会被一个计算任务处理，并决定并行计算的粒度。用户可以在创建RDD 的时候指定RDD的分片个数，如果没有指定，那么就会采用默认值。默认值就是程序所分配到的CPU Cores 的数目；</p>
+</li>
+<li><p><strong>对于RDD来说，每个分片都会被一个计算任务处理，并决定并行计算的粒度</strong>。Spark中RDD的计算是以分片为单位的，每个RDD都会实现compute函数以达到这个目的。compute函数会对迭代器进行复合，不需要保存每次计算的结果；</p>
+</li>
+<li><p><strong>RDD 之间互相存在依赖关系</strong>。 RDD 的每次转换都会生成一个新的 RDD ,所以 RDD 之间就会形成类似于流水线一样的前后依赖关系。在部分分区数据丢失时，Spark 可以通过这个依赖关系重新计算丢失部分的分区数据，而不是对 RDD 的所有分区进行重新计算。—具有容错性</p>
+</li>
+<li><p><strong>一个Partitioner ，即 RDD 的分片函数</strong> 。当前Spark 中实现了两种类型的分片函数，一个是基于哈希的 HashPartitioner ，另外一个是基于范围的 RangePartitioner。只有对于<strong>key-value</strong>的RDD ,才会有 Partitioner,非 key-value 的RDD 的 Partitioner 的值是None。Partitioner 函数不但决定了RDD 本身的分片数量，也决定了 Parent RDD Shuffle 输出时的分片数量。</p>
+</li>
+<li><p><strong>一个列表，存储存取每个Partition 的优先位置（preferred location）</strong>。 对于一个HDFS 文件来说，这个列表保存的就是每个 Partition 所在的块位置。根据<strong>“移动数据不如移动计算”</strong>的理念，Spark 在进行任务调度的时候，会尽可能地将计算任务分配到其所要处理数据块的存储位置。</p>
+</li>
+</ul>
+<h5 id="3大操作方式（算子）："><a href="#3大操作方式（算子）：" class="headerlink" title="3大操作方式（算子）："></a>3大操作方式（算子）：</h5><p>transformations：数据内容不会变化，形式改变，懒加载，只有在actions阶段才执行。</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>map(func)</strong></td>
+<td align="center">返回一个新的RDD,该RDD由每一个输入元素经func函数转换后组成</td>
+</tr>
+<tr>
+<td align="center"><strong>filter(func)</strong></td>
+<td align="center">返回一个新的RDD，该RDD由经过func函数计算后返回值为true的输入元素组成</td>
+</tr>
+<tr>
+<td align="center"><strong>flatMap(func)</strong></td>
+<td align="center">类似于map，但是每一个输入元素可以被映射为0或多个输出元素（所以func应该返回一个序列，而不是单一元素）</td>
+</tr>
+<tr>
+<td align="center"><strong>repartition</strong>(numPartitions)</td>
+<td align="center">重新分区</td>
+</tr>
+<tr>
+<td align="center"><strong>join</strong>(otherDataset, [numTasks])</td>
+<td align="center">在类型为(K,V)和(K,W)的RDD上调用，返回一个相同key对应的所有元素对在一起的(K,(V,W))的RDD 相当于内连接（求交集）</td>
+</tr>
+<tr>
+<td align="center"><strong>sample</strong>(withReplacement, fraction, seed)</td>
+<td align="center">根据fraction指定的比例对数据进行采样，可以选择是否使用随机数进行替换，seed用于指定随机数生成器种子</td>
+</tr>
+<tr>
+<td align="center"><strong>union</strong>(otherDataset)</td>
+<td align="center">对源RDD和参数RDD求并集后返回一个新的RDD</td>
+</tr>
+<tr>
+<td align="center"><strong>intersection</strong>(otherDataset)</td>
+<td align="center">对源RDD和参数RDD求交集后返回一个新的RDD</td>
+</tr>
+<tr>
+<td align="center"><strong>distinct</strong>([numTasks]))</td>
+<td align="center">对源RDD进行去重后返回一个新的RDD</td>
+</tr>
+<tr>
+<td align="center"><strong>groupByKey</strong>([numTasks])</td>
+<td align="center">在一个(K,V)的RDD上调用，返回一个(K, Iterator[V])的RDD</td>
+</tr>
+<tr>
+<td align="center"><strong>reduceByKey</strong>(func, [numTasks])</td>
+<td align="center">在一个(K,V)的RDD上调用，返回一个(K,V)的RDD，使用指定的reduce函数，将相同key的值聚合到一起，与groupByKey类似，reduce任务的个数可以通过第二个可选的参数来设置</td>
+</tr>
+<tr>
+<td align="center"><strong>sortByKey</strong>([ascending], [numTasks])</td>
+<td align="center">在一个(K,V)的RDD上调用，K必须实现Ordered接口，返回一个按照key进行排序的(K,V)的RDD</td>
+</tr>
+<tr>
+<td align="center"><strong>sortBy</strong>(func,[ascending], [numTasks])</td>
+<td align="center">与sortByKey类似，但是更灵活 第一个参数是根据什么排序 第二个是怎么排序 false倒序  第三个排序后分区数 默认与原RDD一样</td>
+</tr>
+<tr>
+<td align="center"><strong>cogroup</strong>(otherDataset, [numTasks])</td>
+<td align="center">在类型为(K,V)和(K,W)的RDD上调用，返回一个(K,(Iterable<V>,Iterable<W>))类型的RDD</td>
+</tr>
+</tbody></table>
+<p>actions：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>reduce</strong>(<em>func</em>)</td>
+<td>通过func函数聚集RDD中的所有元素，这个功能必须是可交换且可并联的</td>
+</tr>
+<tr>
+<td><strong>collect</strong>()</td>
+<td>以数组的形式返回数据集的所有元素</td>
+</tr>
+<tr>
+<td><strong>count</strong>()</td>
+<td>返回RDD的元素个数</td>
+</tr>
+<tr>
+<td><strong>first</strong>()</td>
+<td>返回RDD的第一个元素</td>
+</tr>
+<tr>
+<td><strong>take</strong>(<em>n</em>)</td>
+<td>返回一个由数据集的前n个元素组成的数组</td>
+</tr>
+<tr>
+<td><strong>saveAsTextFile</strong>(<em>path</em>)</td>
+<td>将数据集的元素以textfile的形式保存到HDFS文件系统或者其他支持的文件系统，对于每个元素，Spark将会调用toString方法，将它装换为文件中的文本</td>
+</tr>
+<tr>
+<td><strong>countByKey</strong>()</td>
+<td>针对(K,V)类型的RDD，返回一个(K,Int)的map，表示每一个key对应的元素个数</td>
+</tr>
+<tr>
+<td><strong>foreach</strong>(<em>func</em>）</td>
+<td>在数据集的每一个元素上，运行函数func进行更新</td>
+</tr>
+<tr>
+<td><strong>lookup</strong></td>
+<td>对&lt;key,value&gt;型的rdd操作，返回指定key对应的元素形成的seq。如果这个rdd包含分区器，那么只扫描对应key所在的分区，若不含，则进行全盘扫描</td>
+</tr>
+</tbody></table>
+<p>controller：</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>cache</strong></td>
+<td>只有一个默认的缓存级别MeMORY-ONLY，cache调用了persist</td>
+</tr>
+<tr>
+<td><strong>persist</strong></td>
+<td>可以根据情况设置其缓存级别</td>
+</tr>
+<tr>
+<td>用处：</td>
+<td>两者都是用来将一个RDD进行缓存的，避免重复计算，从而节省程序运行的时间。</td>
+</tr>
+</tbody></table>
+<h4 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h4><p>DataFrame是Spark 1.3添加的接口，类似于传统数据库的二维表格，除了数据之外，还记录数据的结构信息，即schema；与Hive类似，DataFrame也支持嵌套数据类型（struct、array、map）</p>
+<h4 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h4><p>Dataset是Spark 1.6添加的新接口，是DataFrame的一个扩展</p>
+<p>创建方式</p>
+<h4 id="三者之间的异同"><a href="#三者之间的异同" class="headerlink" title="三者之间的异同"></a>三者之间的异同</h4><img src="/2020/04/17/Spark/RDD%E4%B8%8EDataFrame.png" class="">
+
+<p>RDD中以对象为类型参数，Spark框架并不了解内部结构；而DataFrame提供了详细的结构信息，Spark SQL可以清楚地知道该数据集中包含哪些列，每列的名称和类型。RDD是分布式的Java对象的集合，DataFrame也叫做DataSet[Row],是分布式的Row对象的集合。</p>
+<p>如果同样的数据都给这三种数据集，他们分别计算之后，会给出相同的结果，但是执行效率和方式有所不同。</p>
 <h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><p>Maven安装与配置</p>
 <p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
 <p>打开官网：<a href="http://maven.apache.org/download.cgi，在`Previous" target="_blank" rel="noopener">http://maven.apache.org/download.cgi，在`Previous</a> Releases<code>处点击</code>archives<code>进入版本下载页面。下载并解压，配置环境变量新增</code>M2_HOME<code>,并修改</code>Path<code>，</code>cmd<code>窗口执行</code>mvn -v`看到maven的当前版本即配置成功。</p>
@@ -1114,7 +1324,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">13.2k</span>&nbsp;字
+                class="white-color">16.7k</span>&nbsp;字
             
             
             

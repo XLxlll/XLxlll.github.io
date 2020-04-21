@@ -441,21 +441,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-19
+                    2020-04-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    719
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分钟
+                    7 分钟
                 </div>
                 
 				
@@ -474,11 +474,35 @@
                 <p>[toc]</p>
 <h2 id="一、HDFS"><a href="#一、HDFS" class="headerlink" title="一、HDFS"></a>一、HDFS</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>HDFS（Hadoop Distributed File System,Hadoop分布式文件系统）组件为上层框架提供分布式存储的能力；</p>
 <p>是运行在通用硬件（commodity hardware）上，提供流式数据操作、能够处理超大文件的的分布式文件系统，具有高容错性、高吞吐量、容易扩展、高可靠性提供了一个高容错性和高吞吐量的海量数据存储解决方案，且已经成为各大网站等在线服务公司的海量存储事实标准。</p>
-<img src="/2020/04/04/Hadoop/HDFS%E6%9E%B6%E6%9E%84.png" class="">
+<h4 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h4><img src="/2020/04/04/Hadoop/HDFS%E6%9E%B6%E6%9E%84.png" class="">
 
+<p>HDFS是一个<code>主/从（Master/Slave）</code>体系结构的分布式系统。HDFS集群拥有<code>一个NameNode（NN）和一些DataNode(DN)</code>，其中<code>NameNode是HDFS的Master节点，负责管理文件系统的命令空间（namespace）以及数据块（Block）到具体DataNode节点的映射</code>等信息；DataNode负责管理它所在节点上的存储，如一个文件会被分成一个或者多个数据块，这些块存储在DataNode上，且<code>DataNode会以本地文件的形式保存这些数据块以及数据块的校验信息</code>。</p>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
+<li><p>数据块：数据块是HDFS文件处理的最小单元；默认是128MB（1.HDFS文件往往较大，2.最小化寻址开销），数据块会以文件的形式存储在DN的磁盘上；因为一个数据块冗余备份到不同的DN上（默认是3分），所以一个副本的丢失并不会影响这个数据块的访问；</p>
+</li>
+<li><p>名字节点（NameNode）：</p>
+<p>​    NN管理这文件系统的命名空间，包括文件系统目录树、文件/目录信息以及文件的数据块索引，这些信息以命名空间镜像文件和编辑日志文件的形式永久保存在NN的本地磁盘上。NN还保存Block与DN的对应关系，这些数据是NN启动时动态构建的，并不保存在NN的本地磁盘上。</p>
+<p>​    <code>为解决NN的单点问题，引入名字节点高可用性（HA）</code>，一个HA集群中有2个NN—1个活动NN（Active）</p>
+<p>和一个备用NN（StandBy）。</p>
+<p>​    如果集群中文件数量过多，NN的内存将成为限制系统横向扩展的瓶颈。引入<code>联邦HDFS机制（HDFS Federation）</code>解决这一问题。</p>
+</li>
+<li><p>数据节点（Datanode）：将新的数据块写入本地存储，读出本地存储上的数据块；作为从节点，不断向NN发送心跳、数据块汇报以及缓存汇报，NN通过心跳、数据块汇报以及缓存汇报的响应向DN发送指令。</p>
+</li>
+<li><p>客户端：提供了多种客户端接口，均是建立在DFSClient类的基础之上，</p>
+</li>
+<li><p>HDFS通信协议：为降低节点间代码的耦合性，提高单个节点代码的内聚性，HDFS将这些节点间的调用抽象成不同的接口：Hadoop RPC，基于TCP/HTTP实现的流式接口。</p>
+<p>​    Hadoop RPC ：基于Protobuf实现，主要定义在org.apache.hadoop.hdfs.protocol包和org.apache.hadoop.hdfs.server.protocol包中。包括以下几个接口。</p>
+<p>​    ClientProticol——定义了客户端与NN间的接口，客户端对文件系统的所有操作都是通过这个接口；</p>
+<p>​    ClientDatanodeProtocol——定义了客户端与DN间的接口，主要是用于客户啊短获取DN信息时调用，真正的数据读写交互式通过流式接口进行的；</p>
+<p>​    DatanodeProtocol——定义了DN与NN之间的接口（双向，是DN与NN通信的唯一方式）；</p>
+<p>​    InterDatanodeProtocol——DN与DN间的接口，主要用于Block的恢复、以及同步DN上存储的副本信息</p>
+<p>​    NamenodeProtocol——第二NN与NN间的接口；</p>
+<p>​    其他接口——安全相关、HA相关</p>
+</li>
+</ul>
 <p>组件、概念、经典的流程，各个组件间RPC接口的定义</p>
 <h3 id="RPC框架实现"><a href="#RPC框架实现" class="headerlink" title="RPC框架实现"></a>RPC框架实现</h3><p>设计模式、编程模型、语言技巧</p>
-<h3 id="NameNode实现"><a href="#NameNode实现" class="headerlink" title="NameNode实现"></a>NameNode实现</h3><p>Namenode HA</p>
+<h3 id="NameNode实现"><a href="#NameNode实现" class="headerlink" title="NameNode实现"></a>NameNode实现</h3><p>Namenode HA、元数据的管理，</p>
 <h3 id="DataNode实现"><a href="#DataNode实现" class="headerlink" title="DataNode实现"></a>DataNode实现</h3><p>Federation NameNode</p>
 <h3 id="HDFS客户端实现"><a href="#HDFS客户端实现" class="headerlink" title="HDFS客户端实现"></a>HDFS客户端实现</h3><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
 <li>Java NIO</li>
@@ -486,6 +510,67 @@
 <li>protobuf</li>
 </ul>
 <h2 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h2><p>MapReduce组件为上层框架提供分布式计算的能力；</p>
+<h4 id="三、YARN"><a href="#三、YARN" class="headerlink" title="三、YARN"></a>三、YARN</h4><pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log-aggregation-enable<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log-aggregation.retain-seconds<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>10000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.ha.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.cluster-id<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.ha.rm-ids<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rm1,rm2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname.rm1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname.rm2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro02.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.zk-address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.recovery.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.store.class<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log.server.url<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>http://bigdata-pro01.bigDAta.com:19888/jobhistory/logs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.vmem-check-enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.vmem-pmem-ratio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:8088<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
 <h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
 <p>​    执行<code>./start-dfs.sh</code>之后，使用<code>jps</code>查询进程时，发现dataNode并未启动；执行<code>./stop-dfs.sh</code>之后，返现：<code>no datanode to stop</code></p>
 <p>分析过程:</p>
@@ -1065,7 +1150,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">13.2k</span>&nbsp;字
+                class="white-color">16.7k</span>&nbsp;字
             
             
             
