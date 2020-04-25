@@ -416,7 +416,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-25
+                    2020-04-26
                 </div>
                 
 
@@ -541,7 +541,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 java -version</code></pre>
 <p><strong>3)克隆虚拟机</strong> 在克隆虚拟机之前，需要<code>关闭虚拟机</code>，然后右键选中虚拟机——》管理——》克隆——》下一步——》下一步——》选择<code>创建完整克隆</code>，下一步——》选择克隆虚拟机位置（提前创建好），修改虚拟机名称为Hadoop-Linux-pro-2，然后选择完成即可。 然后使用同样的方式创建第三个虚拟机Hadoop-Linux-pro-3。 </p>
 <p> <strong>4）修改克隆虚拟机配置</strong>  对以上配置的常规配置进行相应修改</p>
-<h1 id="ZooKeeper分布式集群部署"><a href="#ZooKeeper分布式集群部署" class="headerlink" title="ZooKeeper分布式集群部署"></a>ZooKeeper分布式集群部署</h1><p><strong>1)完成ZooKeeper版本下载及安装</strong></p>
+<h3 id="ZooKeeper分布式集群部署"><a href="#ZooKeeper分布式集群部署" class="headerlink" title="ZooKeeper分布式集群部署"></a>ZooKeeper分布式集群部署</h3><p><strong>1)完成ZooKeeper版本下载及安装</strong></p>
 <p>**2）相关配置</p>
 <p>提前创建数据目录/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData，并在该目录下创建myid文件，编辑每台机器的myid内容为一个整数x，与zoo.cfg文件中server.x对应</p>
 <pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--zoo.cfg--></span>
@@ -680,7 +680,8 @@ export JAVA_HOME=/opt/modules/jdk1.8.0_191</code></pre>
 bigdata-pro01.bigDAta.com
 bigdata-pro02.bigDAta.com
 bigdata-pro03.bigDAta.com</code></pre>
-<h4 id="HDFS-HA自动故障转移测试"><a href="#HDFS-HA自动故障转移测试" class="headerlink" title="HDFS-HA自动故障转移测试"></a>HDFS-HA自动故障转移测试</h4><ul>
+<p><strong>HDFS-HA自动故障转移测试</strong></p>
+<ul>
 <li>启动ZooKeeper集群</li>
 <li>初始化HA 在ZooKeeper中的状态<code>bin/hdfs zkfc -formatZK</code></li>
 <li>启动HDFS服务，注意要提前配置ssh（参考： <a href="https://blog.csdn.net/xl132598798/article/details/105513039" target="_blank" rel="noopener">https://blog.csdn.net/xl132598798/article/details/105513039</a> ），否则<code>sbin/start-dfs</code>无法直接启动（第一次启动HDFS服务，需要在namenode进行格式化，<code>bin/hdfs namenode -format</code>）</li>
@@ -765,7 +766,8 @@ JAVA_HEAP_MAX=-Xmx1000m </code></pre>
 
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
-<h4 id="YARN-HA故障转移测试"><a href="#YARN-HA故障转移测试" class="headerlink" title="YARN-HA故障转移测试"></a>YARN-HA故障转移测试</h4><ul>
+<p><strong>YARN-HA故障转移测试</strong></p>
+<ul>
 <li>在rm1节点上启动yarn服务 <code>sbin/start-yarn.sh</code></li>
 <li>在rm2节点上启动ResourceManager服务 <code>sbin/yarn-daemon.sh start resourcemanager</code></li>
 <li>查看yarn的web界面  </li>
