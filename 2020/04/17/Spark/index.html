@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-21
+                    2020-04-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    3.4k
+                    4.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    14 分钟
+                    18 分钟
                 </div>
                 
 				
@@ -606,7 +606,7 @@ export SPARK_WORKER_WEBUI_PORT=8081</code></pre>
 <li><p>Mesos(Spark初期支持)</p>
 </li>
 </ul>
-<h3 id="分布式弹性数据集"><a href="#分布式弹性数据集" class="headerlink" title="分布式弹性数据集"></a>分布式弹性数据集</h3><h4 id="RDD（resilient-dastributed-dataset）"><a href="#RDD（resilient-dastributed-dataset）" class="headerlink" title="RDD（resilient dastributed dataset）"></a>RDD（resilient dastributed dataset）</h4><h5 id="2大创建："><a href="#2大创建：" class="headerlink" title="2大创建："></a>2大创建：</h5><ul>
+<h3 id="Spark-Core"><a href="#Spark-Core" class="headerlink" title="Spark Core"></a>Spark Core</h3><h4 id="RDD（resilient-dastributed-dataset）"><a href="#RDD（resilient-dastributed-dataset）" class="headerlink" title="RDD（resilient dastributed dataset）"></a>RDD（resilient dastributed dataset）</h4><h5 id="2大创建："><a href="#2大创建：" class="headerlink" title="2大创建："></a>2大创建：</h5><ul>
 <li><p>Parallelized Collections</p>
 <p>将已经存在的数据集转化成rdd/其他RDD转化形成新的RDD，<strong>一般在进行测试的时候使用</strong></p>
 <pre class=" language-shell"><code class="language-shell">#sc即SparkContext
@@ -772,15 +772,53 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <td>两者都是用来将一个RDD进行缓存的，避免重复计算，从而节省程序运行的时间。</td>
 </tr>
 </tbody></table>
-<h4 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h4><p>DataFrame是Spark 1.3添加的接口，类似于传统数据库的二维表格，除了数据之外，还记录数据的结构信息，即schema；与Hive类似，DataFrame也支持嵌套数据类型（struct、array、map）</p>
-<h4 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h4><p>Dataset是Spark 1.6添加的新接口，是DataFrame的一个扩展</p>
-<p>创建方式</p>
-<h4 id="三者之间的异同"><a href="#三者之间的异同" class="headerlink" title="三者之间的异同"></a>三者之间的异同</h4><img src="/2020/04/17/Spark/RDD%E4%B8%8EDataFrame.png" class="">
+<h3 id="Spark-SQL"><a href="#Spark-SQL" class="headerlink" title="Spark SQL"></a>Spark SQL</h3><h4 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h4><p>DataFrame是Spark 1.3添加的接口，类似于传统数据库的二维表格或者 R 和 Python 中的一个 data frame，除了数据之外，还记录数据的结构信息，即schema；与Hive类似，DataFrame也支持嵌套数据类型（struct、array、map） DataFrame 是按命名列方式组织的一个 Dataset。DataFrame 可以从很多数据源构造得到，比如：结构化的数据文件，Hive 表，外部数据库或现有的 RDD。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> df <span class="token operator">=</span> spark<span class="token punctuation">.</span>read<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token string">"examples/src/main/resources/people.json"</span><span class="token punctuation">)</span></code></pre>
+<h4 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h4><p> Dataset 是一个分布式数据集，它是 <code>Spark 1.6</code> 版本中新增的一个接口, 它结合了 RDD（强类型，可以使用强大的 lambda 表达式函数） 和 Spark SQL 的优化执行引擎的好处。Dataset 可以从 JVM 对象构造得到，可以使用函数式的变换（map，flatMap，filter 等） 进行操作 。</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">case</span> <span class="token keyword">class</span> Person<span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">String</span><span class="token punctuation">,</span> age<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">)</span>
+<span class="token keyword">val</span> caseClassDS <span class="token operator">=</span> Seq<span class="token punctuation">(</span>Person<span class="token punctuation">(</span><span class="token string">"Andy"</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toDS<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<h4 id="RDD、DataFrame、DataSet三者之间的异同"><a href="#RDD、DataFrame、DataSet三者之间的异同" class="headerlink" title="RDD、DataFrame、DataSet三者之间的异同"></a>RDD、DataFrame、DataSet三者之间的异同</h4><img src="/2020/04/17/Spark/RDD%E4%B8%8EDataFrame.png" class="">
 
 <p>RDD中以对象为类型参数，Spark框架并不了解内部结构；而DataFrame提供了详细的结构信息，Spark SQL可以清楚地知道该数据集中包含哪些列，每列的名称和类型。RDD是分布式的Java对象的集合，DataFrame也叫做DataSet[Row],是分布式的Row对象的集合。</p>
 <p>如果同样的数据都给这三种数据集，他们分别计算之后，会给出相同的结果，但是执行效率和方式有所不同。</p>
-<h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><p>Maven安装与配置</p>
-<p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
+<p>针对数据查询应用，在RDD之上，封装了DataFrame</p>
+<h4 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h4><h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4><p>为什么要进行整合？</p>
+<p>hive原生是基于MapReduce的，导致其查询耗时较长。<br>为了保留Hive的架构解决方案，并优化查询速度，采用SparkSql与hive整合(spark on hive)，通过<code>SparkSql读取hive中表的元数据</code>，把HiveHQL底层采用MapReduce处理任务导致性能慢的特点，改为更加强大的<code>Spark引擎来进行相应的计算处理</code>。</p>
+<ul>
+<li><p>Spark-shell</p>
+<p>需要的配置(spark集群)</p>
+<p>1.拷贝Hive的配置文件Hive-site.xml，core-site.xml，HDFS的配置文件 hdfs-site.xml到Spark的conf目录;</p>
+<p>2.拷贝hive中的mysql jar包到spark的jars目录;</p>
+<p>3.检查spark-env.sh文件中hadoop的配置项;</p>
+<pre class=" language-sh"><code class="language-sh">export HADOOP_CONF_DIR=/opt/modules/hadoop-2.6.0/etc/hadoop</code></pre>
+</li>
+</ul>
+<p>需要启动的服务</p>
+<p>1.sudo service mysqld start</p>
+<p>  2.bin/hive –service metastore</p>
+<p>Spark-sql</p>
+<p>  不需要配置，spark-shell能运行，这个也可以运行。</p>
+<p>  beeline:</p>
+<h4 id="与HBase集成"><a href="#与HBase集成" class="headerlink" title="与HBase集成"></a>与HBase集成</h4><p>其核心就是Spark SQL通过Hive外部表来获取HBase的表数据</p>
+<p>拷贝Hbase的包和Hive的包放到Spark的jars目录下：</p>
+<pre class=" language-markdown"><code class="language-markdown"><span class="token title important"><span class="token punctuation">#</span>hbase安装目录下</span>
+hbase-client-x.x.x.jar
+hbase-common-x.x.x.jar
+hbase-protocol-x.x.x.jar
+hbase-server-x.x.x.jar
+<span class="token title important"><span class="token punctuation">#</span>hive安装目录下</span>
+hive-hbase-handler-x.x.x.jar
+htrace-core-x.x.jar
+mysql-connector-java-x.x.x-bin.jar</code></pre>
+<h3 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h3><p>​    Spark Streaming 是对Spark 核心API 的一个扩展，它能够实现对实时数据流的流式处理，并具有很好的可扩展性、高吞吐量和容错性。Spark Streaming 支持从多种数据源提取数据，如：<strong>Kafka、Flume</strong>、Twitter、ZeroMQ、Kinesis 以及 <strong>TCP 套接字</strong>，并且可以提供一些高级 API 来表达复杂的处理算法，如：map、reduce、join 和 window 等。最后，Spark Streaming 支持将处理完的数据推送到文件系统、数据库或者  live dashboards 中展示 。 还可以将 Spark 的机器学习（machine learning） 和 图计算（graph processing）的算法应用于Spark Streaming 的数据流当中 。</p>
+<img src="/2020/04/17/Spark/streaming-arch.png" class="">
+
+<h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><p>Spark Streaming 接收实时输入数据流并根据<code>自定义的时间间隔</code>将数据划分为一个个小的批次供 Spark Engine （其实是Spark Core）处理，最终生成多个批次的结果流（ 而<strong>Storm是来一条数据处理一条数据，是真正意义上的实时处理</strong>）。 其底层操作还是基于RDD的，只不过针对实时计算的特点，在RDD之上封装了DStream（被分成的一段段的数据）。每一段数据都可以转换成RDD，从而将对DStream的操作变成了对RDD的操作，RDD经过操作之后变成中间结果保存在内存中，也可以根据业务需求对中间结果进行缓存/存储到外部设备。</p>
+<img src="/2020/04/17/Spark/streaming-flow.png" class="">
+
+<h4 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h4><h3 id="Structured-Streaming"><a href="#Structured-Streaming" class="headerlink" title="Structured Streaming"></a>Structured Streaming</h3><h4 id="编程模型-1"><a href="#编程模型-1" class="headerlink" title="编程模型"></a>编程模型</h4><p>输出模式：update append complete（输出结果是否经过计算）</p>
+<p>与Kafka的集成</p>
+<h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><h4 id="Maven安装与配置"><a href="#Maven安装与配置" class="headerlink" title="Maven安装与配置"></a>Maven安装与配置</h4><p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
 <p>打开官网：<a href="http://maven.apache.org/download.cgi，在`Previous" target="_blank" rel="noopener">http://maven.apache.org/download.cgi，在`Previous</a> Releases<code>处点击</code>archives<code>进入版本下载页面。下载并解压，配置环境变量新增</code>M2_HOME<code>,并修改</code>Path<code>，</code>cmd<code>窗口执行</code>mvn -v`看到maven的当前版本即配置成功。</p>
 <p>修改maven/conf/settings.xml</p>
 <pre class=" language-xml"><code class="language-xml"> <span class="token comment" spellcheck="true">&lt;!-- localRepository
@@ -791,18 +829,22 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
   --></span>
 将注释去掉，将 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>localRepository</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>localRepository</span><span class="token punctuation">></span></span>修改为自定义repository的路径。</code></pre>
 <p>打开idea，进行maven配置：<code>File-Settings-Build,Execution,Deployment-Build Tools-Maven</code>修改’Maven home directory’、’User settings file’、’Local repository’，点击’apply’-‘ok’按钮结束。</p>
-<p>Scala for windows下载</p>
-<p>确保本地已安装JDK1.5以上版本，并设置了JAVA_HOME环境变量及JDK的bin目录。</p>
+<h4 id="Scala-for-windows下载"><a href="#Scala-for-windows下载" class="headerlink" title="Scala for windows下载"></a>Scala for windows下载</h4><p>确保本地已安装JDK1.5以上版本，并设置了JAVA_HOME环境变量及JDK的bin目录。</p>
 <p>官网<a href="http://www.scala-lang.org/downloads下载Scala，安装完成之后，进行环境变量的配置，新建&#39;SCALA_HOME&#39;，编辑&#39;Path&#39;，cmd窗口输入&#39;scala&#39;检测是否成功。" target="_blank" rel="noopener">http://www.scala-lang.org/downloads下载Scala，安装完成之后，进行环境变量的配置，新建&#39;SCALA_HOME&#39;，编辑&#39;Path&#39;，cmd窗口输入&#39;scala&#39;检测是否成功。</a></p>
-<p>主要分为以下几个步骤（参考文献： <a href="https://blog.csdn.net/zkf541076398/article/details/79297820" target="_blank" rel="noopener">https://blog.csdn.net/zkf541076398/article/details/79297820</a> ）：</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p>主要分为以下几个步骤（参考文献： <a href="https://blog.csdn.net/zkf541076398/article/details/79297820" target="_blank" rel="noopener">https://blog.csdn.net/zkf541076398/article/details/79297820</a> ）：</p>
 <ul>
 <li><p>安装Scala 插件</p>
-<p>可以在idea中直接通过File-&gt;Settings-&gt;Plugins安装；也可以去官网（ <a href="https://plugins.jetbrains.com/plugin/1347-scala/versions" target="_blank" rel="noopener">https://plugins.jetbrains.com/plugin/1347-scala/versions</a> ）下载对应的版本（在idea中确定插件的版本），将下载的.zip文件放在idea的plugins目录下，通过<code>Install plugin from disk...</code>进行安装。记得重启idea，使插件生效。</p>
+<p>a.可以在idea中直接通过File-&gt;Settings-&gt;Plugins安装（没有安装成功，可能是网慢）；</p>
+<p>b.也可以去官网（ <a href="https://plugins.jetbrains.com/plugin/1347-scala/versions" target="_blank" rel="noopener">https://plugins.jetbrains.com/plugin/1347-scala/versions</a> ）下载对应的版本（!!!!!一定要在idea中确定所需插件的版本），将下载的.zip文件放在idea的plugins目录下，或者其他目录下，通过<code>Install plugin from disk...</code>进行安装。<strong>记得重启idea，使插件生效</strong>。</p>
 </li>
 <li><p>JDK和Sacla SDK</p>
 <p>为了不用每个项目都配置JDK和Library，从而进行全局配置<code>File-Other Settings-Default Project Structure</code>在<code>project</code>页面配置JDK，在<code>Global Libraries</code>页面添加Scala SDK</p>
 </li>
 <li><p>新建maven项目</p>
+<p>打开新建好项目的Project Structure窗口，将Scala SDK添加到Libraries下，注意新建Scala文件时，应该选择<code>Object</code>,而不是<code>class</code>,否则没有run按钮，<strong>为什么不会出现呢？？？？</strong></p>
+<p>点击运行按钮之后出现</p>
+<p><code>java.io.IOException: Could not locate executable D:\xuling\ideaWorkSpce\bigData_software\hadoop-2.6.0\bin\winutils.exe in the Hadoop binaries.</code></p>
+<p>该bin文件内缺少winutils.exe，用以2.6.4目录下的下文件代替即可</p>
 </li>
 <li><p>导入spark依赖</p>
 <p>修改pom.xml,可以参考（ <a href="https://github.com/apache/spark/blob/master/examples/pom.xml" target="_blank" rel="noopener">https://github.com/apache/spark/blob/master/examples/pom.xml</a> ）例子</p>
@@ -1046,58 +1088,36 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;当前
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/04/17/Spark/">
+                <a href="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Spark">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="大数据实战记录">
                         
-                        <span class="card-title">Spark</span>
+                        <span class="card-title">大数据实战记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Spark学习笔记，持续更新......
+                            title: 大数据实战记录author: Mamba_girltop: falsecover: falsetoc: truemathjax: falsedate: 2020-04-25 14:59:21img:coverImg:passw
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/big-data/" class="post-category">
-                                    big_data
-                                </a>
-                            
-                            <a href="/categories/big-data/Spark/" class="post-category">
-                                    Spark
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mamba_girl
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/big-data/">
-                        <span class="chip bg-color">big_data</span>
-                    </a>
-                    
-                    <a href="/tags/Spark/">
-                        <span class="chip bg-color">Spark</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1324,7 +1344,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">16.7k</span>&nbsp;字
+                class="white-color">25.8k</span>&nbsp;字
             
             
             

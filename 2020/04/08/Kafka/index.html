@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-16
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1k
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分钟
+                    8 分钟
                 </div>
                 
 				
@@ -468,7 +468,28 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#server.properties</span>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h4><img src="/2020/04/08/Kafka/kafka%E7%89%88%E6%9C%AC%E5%8F%B7.png" class="">
+
+<p>例如kafka_2.11-0.10.0.0，前面的2.11是编译Kafka源代码的Scala编译器版本，后面的0.10.0.0才是Kafka真正的版本号，1.0.0之后的版本命名规则从4位变成了3位，比如：kafka_2.11-2.1.1 [其中2代表大版本号，1表示小版本号或次版本号，1表示修订版本号]</p>
+<h4 id="版本演进"><a href="#版本演进" class="headerlink" title="版本演进"></a>版本演进</h4><p>总共有7个大版本的演进： <strong>0.7、0.8、0.9、0.10、0.11、1.0 和 2.0</strong> </p>
+<ul>
+<li><p>0.7 版本  只提供了最基础的消息队列功能，无副本机制； </p>
+</li>
+<li><p>0.8版本 之后正式引入了副本机制，从而Kafka 成为了一个真正意义上完备的分布式高可靠消息队列解决方案 ；</p>
+</li>
+<li><p>0.9 大版本增加了基础的安全认证 / 权限功能，同时使用 Java 重写了新版本消费者 API，另外还引入了 Kafka Connect 组件用于实现高性能的数据抽取。</p>
+</li>
+<li><p>0.10.0.0 版本引入了 Kafka Streams，Kafka 正式升级成分布式流处理平台，但 Kafka Streams 还基本不能线上部署使用 ；</p>
+</li>
+<li><p>0.11.0.0 版本，引入了两个功能：一个是提供幂等性 Producer API 以及事务（Transaction） API；另一个是对 Kafka 消息格式做了重构；</p>
+</li>
+<li><ol>
+<li>0和2.0主要是对Kafka Streams的各种改进。</li>
+</ol>
+<p>不论使用哪个版本，都尽量保持服务器端版本和客户端版本一致。</p>
+</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#server.properties</span>
 <span class="token comment" spellcheck="true">############################# Server Basics #############################</span>
 
 <span class="token comment" spellcheck="true"># The id of the broker. This must be set to a unique integer for each broker.</span>
@@ -525,11 +546,38 @@
 <span class="token comment" spellcheck="true"># Timeout in ms for connecting to zookeeper</span>
 <span class="token attr-name">zookeeper.connection.timeout.ms</span><span class="token punctuation">=</span><span class="token attr-value">6000</span>
 </code></pre>
-<h3 id="编写Kafka-Consumer执行脚本"><a href="#编写Kafka-Consumer执行脚本" class="headerlink" title="编写Kafka Consumer执行脚本"></a>编写Kafka Consumer执行脚本</h3><pre class=" language-shell"><code class="language-shell">#/bin/bash
+<p>配置<code>zookeeper. properties</code> </p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#该目录需要与zookeeper集群配置保持一致</span>
+<span class="token attr-name">dataDir</span><span class="token punctuation">=</span><span class="token attr-value">/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData</span>
+<span class="token comment" spellcheck="true"># the port at which the clients will connect</span>
+<span class="token attr-name">clientPort</span><span class="token punctuation">=</span><span class="token attr-value">2181</span>
+<span class="token comment" spellcheck="true"># disable the per-ip limit on the number of connections since this is a non-production config</span>
+<span class="token attr-name">maxClientCnxns</span><span class="token punctuation">=</span><span class="token attr-value">0</span></code></pre>
+<p>配置<code>producer.properties</code></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">metadata.broker.list</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:9092,bigdata-pro02.bigDAta.com:9092,bigdata-pro03.bigDAta.com:9092</span>
+
+<span class="token attr-name">producer.type</span><span class="token punctuation">=</span><span class="token attr-value">sync</span>
+
+<span class="token attr-name">compression.codec</span><span class="token punctuation">=</span><span class="token attr-value">none</span>
+
+<span class="token comment" spellcheck="true"># message encoder</span>
+<span class="token attr-name">serializer.class</span><span class="token punctuation">=</span><span class="token attr-value">kafka.serializer.DefaultEncoder</span>
+</code></pre>
+<p>配置<code>consumer.properties</code></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">zookeeper.connect</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181</span>
+
+<span class="token comment" spellcheck="true"># timeout in ms for connecting to zookeeper</span>
+<span class="token attr-name">zookeeper.connection.timeout.ms</span><span class="token punctuation">=</span><span class="token attr-value">6000</span>
+
+<span class="token comment" spellcheck="true">#consumer group id</span>
+<span class="token attr-name">group.id</span><span class="token punctuation">=</span><span class="token attr-value">test-consumer-group</span></code></pre>
+<h4 id="编写Kafka-Consumer执行脚本"><a href="#编写Kafka-Consumer执行脚本" class="headerlink" title="编写Kafka Consumer执行脚本"></a>编写Kafka Consumer执行脚本</h4><pre class=" language-shell"><code class="language-shell">#/bin/bash
 echo "bigDAta-kafka-consumer.sh start ......"
 bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --from-beginning --topic weblogs</code></pre>
-<h3 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h3><p><code>bin/kafka-server-start.sh config/server.properties</code></p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><pre class=" language-shell"><code class="language-shell">#创建名为weblogs的topic:
+<h4 id="启动命令"><a href="#启动命令" class="headerlink" title="启动命令"></a>启动命令</h4><p>启动kafka之前一定要启动zookeeper。</p>
+<pre class=" language-shell"><code class="language-shell">$ bin/kafka-server-start.sh config/server.properties
+$ bin/kafka-server-start.sh config/server.properties &</code></pre>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><pre class=" language-shell"><code class="language-shell">#创建名为weblogs的topic:
 #partitions-topic分区数；控制topic将分片成多少个log。可以显示指定，如果不指定则会使用broker(server.properties)中的num.partitions配置的数量
 #replication-factor-topic每个分区的副本数；控制消息保存在几个broker(服务器)上，一般情况下等于broker的个数。
 #如果没有在创建时显示指定或通过API向一个不存在的topic生产消息时会使用broker(server.properties)中的default.replication.factor配置的数量
@@ -539,7 +587,7 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
 #查看指定topic信息
 3.$ bin/kafka-topics.sh --zookeeper bigdata-pro03.bigDAta.com:2181 --describe --topic weblogs
 #控制台向topic生产数据
-4.$ bin/kafka-console-producer.sh --broker-list bigdata-pro03.bigDAta.com:9092 --topic weblogs
+4.$ bin/kafka-console-producer.sh --broker-list bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --topic weblogs
 #控制台消费topic的数据
 5.$ bin/kafka-console-consumer.sh  --zookeeper bigdata-pro03.bigDAta.com:2181  --topic weblogs --from-beginning
 #查看topic某分区偏移量最大（小）值 time为-1表示最大值，为-2时表示最小值
@@ -557,7 +605,7 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
     $ ls /admin/delete_topics #找到要删除的topic
     $ rmr /admin/delete_topics/topicName #执行删除命令
 </code></pre>
-<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><pre class=" language-markdown"><code class="language-markdown">FATAL Fatal error during KafkaServer startup. Prepare to shutdown (kafka.server.KafkaServer)
+<h4 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h4><pre class=" language-markdown"><code class="language-markdown">FATAL Fatal error during KafkaServer startup. Prepare to shutdown (kafka.server.KafkaServer)
 kafka.common.InconsistentBrokerIdException: Configured brokerId 0 doesn't match stored brokerId 1 in meta.properties
 <span class="token code keyword">    at kafka.server.KafkaServer.getBrokerId(KafkaServer.scala:630)</span>
 <span class="token code keyword">    at kafka.server.KafkaServer.startup(KafkaServer.scala:175)</span>
@@ -578,6 +626,21 @@ Caused by: org.apache.kafka.common.config.ConfigException: DNS resolution failed
 <span class="token code keyword">    at org.apache.kafka.clients.producer.KafkaProducer.&lt;init>(KafkaProducer.java:269)</span>
 <span class="token code keyword">    ... 4 more</span>
 </code></pre>
+<pre class=" language-shell"><code class="language-shell">org.apache.kafka.common.KafkaException: Failed to construct kafka producer
+    at org.apache.kafka.clients.producer.KafkaProducer.<init>(KafkaProducer.java:321)
+    at org.apache.kafka.clients.producer.KafkaProducer.<init>(KafkaProducer.java:181)
+    at kafka.producer.NewShinyProducer.<init>(BaseProducer.scala:36)
+    at kafka.tools.ConsoleProducer$.main(ConsoleProducer.scala:46)
+    at kafka.tools.ConsoleProducer.main(ConsoleProducer.scala)
+Caused by: org.apache.kafka.common.config.ConfigException: DNS resolution failed for url in bootstrap.servers: bigdata-pro01.bigDAta.com:9092
+    at org.apache.kafka.clients.ClientUtils.parseAndValidateAddresses(ClientUtils.java:49)
+    at org.apache.kafka.clients.producer.KafkaProducer.<init>(KafkaProducer.java:269)
+</code></pre>
+<pre class=" language-shell"><code class="language-shell">#版本不一致导致的问题，
+Error reading field 'brokers': Error reading field 'host': Error reading string of length 25193, only 115 bytes available</code></pre>
+<pre class=" language-shell"><code class="language-shell">##The isue is in the offsets.topic.replication.factor & replication.factor configs.
+Discovered coordinator bigdata-pro01.bigDAta.com:9092 (id: 2147483647 rack: null) for group spark-kafka-source-af454461-ef0d-4f50-998b-7c672e7c2c9f-855341412-executor.
+20/04/24 20:59:30 ERROR Executor: Exception in task 0.0 in stage 2.0 (TID 201)</code></pre>
 
             </div>
             <hr/>
@@ -1096,7 +1159,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">16.7k</span>&nbsp;字
+                class="white-color">25.8k</span>&nbsp;字
             
             
             

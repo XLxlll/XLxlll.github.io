@@ -449,21 +449,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-17
+                    2020-04-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    2.7k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分钟
+                    15 分钟
                 </div>
                 
 				
@@ -737,8 +737,33 @@
 <p>题目解答</p>
 <h3 id="序列化二叉树"><a href="#序列化二叉树" class="headerlink" title="序列化二叉树"></a>序列化二叉树</h3><p>题目描述</p>
 <p>题目解答</p>
-<h3 id="二叉搜索树的第k个结点"><a href="#二叉搜索树的第k个结点" class="headerlink" title="二叉搜索树的第k个结点"></a>二叉搜索树的第k个结点</h3><p>题目描述</p>
-<p>题目解答</p>
+<h3 id="二叉搜索树的第k个结点"><a href="#二叉搜索树的第k个结点" class="headerlink" title="二叉搜索树的第k个结点"></a>二叉搜索树的第k个结点</h3><p>题目描述：</p>
+<p>给定一棵二叉搜索树，请找出其中的第k小的结点。例如， （5，3，7，2，4，6，8）  中，按结点数值大小顺序第三小结点的值为4。 </p>
+<p>题目解答：</p>
+<p>分析：</p>
+<p>题目中给定的是一棵二叉搜索树：所有节点的左孩子&lt;根&lt;右孩子；再想二叉搜索树的中序遍历（左根右）所得的序列是从小到大排序的，故可得第k小的结点的值。</p>
+<pre class=" language-java"><code class="language-java">TreeNode <span class="token function">KthNode</span><span class="token punctuation">(</span>TreeNode pRoot<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pRoot <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        ArrayList<span class="token operator">&lt;</span>TreeNode<span class="token operator">></span> ans <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">inOrder</span><span class="token punctuation">(</span>pRoot<span class="token punctuation">,</span>ans<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//如果中序遍历序列所得个数小于k，则得不到第k小的值</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>ans<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>k<span class="token operator">||</span>k<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+           <span class="token keyword">return</span> ans<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//中序遍历，注意参数</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">inOrder</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">,</span>ArrayList<span class="token operator">&lt;</span>TreeNode<span class="token operator">></span> list<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token function">inOrder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">inOrder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span></code></pre>
 <h3 id="数据流中的中位数"><a href="#数据流中的中位数" class="headerlink" title="数据流中的中位数"></a>数据流中的中位数</h3><p>题目描述</p>
 <p>题目解答</p>
 <h3 id="二叉树中和为某一值的路径"><a href="#二叉树中和为某一值的路径" class="headerlink" title="二叉树中和为某一值的路径"></a>二叉树中和为某一值的路径</h3><p>题目描述：</p>
@@ -776,20 +801,7 @@
         temp<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>temp<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> res<span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
-<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><p>栈的特点：</p>
-<ul>
-<li>先进后出</li>
-<li>常用操作：push()-入栈 </li>
-<li>底层实现：</li>
-</ul>
-<p>队列的特点:</p>
-<p>队列的特点:</p>
-<ul>
-<li>先进先出</li>
-<li>常用操作：</li>
-<li>底层实现：</li>
-</ul>
-<h3 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a>用两个栈实现队列</h3><p>题目描述：</p>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><h3 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a>用两个栈实现队列</h3><p>题目描述：</p>
 <p> 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 </p>
 <p>题目解答：</p>
 <ul>
@@ -810,6 +822,68 @@
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">return</span> stack2<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><h3 id="最小的k个数"><a href="#最小的k个数" class="headerlink" title="最小的k个数"></a>最小的k个数</h3><p>题目描述：</p>
+<p>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。</p>
+<p>题目解答：</p>
+<p>分析：题目需求为找出n个整数中<strong>最小的k个数</strong>，考虑使用小顶堆，选k个元素组成一个小顶堆，那么遍历剩下的n-k个元素的时候，如果当前遍历元素大于堆顶元素，该元素还需要继续与小顶堆内的其他元素比较，最差的情况是最初的k个元素就是n个整数中最小的k个数，那么该元素与小顶堆内最后一个元素比较完，该元素大于小顶堆内所有的元素，那么这次比较就是徒劳的，这样性能非常差；<strong>考虑使用大顶堆</strong>，如果当前遍历的元素大于堆顶元素，直接进行下一个遍历，如果当前遍历元素小于堆顶元素，用该元素替换堆顶元素，再进行大顶堆的调整。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> ArrayList<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">GetLeastNumbers_Solution</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> input<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//如果k>n or k==0，那么就无法找出最小的k个数，根据方法所需的返回类型返回即可</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">></span> input<span class="token punctuation">.</span>length <span class="token operator">||</span> k<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//用数组去模拟k个节点的堆结构</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//初始化堆中元素</span>
+        <span class="token comment" spellcheck="true">//public static void arraycopy(Object src, int srcPos, Object dest, int destPos, int length)：其中src-原数组，srcPos-从原数组的该位置开始，dest-目标数组，destPos-从目标数组的该位置开始，length-要copy的长度</span>
+        System<span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>input<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>maxHeap<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//从非叶子节点开始，调整堆</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> k<span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">initiate</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>maxHeap<span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//遍历len-k个元素</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> k<span class="token punctuation">;</span>i<span class="token operator">&lt;</span>input<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> maxHeap<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//当前位置的值小于大顶堆堆顶位置的值</span>
+                <span class="token comment" spellcheck="true">//将当前值更新大顶堆堆顶，从堆顶元素开始调整堆</span>
+                maxHeap<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> input<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token function">initiate</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>maxHeap<span class="token punctuation">,</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//将大顶堆的节点元素进行升序操作</span>
+        <span class="token comment" spellcheck="true">//将堆顶元素和最后一个元素交换，将除最后一个元素外的大顶堆进行堆维护，重复进行</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> maxHeap<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">></span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">int</span> temp <span class="token operator">=</span> maxHeap<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            maxHeap<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            maxHeap<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+            <span class="token function">initiate</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>maxHeap<span class="token punctuation">,</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        ArrayList<span class="token operator">&lt;</span>Integer<span class="token operator">></span> ans <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>maxHeap<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ans<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>maxHeap<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//从index位置开始，将maxHeap数组内的元素调整为大顶堆</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">initiate</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> maxHeap<span class="token punctuation">,</span> <span class="token keyword">int</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> maxHeap<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//k的初始值是从index的左孩子开始的，k=k*2+1:是找左孩子</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> index <span class="token operator">*</span> <span class="token number">2</span> <span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>k<span class="token operator">&lt;</span>length<span class="token punctuation">;</span>k<span class="token operator">=</span>k<span class="token operator">*</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//这里体现如果右孩子大于左孩子的话，k++找到右孩子</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>k<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span>length <span class="token operator">&amp;&amp;</span> maxHeap<span class="token punctuation">[</span>k<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">></span>maxHeap<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                k<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>maxHeap<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//如果当前k即（左右孩子中的一个）>根节点，</span>
+                maxHeap<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//更新index的值，代表temp数字最终在堆中的位置，temp的值始终不变</span>
+                index<span class="token operator">=</span>k<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//此时对应根节点大于左右孩子，就没有必要进行调整</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//找到最终位置，才进行值的更新</span>
+        maxHeap<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
 
             </div>
@@ -1349,7 +1423,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">16.7k</span>&nbsp;字
+                class="white-color">25.8k</span>&nbsp;字
             
             
             

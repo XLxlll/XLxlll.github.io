@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-21T14:20:21.167Z</updated>
+  <updated>2020-04-25T15:54:46.193Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>大数据实战记录</title>
+    <link href="https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
+    <id>https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/</id>
+    <published>2020-04-25T06:59:21.737Z</published>
+    <updated>2020-04-25T15:54:46.193Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;title: 大数据实战记录&lt;br&gt;author: Mamba_girl&lt;br&gt;top: false&lt;br&gt;cover: false&lt;br&gt;toc: true&lt;br&gt;mathjax: false&lt;br&gt;date: 2020-04-25
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Spark</title>
     <link href="https://xlxlll.github.io/2020/04/17/Spark/"/>
     <id>https://xlxlll.github.io/2020/04/17/Spark/</id>
     <published>2020-04-17T00:07:13.000Z</published>
-    <updated>2020-04-21T14:20:21.167Z</updated>
+    <updated>2020-04-24T06:37:03.963Z</updated>
     
     <summary type="html">
     
@@ -183,7 +206,7 @@
     <link href="https://xlxlll.github.io/2020/04/08/Kafka/"/>
     <id>https://xlxlll.github.io/2020/04/08/Kafka/</id>
     <published>2020-04-08T13:30:31.000Z</published>
-    <updated>2020-04-16T15:23:48.653Z</updated>
+    <updated>2020-04-25T06:59:31.980Z</updated>
     
     <summary type="html">
     
@@ -192,7 +215,7 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h3 id=&quot;配置文件&quot;&gt;&lt;a href=&quot;#配置文件&quot; class=&quot;headerlink&quot; title=&quot;配置文件&quot;&gt;&lt;/a&gt;配置文件&lt;/h3&gt;&lt;pre class=&quot; language-properties&quot;&gt;&lt;code
+&lt;h3 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h3&gt;&lt;h4 id=&quot;版本号&quot;&gt;&lt;a href=&quot;#版本号&quot; class=&quot;headerlink&quot;
         
       
     
@@ -215,7 +238,7 @@
     <link href="https://xlxlll.github.io/2020/04/07/Linux/"/>
     <id>https://xlxlll.github.io/2020/04/07/Linux/</id>
     <published>2020-04-07T12:24:51.000Z</published>
-    <updated>2020-04-18T16:14:06.711Z</updated>
+    <updated>2020-04-24T12:47:41.957Z</updated>
     
     <summary type="html">
     
@@ -245,9 +268,18 @@
     <link href="https://xlxlll.github.io/2020/04/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://xlxlll.github.io/2020/04/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</id>
     <published>2020-04-04T14:01:43.000Z</published>
-    <updated>2020-04-08T13:35:53.026Z</updated>
+    <updated>2020-04-23T14:22:23.169Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2 id=&quot;树&quot;&gt;&lt;a href=&quot;#树&quot; class=&quot;headerlink&quot; title=&quot;树&quot;&gt;&lt;/a&gt;树&lt;/h2&gt;&lt;h3 id=&quot;完全二叉树和满二叉树&quot;&gt;&lt;a href=&quot;#完全二叉树和满二叉树&quot; class=&quot;headerlink&quot;
+        
+      
     
     </summary>
     
@@ -306,7 +338,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/zookeeper/"/>
     <id>https://xlxlll.github.io/2020/04/04/zookeeper/</id>
     <published>2020-04-04T14:00:29.000Z</published>
-    <updated>2020-04-21T02:14:03.501Z</updated>
+    <updated>2020-04-22T09:53:13.419Z</updated>
     
     <summary type="html">
     
@@ -314,9 +346,10 @@
       
         
         
-          &lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;p&gt;问题描述：&lt;/p&gt;
-&lt;p&gt;​    启动Hmaster之后一段时间，就会自动关闭。&lt;/p&gt;
-&lt;pre class=&quot;
+          &lt;p&gt;有关一致性&lt;/p&gt;
+&lt;p&gt;配置文件&lt;/p&gt;
+&lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;p&gt;问题描述：&lt;/p&gt;
+&lt;p&gt;​   
         
       
     
@@ -345,7 +378,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/Hadoop/"/>
     <id>https://xlxlll.github.io/2020/04/04/Hadoop/</id>
     <published>2020-04-04T13:55:06.000Z</published>
-    <updated>2020-04-21T14:14:51.786Z</updated>
+    <updated>2020-04-25T14:15:35.879Z</updated>
     
     <summary type="html">
     
@@ -443,7 +476,7 @@
     <link href="https://xlxlll.github.io/2020/04/01/%E5%89%91%E6%8C%87offer%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     <id>https://xlxlll.github.io/2020/04/01/%E5%89%91%E6%8C%87offer%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</id>
     <published>2020-04-01T14:50:15.000Z</published>
-    <updated>2020-04-17T00:05:20.973Z</updated>
+    <updated>2020-04-23T14:22:11.324Z</updated>
     
     <summary type="html">
     

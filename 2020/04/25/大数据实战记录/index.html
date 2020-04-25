@@ -1,0 +1,1837 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hans">
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="大数据实战记录, 博客乐园">
+    <meta name="description" content="title: 大数据实战记录author: Mamba_girltop: falsecover: falsetoc: truemathjax: falsedate: 2020-04-25 14:59:21img:coverImg:passw">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>大数据实战记录 | 博客乐园</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="博客乐园" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+<body>
+    
+<!-- 樱花特效 -->
+
+        <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                if(new Date().getHours()%2==1){
+                document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+                }               
+            }
+        </script>
+    
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">博客乐园</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>文章分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>文章归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于我</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>技术大佬</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜一搜" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">博客乐园</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			文章分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			文章归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于我
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			技术大佬
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大数据实战记录</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-04-25
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-04-25
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
+                    5.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    27 分钟
+                </div>
+                
+				
+                
+                    <span id="busuanzi_container_page_pv" style="display:none"></span>
+                        <i class="far fa-eye fa-fw"></i>阅读量:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    
+				
+            </div>
+            
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>title: 大数据实战记录<br>author: Mamba_girl<br>top: false<br>cover: false<br>toc: true<br>mathjax: false<br>date: 2020-04-25 14:59:21<br>img:<br>coverImg:<br>password:<br>summary: 对所实现大数据项目的一个复盘，对所涉及到的数据的采集、转化处理、实时计算、存储过程及数据展示的整个流程进行梳理，通过此次实战，了解企业级大数据项目开发的完整流程及整体架构设计。<br>tags: [Haoop,Flume,Kafka,HBase,Hive,Spark,Hue,MySQL,Websocket,Echarts,Java,Scala,shell]<br>categories: [big_data,Hadoop,Spark,Java,HBase,Linux]</p>
+<p>[toc]</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><h3 id="项目目标"><a href="#项目目标" class="headerlink" title="项目目标"></a>项目目标</h3><ul>
+<li>完成大数据项目的架构设计，安装部署，架构继承与开发，用户可视化交互设计</li>
+<li>完成实时在线数据分析</li>
+<li>完成离线数据分析</li>
+</ul>
+<h3 id="具体功能"><a href="#具体功能" class="headerlink" title="具体功能"></a>具体功能</h3><ul>
+<li>捕获用户浏览日志信息（TB）</li>
+<li>实时分析前N名流量最高的新闻话题</li>
+<li>实时统计当前线上已曝光的新闻话题</li>
+<li>统计哪个时段用户浏览量最高</li>
+<li>报表展示</li>
+</ul>
+<h2 id="工具、技术、语言"><a href="#工具、技术、语言" class="headerlink" title="工具、技术、语言"></a>工具、技术、语言</h2><h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><ul>
+<li>VMware Workstation</li>
+<li>CentOS 6.4</li>
+<li>Xshell 6</li>
+<li>FileZilla</li>
+<li>IntelliJ IDEA 2018</li>
+<li>Notepad++</li>
+</ul>
+<h3 id="项目技术点"><a href="#项目技术点" class="headerlink" title="项目技术点"></a>项目技术点</h3><ul>
+<li>zookeeper-3.4.5-cdh5.10.0</li>
+<li>hadoop-2.6.0</li>
+<li>hbase-1.0.0-cdh5.4.0</li>
+<li>spark-2.2.0</li>
+<li>kafka_2.11-0.10.0.0</li>
+<li>flume-1.7.0-bin</li>
+<li>hive-2.1.0</li>
+<li>hue-3.9.0-cdh5.15.0</li>
+<li>mysql</li>
+<li>J2EE</li>
+<li>Websocket</li>
+<li>Echarts</li>
+</ul>
+<h3 id="项目语言"><a href="#项目语言" class="headerlink" title="项目语言"></a>项目语言</h3><ul>
+<li>jdk1.8.0_191</li>
+<li>scala-2.11.12</li>
+<li>shell</li>
+<li>maven-3.6.0</li>
+</ul>
+<h2 id="架构、数据流程、资源规划"><a href="#架构、数据流程、资源规划" class="headerlink" title="架构、数据流程、资源规划"></a>架构、数据流程、资源规划</h2><h3 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h3><h3 id="数据流程"><a href="#数据流程" class="headerlink" title="数据流程"></a>数据流程</h3><h3 id="服务器节点规划"><a href="#服务器节点规划" class="headerlink" title="服务器节点规划"></a>服务器节点规划</h3><h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="Linux环境准备"><a href="#Linux环境准备" class="headerlink" title="Linux环境准备"></a>Linux环境准备</h3><p>总共使用了3台虚拟机，先配置好1台，然后采用VMware Workstation克隆出另外两台，有两台给2G的内存，1台给1G。</p>
+<h4 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h4><p><strong>1）设置ip地址</strong> 可以直接使用界面修改ip，如果Linux没有安装操作界面，需要使用命令：<code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code>来修改ip地址，然后重启网络服务<code>service network restart</code>即可。</p>
+<p><strong>2）创建用户</strong>  </p>
+<pre class=" language-shell"><code class="language-shell">#创建用户命令：
+adduser bigDAta
+#设置用户密码命令：
+passwd bigDAta</code></pre>
+<p><strong>3）设置主机名</strong> 因为Linux系统的主机名默认是localhost，显然不方便后面集群的操作，所以需要手动修改Linux系统的主机名。</p>
+<pre class=" language-shell"><code class="language-shell"> #查看主机名命令：
+ $ hostname 
+ #修改主机名称
+ $ vi /etc/sysconfig/network
+ NETWORKING=yes 
+ HOSTNAME=bigdata-pro01.bigDAta.com</code></pre>
+<p><strong>4）主机名映射</strong> 如果想通过主机名访问Linux系统，还需要配置主机名跟ip地址之间的映射关系。 <code>vi /etc/hosts</code> 192.168.1.151 bigdata-pro01.bigDAta.com 配置完成之后，reboot重启Linux系统即可。 为了能在windows下通过hostname访问Linux系统，也在windows下的hosts文件中配置主机名称与ip之间的映射关系。在windows系统下找到<code>C:\WINDOWS\system32\drivers\etc\</code>路径，打开HOSTS文件添加如下内容： 192.168.1.151 bigdata-pro01.bigDAta.com</p>
+<p><strong>5）root用户下设置无密码用户切换</strong> 在开发过程中bigDAta用户经常使用root权限操作文件，需要频繁与root用户切换，每次输入密码非常麻烦，故设置无密码切换。修改<code>/etc/sudoers</code>这个文件添加如下代码，即可实现无密码用户切换操作。 vi /etc/sudoers 。。。添加如下内容即可 <code>bigDAta ALL=(root)NOPASSWD:ALL</code></p>
+<p><strong>6）关闭防火墙</strong> 我们都知道防火墙对我们的服务器是进行一种保护，但是有时候防火墙也会给我们带来很大的麻烦。 比如它会妨碍hadoop集群间的相互通信，所以我们需要关闭防火墙。 </p>
+<pre class=" language-shell"><code class="language-shell">#永久关闭防火墙
+vi /etc/sysconfig/selinux
+SELINUX=disabled 
+#查看防火墙状态：
+ service iptables status 
+ #打开防火墙：
+ service iptables start
+ #关闭防火墙：
+ service iptables stop</code></pre>
+<p><strong>7）卸载Linux本身自带的jdk</strong> 一般情况下jdk需要我们手动安装兼容的版本，此时Linux自带的jdk需要手动删除掉，具体操作如下所示： a）</p>
+<pre class=" language-shell"><code class="language-shell">#查看Linux自带的jdk
+rpm -qa|grep java
+#删除Linux自带的jdk 
+rpm -e --nodeps [jdk进程名称1 jdk进程名称2 ...]</code></pre>
+<h4 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h4><p> <strong>1）bigDAta用户下创建各个目录</strong> </p>
+<pre class=" language-shell"><code class="language-shell">#软件目录--未解压的，FileZilla上传
+mkdir /opt/softwares
+#模块目录--解压的各个框架
+mkdir /opt/modules
+#工具目录
+mkdir /opt/tools
+#数据目录
+mkdir /opt/datas
+#jar
+mkdir /opt/jars</code></pre>
+<p> <strong>2)jdk安装(1.8)</strong> 大数据平台运行环境依赖JVM，所以我们需要提前安装和配置好jdk。因为安装了64位的centos系统，所以jdk也需要安装64位的，与之相匹配 。</p>
+<pre class=" language-shell"><code class="language-shell">#解压命令
+tar -zxf jdk-8u191-linux-x64.tar.gz /opt/modules/
+#配置环境变量
+vi /etc/profile
+export JAVA_HOME=/opt/modules/jdk1.8.0_191
+export PATH=$PATH:$JAVA_HOME/bin
+#查看是否安装成功
+java -version</code></pre>
+<p><strong>3)克隆虚拟机</strong> 在克隆虚拟机之前，需要<code>关闭虚拟机</code>，然后右键选中虚拟机——》管理——》克隆——》下一步——》下一步——》选择<code>创建完整克隆</code>，下一步——》选择克隆虚拟机位置（提前创建好），修改虚拟机名称为Hadoop-Linux-pro-2，然后选择完成即可。 然后使用同样的方式创建第三个虚拟机Hadoop-Linux-pro-3。 </p>
+<p> <strong>4）修改克隆虚拟机配置</strong>  对以上配置的常规配置进行相应修改</p>
+<h1 id="ZooKeeper分布式集群部署"><a href="#ZooKeeper分布式集群部署" class="headerlink" title="ZooKeeper分布式集群部署"></a>ZooKeeper分布式集群部署</h1><p><strong>1)完成ZooKeeper版本下载及安装</strong></p>
+<p>**2）相关配置</p>
+<p>提前创建数据目录/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData，并在该目录下创建myid文件，编辑每台机器的myid内容为一个整数x，与zoo.cfg文件中server.x对应</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--zoo.cfg--></span>
+<span class="token comment" spellcheck="true">&lt;!--The number of milliseconds of each tick--></span>
+tickTime=2000
+<span class="token comment" spellcheck="true">&lt;!-- The number of ticks that the initial synchronization phase can take--></span>
+initLimit=10
+<span class="token comment" spellcheck="true">&lt;!-- The number of ticks that can pass between sending a request and getting an acknowledgement--></span>
+syncLimit=5
+<span class="token comment" spellcheck="true">&lt;!--the directory where the snapshot is stored. do not use /tmp for storage, /tmp here is just example sakes.--></span>
+dataDir=/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData
+<span class="token comment" spellcheck="true">&lt;!-- the port at which the clients will connect--></span>
+clientPort=2181
+<span class="token comment" spellcheck="true">&lt;!--server.每个节点服务编号 = 服务器ip地址：集群通信端口：选举端口--></span>
+server.1=bigdata-pro01.bigDAta.com:2888:3888
+server.2=bigdata-pro02.bigDAta.com:2888:3888
+server.3=bigdata-pro03.bigDAta.com:2888:3888</code></pre>
+<h3 id="Hadoop-HA架构与部署"><a href="#Hadoop-HA架构与部署" class="headerlink" title="Hadoop HA架构与部署"></a>Hadoop HA架构与部署</h3><p><strong>1）完成hadoop版本下载及安装</strong></p>
+<p>下载地址：<a href="https://archive.apache.org/dist" target="_blank" rel="noopener">https://archive.apache.org/dist</a> </p>
+<p>​                   <a href="http://archive.cloudera.com/cdh5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/</a></p>
+<p><strong>2）相关配置</strong></p>
+<p>非HA Hadoop集群文件参考：点击此链接 <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html</a> 进入，左下角有一个<code>Configuration</code>，点击即可查看相应配置文件；HA Hadoop集群配置，参照此链接 <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html</a> </p>
+<ul>
+<li>HDFS相关配置文件</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">#hadoop-env.sh 运行Hadoop要用到的环境变量
+#在默认的基础上添加JAVA_HOME，或者在shell中设置，推荐前者
+export JAVA_HOME=/opt/modules/jdk1.8.0_191</code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--core-site.xml Hadoop Core 的配置项：HDFS MapReduce YARN常用的I/O设置等--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.http.staticuser.user<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigDAta<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/modules/hadoop-2.6.0/data/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.name.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>file://${hadoop.tmp.dir}/dfs/name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--注意参数一栏不能换行，用逗号隔开即可--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>ha.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.bigDAta.hosts<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.bigDAta.groups<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.hue.hosts<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.proxyuser.hue.groups<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>*<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span> 
+
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--hdfs-site.xml 守护进行的配置项：namenode 辅助namenode datanode --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.nameservices<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.ha.namenodes.ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>nn1,nn2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.rpc-address.ns.nn1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:8020<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.rpc-address.ns.nn2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro02.bigDAta.com:8020<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.http-address.ns.nn1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:50070<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.http-address.ns.nn2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro02.bigDAta.com:50070<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.shared.edits.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>qjournal://bigdata-pro01.bigDAta.com:8485;bigdata-pro02.bigDAta.com:8485;bigdata-pro03.bigDAta.com:8485/ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.journalnode.edits.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/modules/hadoop-2.6.0/data/jn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.ha.fencing.methods<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>sshfence<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.ha.fencing.ssh.private-key-files<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/home/bigDAta/.ssh/id_rsa<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.client.failover.proxy.provider.ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!--是否开启自动故障转移--></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.ha.automatic-failover.enabled.ns<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.replication<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.permissions.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--slaves--></span>
+<span class="token comment" spellcheck="true">&lt;!--列举了可以运行datanode和节点管理器的机器，这个文件仅有运行在namenode和资源管理器上的控制脚本使用--></span>
+bigdata-pro01.bigDAta.com
+bigdata-pro02.bigDAta.com
+bigdata-pro03.bigDAta.com</code></pre>
+<h4 id="HDFS-HA自动故障转移测试"><a href="#HDFS-HA自动故障转移测试" class="headerlink" title="HDFS-HA自动故障转移测试"></a>HDFS-HA自动故障转移测试</h4><ul>
+<li>启动ZooKeeper集群</li>
+<li>初始化HA 在ZooKeeper中的状态<code>bin/hdfs zkfc -formatZK</code></li>
+<li>启动HDFS服务，注意要提前配置ssh（参考： <a href="https://blog.csdn.net/xl132598798/article/details/105513039" target="_blank" rel="noopener">https://blog.csdn.net/xl132598798/article/details/105513039</a> ），否则<code>sbin/start-dfs</code>无法直接启动（第一次启动HDFS服务，需要在namenode进行格式化，<code>bin/hdfs namenode -format</code>）</li>
+<li>在各个namenode节点上启动zkfc线程<code>sbin/hadoop-daemon.sh start zkfc</code>，先启动zkfc的namenode状态是Active，另一个是Standy</li>
+<li>测试：上传文件到hdfs上，kill状态为Active的namenode，再次查看namenode状态时，就会发现主备切换了</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">#yarn-env.sh 运行YARN要用到的脚本（覆盖hadoop-env.sh）
+if [ "$JAVA_HOME" != "" ]; then
+  #echo "run java in $JAVA_HOME"
+  JAVA_HOME=/opt/modules/jdk1.8.0_191
+fi
+
+if [ "$JAVA_HOME" = "" ]; then
+  echo "Error: JAVA_HOME is not set."
+  exit 1
+fi
+
+JAVA=$JAVA_HOME/bin/java
+JAVA_HEAP_MAX=-Xmx1000m </code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--yarn-site.xml 守护进行的配置项：资源管理器 web应用代理服务器和节点管理器 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log-aggregation-enable<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log-aggregation.retain-seconds<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>10000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.ha.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.cluster-id<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.ha.rm-ids<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>rm1,rm2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname.rm1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.hostname.rm2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro02.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.zk-address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.recovery.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.store.class<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.log.server.url<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>http://bigdata-pro01.bigDAta.com:19888/jobhistory/logs<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.vmem-check-enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.vmem-pmem-ratio<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:8088<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
+<h4 id="YARN-HA故障转移测试"><a href="#YARN-HA故障转移测试" class="headerlink" title="YARN-HA故障转移测试"></a>YARN-HA故障转移测试</h4><ul>
+<li>在rm1节点上启动yarn服务 <code>sbin/start-yarn.sh</code></li>
+<li>在rm2节点上启动ResourceManager服务 <code>sbin/yarn-daemon.sh start resourcemanager</code></li>
+<li>查看yarn的web界面  </li>
+<li>上传文件到hdfs并执行MapReduce例子 </li>
+<li>执行到一半的时候，kill掉rm1上的resourcemanager ，任务会转移到rm2继续处理 </li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">#mapred-env.sh 运行MapReduce要用到的脚本（覆盖hadoop-env.sh）
+export JAVA_HOME=/opt/modules/jdk1.8.0_191</code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--mapred-site.xml 守护进行的配置项：作业历史服务器 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.framework.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>yarn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.jobhistory.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:10020<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.jobhistory.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:19888<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
+<h3 id="HBase分布式集群部署"><a href="#HBase分布式集群部署" class="headerlink" title="HBase分布式集群部署"></a>HBase分布式集群部署</h3><p><strong>1）完成HBase版本下载及安装</strong></p>
+<p>下载地址：<a href="https://archive.apache.org/dist" target="_blank" rel="noopener">https://archive.apache.org/dist</a> </p>
+<p>​                   <a href="http://archive-primary.cloudera.com/cdh5/cdh/5/" target="_blank" rel="noopener">http://archive-primary.cloudera.com/cdh5/cdh/5/</a> </p>
+<p><strong>2）相关配置</strong></p>
+<pre class=" language-sh"><code class="language-sh">#hbase-env.sh
+export JAVA_HOME=/opt/modules/jdk1.8.0_191
+#使用外部的ZooKeeper
+export HBASE_MANAGES_ZK=false</code></pre>
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--hbase-site.xml,需要将hadoop中hdfs-site.xml和core-site.xml拷贝到hbase的conf下，否则启动失败，因为ns配置在hadoop中--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.rootdir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://ns/hbase<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.cluster.distributed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com,bigdata-pro02.bigDAta.com,bigdata-pro03.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
+<p><strong>3）HBase启动</strong></p>
+<ul>
+<li>先启动ZooKeeper</li>
+<li>启动HDFS HA</li>
+<li>在每个namenode上启动zkfc</li>
+<li>启动HBase</li>
+<li>访问web页面查看</li>
+</ul>
+<p><strong>4）shell连接</strong></p>
+<p><code>bin/hbase shell</code>进入hbase，创建表CREATE <code>weblogs</code>,<code>info</code></p>
+<h3 id="Kafka分布式集群部署"><a href="#Kafka分布式集群部署" class="headerlink" title="Kafka分布式集群部署"></a>Kafka分布式集群部署</h3><p><strong>1）完成Kafka版本下载及安装</strong></p>
+<p><strong>2）相关配置</strong></p>
+<p>在三台机器上分别配置如下几个文件：</p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#server.properties</span>
+<span class="token comment" spellcheck="true">############################# Server Basics #############################</span>
+
+<span class="token comment" spellcheck="true"># The id of the broker. This must be set to a unique integer for each broker.</span>
+<span class="token comment" spellcheck="true">#另外两台机器上分别是1,2</span>
+<span class="token attr-name">broker.id</span><span class="token punctuation">=</span><span class="token attr-value">0</span>
+
+<span class="token comment" spellcheck="true">############################# Socket Server Settings #############################</span>
+<span class="token comment" spellcheck="true">#修改成为自己机器的ip地址</span>
+<span class="token attr-name">listeners</span><span class="token punctuation">=</span><span class="token attr-value">PLAINTEXT://bigdata-pro01.bigDAta.com:9092</span>
+
+<span class="token comment" spellcheck="true"># The port the socket server listens on</span>
+<span class="token attr-name">port</span><span class="token punctuation">=</span><span class="token attr-value">9092</span>
+
+<span class="token comment" spellcheck="true"># Hostname the broker will bind to. If not set, the server will bind to all interfaces</span>
+<span class="token comment" spellcheck="true">#修改为自己机器的hostname</span>
+<span class="token attr-name">host.name</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com</span>
+
+
+<span class="token comment" spellcheck="true"># The number of threads handling network requests</span>
+<span class="token attr-name">num.network.threads</span><span class="token punctuation">=</span><span class="token attr-value">3</span>
+
+<span class="token comment" spellcheck="true"># The number of threads doing disk I/O</span>
+<span class="token attr-name">num.io.threads</span><span class="token punctuation">=</span><span class="token attr-value">8</span>
+
+<span class="token comment" spellcheck="true"># The send buffer (SO_SNDBUF) used by the socket server</span>
+<span class="token attr-name">socket.send.buffer.bytes</span><span class="token punctuation">=</span><span class="token attr-value">102400</span>
+
+<span class="token comment" spellcheck="true"># The receive buffer (SO_RCVBUF) used by the socket server</span>
+<span class="token attr-name">socket.receive.buffer.bytes</span><span class="token punctuation">=</span><span class="token attr-value">102400</span>
+
+<span class="token comment" spellcheck="true"># The maximum size of a request that the socket server will accept (protection against OOM)</span>
+<span class="token attr-name">socket.request.max.bytes</span><span class="token punctuation">=</span><span class="token attr-value">104857600</span>
+
+
+<span class="token comment" spellcheck="true">############################# Log Basics #############################</span>
+
+<span class="token comment" spellcheck="true"># A comma seperated list of directories under which to store log files</span>
+<span class="token comment" spellcheck="true">#修改默认的log文件夹</span>
+<span class="token attr-name">log.dirs</span><span class="token punctuation">=</span><span class="token attr-value">/opt/modules/kafka_2.10-0.9.0.0/kafka-logs</span>
+<span class="token attr-name">num.partitions</span><span class="token punctuation">=</span><span class="token attr-value">1</span>
+<span class="token attr-name">num.recovery.threads.per.data.dir</span><span class="token punctuation">=</span><span class="token attr-value">1</span>
+<span class="token attr-name">log.retention.hours</span><span class="token punctuation">=</span><span class="token attr-value">168</span>
+<span class="token attr-name">log.segment.bytes</span><span class="token punctuation">=</span><span class="token attr-value">1073741824</span>
+<span class="token attr-name">log.retention.check.interval.ms</span><span class="token punctuation">=</span><span class="token attr-value">300000</span>
+<span class="token attr-name">log.cleaner.enable</span><span class="token punctuation">=</span><span class="token attr-value">false</span>
+
+<span class="token comment" spellcheck="true">############################# Zookeeper #############################</span>
+
+<span class="token comment" spellcheck="true"># Zookeeper connection string (see zookeeper docs for details).</span>
+<span class="token comment" spellcheck="true"># This is a comma separated host:port pairs, each corresponding to a zk</span>
+<span class="token comment" spellcheck="true"># server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".</span>
+<span class="token comment" spellcheck="true"># You can also append an optional chroot string to the urls to specify the</span>
+<span class="token comment" spellcheck="true"># root directory for all kafka znodes.</span>
+<span class="token attr-name">zookeeper.connect</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181</span>
+
+<span class="token comment" spellcheck="true"># Timeout in ms for connecting to zookeeper</span>
+<span class="token attr-name">zookeeper.connection.timeout.ms</span><span class="token punctuation">=</span><span class="token attr-value">6000</span>
+</code></pre>
+<p>配置<code>zookeeper. properties</code> </p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#该目录需要与zookeeper集群配置保持一致</span>
+<span class="token attr-name">dataDir</span><span class="token punctuation">=</span><span class="token attr-value">/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData</span>
+<span class="token comment" spellcheck="true"># the port at which the clients will connect</span>
+<span class="token attr-name">clientPort</span><span class="token punctuation">=</span><span class="token attr-value">2181</span>
+<span class="token comment" spellcheck="true"># disable the per-ip limit on the number of connections since this is a non-production config</span>
+<span class="token attr-name">maxClientCnxns</span><span class="token punctuation">=</span><span class="token attr-value">0</span></code></pre>
+<p>配置<code>producer.properties</code></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">metadata.broker.list</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:9092,bigdatapro02.bigDAta.com:9092,bigdata-pro03.bigDAta.com:9092</span>
+
+<span class="token attr-name">producer.type</span><span class="token punctuation">=</span><span class="token attr-value">sync</span>
+
+<span class="token attr-name">compression.codec</span><span class="token punctuation">=</span><span class="token attr-value">none</span>
+
+<span class="token comment" spellcheck="true"># message encoder</span>
+<span class="token attr-name">serializer.class</span><span class="token punctuation">=</span><span class="token attr-value">kafka.serializer.DefaultEncoder</span>
+</code></pre>
+<p>配置<code>consumer.properties</code></p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">zookeeper.connect</span><span class="token punctuation">=</span><span class="token attr-value">bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181</span>
+
+<span class="token comment" spellcheck="true"># timeout in ms for connecting to zookeeper</span>
+<span class="token attr-name">zookeeper.connection.timeout.ms</span><span class="token punctuation">=</span><span class="token attr-value">6000</span>
+
+<span class="token comment" spellcheck="true">#consumer group id</span>
+<span class="token attr-name">group.id</span><span class="token punctuation">=</span><span class="token attr-value">test-consumer-group</span></code></pre>
+<p><strong>3）编写Kafka Consumer执行脚本</strong></p>
+<pre class=" language-shell"><code class="language-shell">#/bin/bash
+echo "bigDAta-kafka-consumer.sh start ......"
+bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --from-beginning --topic weblogs</code></pre>
+<h3 id="Flume数据采集准备"><a href="#Flume数据采集准备" class="headerlink" title="Flume数据采集准备"></a>Flume数据采集准备</h3><p>项目使用2台Flume服务器用于日志收集，另一台用于对前2台收集到的日志进行合并及处理，并将数据分发给Kafka、HBase，但是HBase中涉及到的表结构是自定义的，所以由Flume发送至HBase代码需要进行修改，故需要下载flume源码。并在开发工具IDEA中进行修改。</p>
+<p><strong>1）完成Flume版本下载及安装</strong></p>
+<p><strong>2）源码修改</strong></p>
+<p>在IDEA找到解压后的源码包，选中flume-ng-hbase-sink，按照如下方式修改源码，将修改后的flume-ng-hbase-sink源码打成jar包，将原来Flume自带的包覆盖掉即可。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//自定义KfkAsyncHbaseEventSerializer.class，需要与配置文件中agent1.sinks.hbaseSink.serializer的属性值对应</span>
+<span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>PutRequest<span class="token operator">></span> <span class="token function">getActions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>PutRequest<span class="token operator">></span> actions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>payloadColumn <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rowKey<span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">/*---------------------------代码修改开始---------------------------------*/</span>
+                <span class="token comment" spellcheck="true">//解析列字段</span>
+                String<span class="token punctuation">[</span><span class="token punctuation">]</span> columns <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>payloadColumn<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//解析flume采集过来的每行的值</span>
+                String<span class="token punctuation">[</span><span class="token punctuation">]</span> values <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>payload<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i <span class="token operator">&lt;</span> columns<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> colColumn <span class="token operator">=</span> columns<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> colValue <span class="token operator">=</span> values<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>Charsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token comment" spellcheck="true">//数据校验：字段和值是否对应</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>colColumn<span class="token punctuation">.</span>length <span class="token operator">!=</span> colValue<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+
+                    <span class="token comment" spellcheck="true">//时间</span>
+                    String datetime <span class="token operator">=</span> values<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//用户id</span>
+                    String userid <span class="token operator">=</span> values<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//根据业务自定义Rowkey</span>
+                    rowKey <span class="token operator">=</span> SimpleRowKeyGenerator<span class="token punctuation">.</span><span class="token function">getKfkRowKey</span><span class="token punctuation">(</span>userid<span class="token punctuation">,</span> datetime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">//插入数据</span>
+                    PutRequest putRequest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PutRequest</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> rowKey<span class="token punctuation">,</span> cf<span class="token punctuation">,</span>
+                            colColumn<span class="token punctuation">,</span> colValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    actions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>putRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token comment" spellcheck="true">/*---------------------------代码修改结束---------------------------------*/</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">FlumeException</span><span class="token punctuation">(</span><span class="token string">"Could not get row key!"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> actions<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//根据自己的业务修改这个类中自定义KEY生成的方法</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleRowKeyGenerator</span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getKfkRowKey</span><span class="token punctuation">(</span>String userid<span class="token punctuation">,</span>String datetime<span class="token punctuation">)</span><span class="token keyword">throws</span> UnsupportedEncodingException <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>userid <span class="token operator">+</span> datetime <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>3）相关配置</strong></p>
+<pre class=" language-sh"><code class="language-sh">#flume-env.sh
+export JAVA_HOME=/opt/modules/jdk1.8.0_191
+export HADOOP_HOME=/opt/modules/hadoop-2.6.0
+export HBASE_HOME=/opt/modules/hbase-1.0.0-cdh5.4.0</code></pre>
+<p>主要是对sources、channels、sinks的配置。</p>
+<ul>
+<li><p><strong>Source</strong>：source是从一些其他产生数据的应用中接收数据的活跃组件。Source可以监听一个或者多个网络端口，用于接收数据或者可以从本地文件系统读取数据。每个Source必须至少连接一个Channel。基于一些标准，一个Source可以写入几个Channel，复制事件到所有或者某些Channel。</p>
+<p>Source可以通过处理器 - 拦截器 - 选择器路由写入多个Channel。</p>
+</li>
+<li><p><strong>Channel：</strong>channel的行为像队列，Source写入到channel，Sink从Channel中读取。多个Source可以安全地写入到相同的Channel，并且多个Sink可以从相同的Channel进行读取。</p>
+<p>可是一个Sink只能从一个Channel读取。如果多个Sink从相同的Channel读取，它可以保证只有一个Sink将会从Channel读取一个指定特定的事件。</p>
+<p>Flume自带两类Channel：Memory Channel和File Channel。Memory Channel的数据会在JVM或者机器重启后丢失；File Channel不会。</p>
+</li>
+<li><p><strong>Sink:</strong> sink连续轮询各自的Channel来读取和删除事件。</p>
+</li>
+</ul>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">#flume-conf.properties，日志合并及预处理Flume的配置</span>
+<span class="token attr-name">agent1.sources</span> <span class="token punctuation">=</span> <span class="token attr-value">r1</span>
+<span class="token attr-name">agent1.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">kafkaC hbaseC </span>
+<span class="token attr-name">agent1.sinks</span> <span class="token punctuation">=</span>  <span class="token attr-value">kafkaSink hbaseSink</span>
+
+<span class="token attr-name">agent1.sources.r1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">avro</span>
+<span class="token attr-name">agent1.sources.r1.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">hbaseC kafkaC</span>
+<span class="token attr-name">agent1.sources.r1.bind</span> <span class="token punctuation">=</span> <span class="token attr-value">bigdata-pro01.bigDAta.com</span>
+<span class="token attr-name">agent1.sources.r1.port</span> <span class="token punctuation">=</span> <span class="token attr-value">5555</span>
+<span class="token attr-name">agent1.sources.r1.threads</span> <span class="token punctuation">=</span> <span class="token attr-value">5</span>
+<span class="token comment" spellcheck="true"># flume-hbase</span>
+<span class="token attr-name">agent1.channels.hbaseC.type</span> <span class="token punctuation">=</span> <span class="token attr-value">memory</span>
+<span class="token attr-name">agent1.channels.hbaseC.capacity</span> <span class="token punctuation">=</span> <span class="token attr-value">100000</span>
+<span class="token attr-name">agent1.channels.hbaseC.transactionCapacity</span> <span class="token punctuation">=</span> <span class="token attr-value">100000</span>
+<span class="token attr-name">agent1.channels.hbaseC.keep-alive</span> <span class="token punctuation">=</span> <span class="token attr-value">20</span>
+
+<span class="token attr-name">agent1.sinks.hbaseSink.type</span> <span class="token punctuation">=</span> <span class="token attr-value">asynchbase</span>
+<span class="token attr-name">agent1.sinks.hbaseSink.table</span> <span class="token punctuation">=</span> <span class="token attr-value">weblogs</span>
+<span class="token attr-name">agent1.sinks.hbaseSink.columnFamily</span> <span class="token punctuation">=</span> <span class="token attr-value">info</span>
+<span class="token attr-name">agent1.sinks.hbaseSink.channel</span> <span class="token punctuation">=</span> <span class="token attr-value">hbaseC</span>
+<span class="token attr-name">agent1.sinks.hbaseSink.serializer</span> <span class="token punctuation">=</span> <span class="token attr-value">org.apache.flume.sink.hbase.KfkAsyncHbaseEventSerializer</span>
+<span class="token attr-name">agent1.sinks.hbaseSink.serializer.payloadColumn</span> <span class="token punctuation">=</span> <span class="token attr-value">datatime,userid,searchname,retorder,cliorder,cliurl</span>
+
+<span class="token comment" spellcheck="true">#flume-kafka</span>
+<span class="token attr-name">agent1.channels.kafkaC.type</span> <span class="token punctuation">=</span> <span class="token attr-value">memory</span>
+<span class="token attr-name">agent1.channels.kafkaC.capacity</span> <span class="token punctuation">=</span> <span class="token attr-value">100000</span>
+<span class="token attr-name">agent1.channels.kafkaC.transactionCapacity</span> <span class="token punctuation">=</span> <span class="token attr-value">100000</span>
+<span class="token attr-name">agent1.channels.kafkaC.keep-alive</span> <span class="token punctuation">=</span> <span class="token attr-value">20</span>
+
+<span class="token attr-name">agent1.sinks.kafkaSink.channel</span> <span class="token punctuation">=</span> <span class="token attr-value">kafkaC</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.type</span> <span class="token punctuation">=</span> <span class="token attr-value">org.apache.flume.sink.kafka.KafkaSink</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.brokerList</span> <span class="token punctuation">=</span> <span class="token attr-value">bigdata-pro01.bigDAta.com:9092,bigdata-pro02.bigDAta.com:9092,bigdata-pro03.bigDAta.com:9092</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.topic</span> <span class="token punctuation">=</span> <span class="token attr-value">weblogs</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.zookeeperConnect</span> <span class="token punctuation">=</span> <span class="token attr-value">bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.requiredAcks</span> <span class="token punctuation">=</span> <span class="token attr-value">1</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.batchSize</span> <span class="token punctuation">=</span> <span class="token attr-value">1</span>
+<span class="token attr-name">agent1.sinks.kafkaSink.serializer.class</span> <span class="token punctuation">=</span> <span class="token attr-value">kafka.serializer.StringEncoder</span></code></pre>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true">##flume-conf.properties，另2台日志收集服务器的相关配置分别如下：</span>
+<span class="token attr-name">agent2.sources</span> <span class="token punctuation">=</span> <span class="token attr-value">r1</span>
+<span class="token attr-name">agent2.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+<span class="token attr-name">agent2.sinks</span> <span class="token punctuation">=</span> <span class="token attr-value">k1</span>
+
+<span class="token attr-name">agent2.sources.r1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">exec</span>
+<span class="token attr-name">agent2.sources.r1.command</span> <span class="token punctuation">=</span> <span class="token attr-value">tail -F /opt/datas/weblog-flume.log</span>
+<span class="token attr-name">agent2.sources.r1.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+
+<span class="token attr-name">agent2.channels.c1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">memory</span>
+<span class="token attr-name">agent2.channels.c1.capacity</span> <span class="token punctuation">=</span> <span class="token attr-value">10000</span>
+<span class="token attr-name">agent2.channels.c1.transactionCapacity</span> <span class="token punctuation">=</span> <span class="token attr-value">10000</span>
+<span class="token attr-name">agent2.channels.c1.keep-alive</span> <span class="token punctuation">=</span> <span class="token attr-value">5</span>
+
+<span class="token attr-name">agent2.sinks.k1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">avro</span>
+<span class="token attr-name">agent2.sinks.k1.channel</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+<span class="token attr-name">agent2.sinks.k1.hostname</span> <span class="token punctuation">=</span> <span class="token attr-value">bigdata-pro01.bigDAta.com</span>
+<span class="token attr-name">agent2.sinks.k1.port</span> <span class="token punctuation">=</span> <span class="token attr-value">5555</span>
+
+
+
+<span class="token attr-name">agent3.sources</span> <span class="token punctuation">=</span> <span class="token attr-value">r1</span>
+<span class="token attr-name">agent3.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+<span class="token attr-name">agent3.sinks</span> <span class="token punctuation">=</span> <span class="token attr-value">k1</span>
+
+<span class="token attr-name">agent3.sources.r1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">exec</span>
+<span class="token attr-name">agent3.sources.r1.command</span> <span class="token punctuation">=</span> <span class="token attr-value">tail -F /opt/datas/weblog-flume.log</span>
+<span class="token attr-name">agent3.sources.r1.channels</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+
+<span class="token attr-name">agent3.channels.c1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">memory</span>
+<span class="token attr-name">agent3.channels.c1.capacity</span> <span class="token punctuation">=</span> <span class="token attr-value">10000</span>
+<span class="token attr-name">agent3.channels.c1.transactionCapacity</span> <span class="token punctuation">=</span> <span class="token attr-value">10000</span>
+<span class="token attr-name">agent3.channels.c1.keep-alive</span> <span class="token punctuation">=</span> <span class="token attr-value">5</span>
+
+<span class="token attr-name">agent3.sinks.k1.type</span> <span class="token punctuation">=</span> <span class="token attr-value">avro</span>
+<span class="token attr-name">agent3.sinks.k1.channel</span> <span class="token punctuation">=</span> <span class="token attr-value">c1</span>
+<span class="token attr-name">agent3.sinks.k1.hostname</span> <span class="token punctuation">=</span> <span class="token attr-value">bigdata-pro01.bigDAta.com</span>
+</code></pre>
+<h3 id="Flume-HBase-Kafka集成及测试"><a href="#Flume-HBase-Kafka集成及测试" class="headerlink" title="Flume+HBase+Kafka集成及测试"></a>Flume+HBase+Kafka集成及测试</h3><p><strong>1）原始日志数据简单处理</strong></p>
+<ul>
+<li>下载搜狗实验室数据，并在网页上查看格式说明（ 数据格式为:访问时间\t用户ID\t[查询词]\t该URL在返回结果中的排名\t用户点击的顺序号\t用户点击的URL 其中，用户ID是根据用户使用浏览器访问搜索引擎时的Cookie信息自动赋值，即同一次使用浏览器输入的不同查询对应同一个用户ID ）</li>
+<li>日志简单处理，将文件中的空格更换为逗号，再次查看格式，发现还有空格存在，再次将空格换成逗号，得到处理后的日志文件weblog.log</li>
+</ul>
+<p><strong>2)编写模拟日志生成的过程</strong>、</p>
+<ul>
+<li><p>代码实现的功能是将原始日志文件weblog.log，每次读取一行并不断写入另一个文件weblog-flume.log，从而实现日志生成过程。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ReadWebLog</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> String readFileName<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> String writeFileName<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String args<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//需要手动收入两个参数</span>
+        readFileName <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        writeFileName <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token function">readFile</span><span class="token punctuation">(</span>readFileName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">readFile</span><span class="token punctuation">(</span>String fileName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            FileInputStream fis <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileInputStream</span><span class="token punctuation">(</span>fileName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            InputStreamReader isr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">InputStreamReader</span><span class="token punctuation">(</span>fis<span class="token punctuation">,</span> <span class="token string">"GBK"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//以上两步已经可以从文件中读取到一个字符了，但每次只读取一个字符不能满足大数据的需求。故需使用BufferedReader，它具有缓冲的作用，可以一次读取多个字符</span>
+            BufferedReader br <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BufferedReader</span><span class="token punctuation">(</span>isr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>br<span class="token punctuation">.</span><span class="token function">readLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                String line <span class="token operator">=</span> br<span class="token punctuation">.</span><span class="token function">readLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 显示行号</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                String str <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>line<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span><span class="token string">"UTF8"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"GBK"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"row:"</span> <span class="token operator">+</span> count <span class="token operator">+</span> <span class="token string">">>>>>>>>"</span> <span class="token operator">+</span> line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">writeFile</span><span class="token punctuation">(</span>writeFileName<span class="token punctuation">,</span> line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            isr<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+</code></pre>
+</li>
+</ul>
+<pre><code>  public static void writeFile(String fileName, String conent) {
+      try {
+          FileOutputStream fos = new FileOutputStream(fileName, true);
+          OutputStreamWriter osw = new OutputStreamWriter(fos);
+
+          BufferedWriter bw = new BufferedWriter(osw);
+          bw.write(&quot;\n&quot;);
+          bw.write(conent);
+          bw.close();
+      } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+      } catch (FileNotFoundException e) {
+          e.printStackTrace();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+  }</code></pre><p>  }</p>
+<pre><code>
+
+
+* 将项目打包成weblogs.jar放在两台日志收集服务器/opt/jars目录下
+
+* 编写运行模拟日志生成的shell脚本weblog-shell.sh
+
+  ```sh
+  echo &quot;start log......&quot;
+  java -jar /opt/jars/weblogs.jar /opt/datas/weblog.log /opt/datas/weblog-flume.log</code></pre><ul>
+<li><p>运行./weblog-shell.sh即可不断向weblog-flume.log写入日志信息</p>
+</li>
+<li><p>编写Flume启动脚本flume-bigDAta-start.sh,第二台的示例如下：</p>
+<pre class=" language-sh"><code class="language-sh">#/bin/bash
+echo "flume-2 start ......"
+bin/flume-ng agent --conf conf -f conf/flume-conf.properties -n agent2 -Dflume.root.logger=INFO,console</code></pre>
+<p>一切正常的话那么接下来就需要，日志合并及处理Flume机器就可以采集到的处理后的数据，接下来是向Kafka分发数据</p>
+</li>
+<li><p>编写Kafka消费执行脚本，并分发到其他集群内机器上</p>
+<pre class=" language-sh"><code class="language-sh">#/bin/bash
+echo "bigDAta-kafka-consumer.sh start ......"
+bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --from-beginning --topic weblogs</code></pre>
+</li>
+</ul>
+<p><strong>3）数据采集分发测试</strong></p>
+<ul>
+<li><p>启动各个节点上的ZooKeeper</p>
+</li>
+<li><p>启动HDFS，在每台namenode上，启动zkfc</p>
+</li>
+<li><p>启动HBase并启动备用master，保证HBase中已有weblogs表</p>
+</li>
+<li><p>启动Kafka，并创建weblogs topic；</p>
+</li>
+<li><p>分别启动Flume</p>
+</li>
+<li><p>在日志收集节点上启动日志模拟生产即weblog-shell.sh</p>
+</li>
+<li><p>启动编写的Kafka消费脚本，并查看是否一直在进行消费</p>
+</li>
+<li><p>查看HBase数据库写入情况。</p>
+<p>数据采集、处理、分发过程结束，接下来是对数据的分析处理。</p>
+</li>
+</ul>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h3 id="Hive-HBase集成"><a href="#Hive-HBase集成" class="headerlink" title="Hive+HBase集成"></a>Hive+HBase集成</h3><h3 id="Cloudera-Hue可视化分析"><a href="#Cloudera-Hue可视化分析" class="headerlink" title="Cloudera Hue可视化分析"></a>Cloudera Hue可视化分析</h3><h3 id="Spark环境准备、编译部署及运行"><a href="#Spark环境准备、编译部署及运行" class="headerlink" title="Spark环境准备、编译部署及运行"></a>Spark环境准备、编译部署及运行</h3><h3 id="Structured-Streaming实时分析"><a href="#Structured-Streaming实时分析" class="headerlink" title="Structured Streaming实时分析"></a>Structured Streaming实时分析</h3><h3 id="WEB系统开发"><a href="#WEB系统开发" class="headerlink" title="WEB系统开发"></a>WEB系统开发</h3>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        Manba_girl:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xlxlll.github.io" rel="external nofollow noreferrer">Mamba_girl</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        Reprint policy:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    All articles in this blog are used except for special statements
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    reprint polocy. If reproduced, please indicate source
+                    <a href="https://xlxlll.github.io" target="_blank">Mamba_girl</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>Copied successfully, please follow the reprint policy of this article</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">more</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;当前
+            </div>
+            <div class="card">
+                <a href="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="大数据实战记录">
+                        
+                        <span class="card-title">大数据实战记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            title: 大数据实战记录author: Mamba_girltop: falsecover: falsetoc: truemathjax: falsedate: 2020-04-25 14:59:21img:coverImg:passw
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Mamba_girl
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/04/17/Spark/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Spark">
+                        
+                        <span class="card-title">Spark</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Spark学习笔记，持续更新......
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/big-data/" class="post-category">
+                                    big_data
+                                </a>
+                            
+                            <a href="/categories/big-data/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/big-data/">
+                        <span class="chip bg-color">big_data</span>
+                    </a>
+                    
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 博客乐园<br />'
+            + 'Manba_girl: Mamba_girl<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4, h5, h6'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5, h6').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+			<span id="sitetime"></span>
+            <span id="year">2019</span>
+            <a href="https://xlxlll.github.io" target="_blank">Mamba_girl</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">25.8k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv" style='display:none'></span>
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            
+            
+            
+            <span id="busuanzi_container_site_uv" style='display:none'></span>
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script>
+    $(document).ready(function () {
+
+        var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+        var pvcountOffset = 80000;  // 初始化首次数据
+        var uvcountOffset = 20000;
+
+        function fixCount() {
+            if (document.getElementById("busuanzi_container_site_pv").style.display != "none") {
+                $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + pvcountOffset);
+                clearInterval(int);
+            }
+            if ($("#busuanzi_container_site_pv").css("display") != "none") {
+                $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + uvcountOffset); // 加上初始数据 
+                clearInterval(int); // 停止检测
+            }
+        }
+    });
+</script>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜一搜</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索关键词"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+	<script type="text/javascript">
+    var OriginTitile = document.title,
+        st;
+    document.addEventListener("visibilitychange", function () {
+        document.hidden ? (document.title = "正在赶来的路上🙈~正在赶来的路上🙈~", clearTimeout(st)) : (document.title =
+            "(๑•̀ㅂ•́) ✧哇哦，来了～", st = setTimeout(function () {
+                document.title = OriginTitile
+            }, 3e3))
+    })
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+
+</html>

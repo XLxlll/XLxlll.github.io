@@ -441,21 +441,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-21
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1.8k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分钟
+                    10 分钟
                 </div>
                 
 				
@@ -491,20 +491,65 @@
 <li><p>客户端：提供了多种客户端接口，均是建立在DFSClient类的基础之上，</p>
 </li>
 <li><p>HDFS通信协议：为降低节点间代码的耦合性，提高单个节点代码的内聚性，HDFS将这些节点间的调用抽象成不同的接口：Hadoop RPC，基于TCP/HTTP实现的流式接口。</p>
-<p>​    Hadoop RPC ：基于Protobuf实现，主要定义在org.apache.hadoop.hdfs.protocol包和org.apache.hadoop.hdfs.server.protocol包中。包括以下几个接口。</p>
-<p>​    ClientProticol——定义了客户端与NN间的接口，客户端对文件系统的所有操作都是通过这个接口；</p>
-<p>​    ClientDatanodeProtocol——定义了客户端与DN间的接口，主要是用于客户啊短获取DN信息时调用，真正的数据读写交互式通过流式接口进行的；</p>
-<p>​    DatanodeProtocol——定义了DN与NN之间的接口（双向，是DN与NN通信的唯一方式）；</p>
-<p>​    InterDatanodeProtocol——DN与DN间的接口，主要用于Block的恢复、以及同步DN上存储的副本信息</p>
-<p>​    NamenodeProtocol——第二NN与NN间的接口；</p>
-<p>​    其他接口——安全相关、HA相关</p>
+<h3 id="HDFS通信协议"><a href="#HDFS通信协议" class="headerlink" title="HDFS通信协议"></a>HDFS通信协议</h3></li>
+</ul>
+<h4 id="Hadoop-RPC-："><a href="#Hadoop-RPC-：" class="headerlink" title="Hadoop RPC ："></a>Hadoop RPC ：</h4><p>基于Protobuf实现，主要定义在org.apache.hadoop.hdfs.protocol包和org.apache.hadoop.hdfs.server.protocol包中。包括以下几个接口。</p>
+<p>  ​    <img src="/2020/04/04/Hadoop/Hadoop_RPC.png" class=""></p>
+<h5 id="ClientProticol"><a href="#ClientProticol" class="headerlink" title="ClientProticol"></a>ClientProticol</h5><p>  ——定义了所有由客户端发起、Namenode响应的操作。客户端对文件系统的所有操作都是通过这个接口。主要有以下几类：</p>
+<ul>
+<li><p>HDFS文件读相关的操作</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//获取HDFS文件指定范围内所有数据块的位置信息</span>
+<span class="token function">getBlockLocations</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">reportBadBlocks</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
 </li>
 </ul>
+<ul>
+<li><p>HDFS文件写以及追加相关的操作</p>
+</li>
+<li><p>管理HDFS命名空间（namespace）的相关操作</p>
+</li>
+<li><p>系统问题与管理相关操作</p>
+</li>
+<li><p>快照相关操作</p>
+</li>
+<li><p>缓存相关操作</p>
+<ul>
+<li>其他操作</li>
+</ul>
+<h5 id="ClientDatanodeProtocol"><a href="#ClientDatanodeProtocol" class="headerlink" title="ClientDatanodeProtocol"></a>ClientDatanodeProtocol</h5><p>——定义了客户端与DN间的接口，主要是用于客户啊短获取DN信息时调用，真正的数据读写交互式通过流式接口进行的；</p>
+<h5 id="DatanodeProtocol"><a href="#DatanodeProtocol" class="headerlink" title="DatanodeProtocol"></a>DatanodeProtocol</h5><p>——定义了DN与NN之间的接口（双向，是DN与NN通信的唯一方式）；</p>
+<h5 id="InterDatanodeProtocol"><a href="#InterDatanodeProtocol" class="headerlink" title="InterDatanodeProtocol"></a>InterDatanodeProtocol</h5><p>——DN与DN间的接口，主要用于Block的恢复、以及同步DN上存储的副本信息</p>
+<h5 id="NamenodeProtocol"><a href="#NamenodeProtocol" class="headerlink" title="NamenodeProtocol"></a>NamenodeProtocol</h5><p>——第二NN与NN间的接口；</p>
+<h5 id="其他接口——安全相关、HA相关"><a href="#其他接口——安全相关、HA相关" class="headerlink" title="其他接口——安全相关、HA相关"></a>其他接口——安全相关、HA相关</h5></li>
+</ul>
 <p>组件、概念、经典的流程，各个组件间RPC接口的定义</p>
-<h3 id="RPC框架实现"><a href="#RPC框架实现" class="headerlink" title="RPC框架实现"></a>RPC框架实现</h3><p>设计模式、编程模型、语言技巧</p>
+<h4 id="流式接口"><a href="#流式接口" class="headerlink" title="流式接口"></a>流式接口</h4><h3 id="RPC框架实现"><a href="#RPC框架实现" class="headerlink" title="RPC框架实现"></a>RPC框架实现</h3><p>设计模式、编程模型、语言技巧</p>
 <h3 id="NameNode实现"><a href="#NameNode实现" class="headerlink" title="NameNode实现"></a>NameNode实现</h3><p>Namenode HA、元数据的管理，</p>
 <h3 id="DataNode实现"><a href="#DataNode实现" class="headerlink" title="DataNode实现"></a>DataNode实现</h3><p>Federation NameNode</p>
-<h3 id="HDFS客户端实现"><a href="#HDFS客户端实现" class="headerlink" title="HDFS客户端实现"></a>HDFS客户端实现</h3><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
+<h3 id="HDFS客户端实现"><a href="#HDFS客户端实现" class="headerlink" title="HDFS客户端实现"></a>HDFS客户端实现</h3><p>为什么只对namenode进行初始化，因为namenode管理所有文件系统的元数据，而datanode可以动态加入或离开集群，所以初始化不涉及datanode；通过创建存储目录和初始版本的namenode持久数据结构，格式化将创建一个空的文件系统。不需要指定文件系统的大小，这是由datanode的数量决定的，可以在格式化之后根据需求增加。</p>
+<pre class=" language-shell"><code class="language-shell">#格式化
+bin/hdfs namenode -format
+#默认情况下该命令从fs.defaultFS中找到namenode的主机名
+hdfs getconf -namenodes
+#在每台机器上启动一个namenode，通过hdfs getconf -namenodes得到的返回值确定，在slaves文件列举的每台机器上启动一个datanode，每台机器上启动一个辅助namenode，由hdfs getconf -secondarynamenodes得到的返回值确定
+sbin/start-dfs.sh</code></pre>
+<pre class=" language-shell"><code class="language-shell">#在本地机器上启动一个资源管理器，在slaves文件列举的每台机器上启动一个节点管理器
+start-yarn.sh
+</code></pre>
+<pre class=" language-shell"><code class="language-shell">#作业历史服务器
+mr-jobhistory-daemon.sh start historyserver</code></pre>
+<p>一旦运行Hadoop集群，就需要给用户提供访问手段，为每个用户创建home目录，给目录设置用户访问许可</p>
+<pre class=" language-shell"><code class="language-shell">#hadoop fs不只应用于hdfs文件系统，可以用于其他文件系统
+hadoop fs -mkdir /user/username
+hadoop fs -chown username:username /user/username
+#hadoop dfs 针对hdfs分布式文件系统，已过时
+#hdfs dfs 作用相同，推荐使用</code></pre>
+<p>为什么集群下不适合一体适用的配置模型：当添加新的机器时，新机器的硬件规格与现有机器不同时，需要新建一套文件</p>
+<p>日志文件的类型：</p>
+<p>.log通过log4j记录：日常滚动文件追加方式循环管理日志文件，不自动删除过期的日志文件</p>
+<p>.out记录标准输出和标准错误日志</p>
+<p>对于一个正在运行的守护进程，要想知道其实际配置，访问该进程web服务器上的/conf页面</p>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ul>
 <li>Java NIO</li>
 <li>动态代理</li>
 <li>protobuf</li>
@@ -571,7 +616,7 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.resourcemanager.webapp.address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com:8088<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
-<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
+<h2 id="四、Hadoop源码环境搭建"><a href="#四、Hadoop源码环境搭建" class="headerlink" title="四、Hadoop源码环境搭建"></a>四、Hadoop源码环境搭建</h2><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><h4 id="1-HDFS集群无法启动DataNode节点"><a href="#1-HDFS集群无法启动DataNode节点" class="headerlink" title="1.HDFS集群无法启动DataNode节点"></a>1.HDFS集群无法启动DataNode节点</h4><p>问题描述:</p>
 <p>​    执行<code>./start-dfs.sh</code>之后，使用<code>jps</code>查询进程时，发现dataNode并未启动；执行<code>./stop-dfs.sh</code>之后，返现：<code>no datanode to stop</code></p>
 <p>分析过程:</p>
 <p>​    当使用<code>hdfs namenode -format</code>格式化namenode时，会重新生成集群的相关信息，特别是clusterID，每次刷新都会产生一个新 的clusterID；但是该操作却不会影响DataNode节点的集群信息；</p>
@@ -602,6 +647,8 @@
 <p>重新进行<code>namenode</code>格式化</p>
 </li>
 </ul>
+<pre class=" language-markdown"><code class="language-markdown">Could not locate executable D:\ideaWorkSpce\bigData_software\hadoop-2.6.0\bin\winutils.exe in the Hadoop binaries.
+<span class="token comment" spellcheck="true">&lt;!--缺少winutils.exe文件--></span></code></pre>
 
             </div>
             <hr/>
@@ -856,9 +903,11 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            问题：问题描述：
+                            有关一致性
+配置文件
+问题：问题描述：
 ​    启动Hmaster之后一段时间，就会自动关闭。
-zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=bigdat
+zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at add
                         
                     </div>
                     <div class="publish-info">
@@ -1150,7 +1199,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">16.7k</span>&nbsp;字
+                class="white-color">25.8k</span>&nbsp;字
             
             
             
