@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-25T23:58:13.030Z</updated>
+  <updated>2020-04-26T00:04:22.842Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>大数据实战记录</title>
     <link href="https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
     <id>https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/</id>
-    <published>2020-04-25T06:59:21.737Z</published>
-    <updated>2020-04-25T23:58:13.030Z</updated>
+    <published>2020-04-25T06:59:21.000Z</published>
+    <updated>2020-04-26T00:04:22.842Z</updated>
     
     <summary type="html">
     
@@ -29,13 +29,52 @@
       
         
         
-          &lt;p&gt;title: 大数据实战记录&lt;br&gt;author: Mamba_girl&lt;br&gt;top: false&lt;br&gt;cover: false&lt;br&gt;toc: true&lt;br&gt;mathjax: false&lt;br&gt;date: 2020-04-25
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2 id=&quot;项目简介&quot;&gt;&lt;a href=&quot;#项目简介&quot; class=&quot;headerlink&quot; title=&quot;项目简介&quot;&gt;&lt;/a&gt;项目简介&lt;/h2&gt;&lt;h3 id=&quot;项目目标&quot;&gt;&lt;a href=&quot;#项目目标&quot; class=&quot;headerlink&quot;
         
       
     
     </summary>
     
     
+      <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
+    
+      <category term="Hadoop" scheme="https://xlxlll.github.io/categories/big-data/Hadoop/"/>
+    
+      <category term="Spark" scheme="https://xlxlll.github.io/categories/big-data/Hadoop/Spark/"/>
+    
+      <category term="Java" scheme="https://xlxlll.github.io/categories/big-data/Hadoop/Spark/Java/"/>
+    
+      <category term="HBase" scheme="https://xlxlll.github.io/categories/big-data/Hadoop/Spark/Java/HBase/"/>
+    
+      <category term="Linux" scheme="https://xlxlll.github.io/categories/big-data/Hadoop/Spark/Java/HBase/Linux/"/>
+    
+    
+      <category term="HBase" scheme="https://xlxlll.github.io/tags/HBase/"/>
+    
+      <category term="Kafka" scheme="https://xlxlll.github.io/tags/Kafka/"/>
+    
+      <category term="Spark" scheme="https://xlxlll.github.io/tags/Spark/"/>
+    
+      <category term="Haoop" scheme="https://xlxlll.github.io/tags/Haoop/"/>
+    
+      <category term="Flume" scheme="https://xlxlll.github.io/tags/Flume/"/>
+    
+      <category term="Hive" scheme="https://xlxlll.github.io/tags/Hive/"/>
+    
+      <category term="Hue" scheme="https://xlxlll.github.io/tags/Hue/"/>
+    
+      <category term="MySQL" scheme="https://xlxlll.github.io/tags/MySQL/"/>
+    
+      <category term="Websocket" scheme="https://xlxlll.github.io/tags/Websocket/"/>
+    
+      <category term="Echarts" scheme="https://xlxlll.github.io/tags/Echarts/"/>
+    
+      <category term="Java" scheme="https://xlxlll.github.io/tags/Java/"/>
+    
+      <category term="Scala" scheme="https://xlxlll.github.io/tags/Scala/"/>
+    
+      <category term="shell" scheme="https://xlxlll.github.io/tags/shell/"/>
     
   </entry>
   

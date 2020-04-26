@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="大数据实战记录, 博客乐园">
-    <meta name="description" content="title: 大数据实战记录author: Mamba_girltop: falsecover: falsetoc: truemathjax: falsedate: 2020-04-25 14:59:21img:coverImg:passw">
+    <meta name="description" content="对所实现大数据项目的一个复盘，对所涉及到的数据的采集、转化处理、实时计算、存储过程及数据展示的整个流程进行梳理，通过此次实战，了解企业级大数据项目开发的完整流程及整体架构设计。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -395,12 +395,93 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/HBase/">
+                                <span class="chip bg-color">HBase</span>
+                            </a>
+                        
+                            <a href="/tags/Kafka/">
+                                <span class="chip bg-color">Kafka</span>
+                            </a>
+                        
+                            <a href="/tags/Spark/">
+                                <span class="chip bg-color">Spark</span>
+                            </a>
+                        
+                            <a href="/tags/Haoop/">
+                                <span class="chip bg-color">Haoop</span>
+                            </a>
+                        
+                            <a href="/tags/Flume/">
+                                <span class="chip bg-color">Flume</span>
+                            </a>
+                        
+                            <a href="/tags/Hive/">
+                                <span class="chip bg-color">Hive</span>
+                            </a>
+                        
+                            <a href="/tags/Hue/">
+                                <span class="chip bg-color">Hue</span>
+                            </a>
+                        
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
+                            </a>
+                        
+                            <a href="/tags/Websocket/">
+                                <span class="chip bg-color">Websocket</span>
+                            </a>
+                        
+                            <a href="/tags/Echarts/">
+                                <span class="chip bg-color">Echarts</span>
+                            </a>
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                            <a href="/tags/Scala/">
+                                <span class="chip bg-color">Scala</span>
+                            </a>
+                        
+                            <a href="/tags/shell/">
+                                <span class="chip bg-color">shell</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/big-data/" class="post-category">
+                                big_data
+                            </a>
+                        
+                            <a href="/categories/big-data/Hadoop/" class="post-category">
+                                Hadoop
+                            </a>
+                        
+                            <a href="/categories/big-data/Hadoop/Spark/" class="post-category">
+                                Spark
+                            </a>
+                        
+                            <a href="/categories/big-data/Hadoop/Spark/Java/" class="post-category">
+                                Java
+                            </a>
+                        
+                            <a href="/categories/big-data/Hadoop/Spark/Java/HBase/" class="post-category">
+                                HBase
+                            </a>
+                        
+                            <a href="/categories/big-data/Hadoop/Spark/Java/HBase/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -423,14 +504,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    5.6k
+                    5.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    27 分钟
+                    26 分钟
                 </div>
                 
 				
@@ -446,8 +527,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>title: 大数据实战记录<br>author: Mamba_girl<br>top: false<br>cover: false<br>toc: true<br>mathjax: false<br>date: 2020-04-25 14:59:21<br>img:<br>coverImg:<br>password:<br>summary: 对所实现大数据项目的一个复盘，对所涉及到的数据的采集、转化处理、实时计算、存储过程及数据展示的整个流程进行梳理，通过此次实战，了解企业级大数据项目开发的完整流程及整体架构设计。<br>tags: [Haoop,Flume,Kafka,HBase,Hive,Spark,Hue,MySQL,Websocket,Echarts,Java,Scala,shell]<br>categories: [big_data,Hadoop,Spark,Java,HBase,Linux]</p>
-<p>[toc]</p>
+                <p>[toc]</p>
 <h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><h3 id="项目目标"><a href="#项目目标" class="headerlink" title="项目目标"></a>项目目标</h3><ul>
 <li>完成大数据项目的架构设计，安装部署，架构继承与开发，用户可视化交互设计</li>
 <li>完成实时在线数据分析</li>
@@ -1228,7 +1308,59 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/HBase/">
+                                    <span class="chip bg-color">HBase</span>
+                                </a>
+                            
+                                <a href="/tags/Kafka/">
+                                    <span class="chip bg-color">Kafka</span>
+                                </a>
+                            
+                                <a href="/tags/Spark/">
+                                    <span class="chip bg-color">Spark</span>
+                                </a>
+                            
+                                <a href="/tags/Haoop/">
+                                    <span class="chip bg-color">Haoop</span>
+                                </a>
+                            
+                                <a href="/tags/Flume/">
+                                    <span class="chip bg-color">Flume</span>
+                                </a>
+                            
+                                <a href="/tags/Hive/">
+                                    <span class="chip bg-color">Hive</span>
+                                </a>
+                            
+                                <a href="/tags/Hue/">
+                                    <span class="chip bg-color">Hue</span>
+                                </a>
+                            
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
+                                </a>
+                            
+                                <a href="/tags/Websocket/">
+                                    <span class="chip bg-color">Websocket</span>
+                                </a>
+                            
+                                <a href="/tags/Echarts/">
+                                    <span class="chip bg-color">Echarts</span>
+                                </a>
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
+                                </a>
+                            
+                                <a href="/tags/Scala/">
+                                    <span class="chip bg-color">Scala</span>
+                                </a>
+                            
+                                <a href="/tags/shell/">
+                                    <span class="chip bg-color">shell</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1409,7 +1541,7 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            title: 大数据实战记录author: Mamba_girltop: falsecover: falsetoc: truemathjax: falsedate: 2020-04-25 14:59:21img:coverImg:passw
+                            对所实现大数据项目的一个复盘，对所涉及到的数据的采集、转化处理、实时计算、存储过程及数据展示的整个流程进行梳理，通过此次实战，了解企业级大数据项目开发的完整流程及整体架构设计。
                         
                     </div>
                     <div class="publish-info">
@@ -1418,13 +1550,93 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Mamba_girl
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/big-data/" class="post-category">
+                                    big_data
+                                </a>
+                            
+                            <a href="/categories/big-data/Hadoop/" class="post-category">
+                                    Hadoop
+                                </a>
+                            
+                            <a href="/categories/big-data/Hadoop/Spark/" class="post-category">
+                                    Spark
+                                </a>
+                            
+                            <a href="/categories/big-data/Hadoop/Spark/Java/" class="post-category">
+                                    Java
+                                </a>
+                            
+                            <a href="/categories/big-data/Hadoop/Spark/Java/HBase/" class="post-category">
+                                    HBase
+                                </a>
+                            
+                            <a href="/categories/big-data/Hadoop/Spark/Java/HBase/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HBase/">
+                        <span class="chip bg-color">HBase</span>
+                    </a>
+                    
+                    <a href="/tags/Kafka/">
+                        <span class="chip bg-color">Kafka</span>
+                    </a>
+                    
+                    <a href="/tags/Spark/">
+                        <span class="chip bg-color">Spark</span>
+                    </a>
+                    
+                    <a href="/tags/Haoop/">
+                        <span class="chip bg-color">Haoop</span>
+                    </a>
+                    
+                    <a href="/tags/Flume/">
+                        <span class="chip bg-color">Flume</span>
+                    </a>
+                    
+                    <a href="/tags/Hive/">
+                        <span class="chip bg-color">Hive</span>
+                    </a>
+                    
+                    <a href="/tags/Hue/">
+                        <span class="chip bg-color">Hue</span>
+                    </a>
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                    <a href="/tags/Websocket/">
+                        <span class="chip bg-color">Websocket</span>
+                    </a>
+                    
+                    <a href="/tags/Echarts/">
+                        <span class="chip bg-color">Echarts</span>
+                    </a>
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/tags/Scala/">
+                        <span class="chip bg-color">Scala</span>
+                    </a>
+                    
+                    <a href="/tags/shell/">
+                        <span class="chip bg-color">shell</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1666,7 +1878,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">25.8k</span>&nbsp;字
+                class="white-color">25.7k</span>&nbsp;字
             
             
             
