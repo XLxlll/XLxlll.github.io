@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-26T00:04:22.842Z</updated>
+  <updated>2020-04-26T04:16:13.604Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
     <id>https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/</id>
     <published>2020-04-25T06:59:21.000Z</published>
-    <updated>2020-04-26T00:04:22.842Z</updated>
+    <updated>2020-04-26T04:16:13.604Z</updated>
     
     <summary type="html">
     
@@ -83,7 +83,7 @@
     <link href="https://xlxlll.github.io/2020/04/17/Spark/"/>
     <id>https://xlxlll.github.io/2020/04/17/Spark/</id>
     <published>2020-04-17T00:07:13.000Z</published>
-    <updated>2020-04-24T06:37:03.963Z</updated>
+    <updated>2020-04-26T04:01:33.469Z</updated>
     
     <summary type="html">
     
@@ -117,7 +117,7 @@
     <link href="https://xlxlll.github.io/2020/04/17/Hue/"/>
     <id>https://xlxlll.github.io/2020/04/17/Hue/</id>
     <published>2020-04-17T00:06:59.000Z</published>
-    <updated>2020-04-18T07:00:59.512Z</updated>
+    <updated>2020-04-26T04:13:26.267Z</updated>
     
     <summary type="html">
     
@@ -133,6 +133,20 @@
     </summary>
     
     
+      <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
+    
+    
+      <category term="HBase" scheme="https://xlxlll.github.io/tags/HBase/"/>
+    
+      <category term="Hive" scheme="https://xlxlll.github.io/tags/Hive/"/>
+    
+      <category term="Hue" scheme="https://xlxlll.github.io/tags/Hue/"/>
+    
+      <category term="HDFS" scheme="https://xlxlll.github.io/tags/HDFS/"/>
+    
+      <category term="YARN" scheme="https://xlxlll.github.io/tags/YARN/"/>
+    
+      <category term="Mysql" scheme="https://xlxlll.github.io/tags/Mysql/"/>
     
   </entry>
   
@@ -141,7 +155,7 @@
     <link href="https://xlxlll.github.io/2020/04/14/Hive/"/>
     <id>https://xlxlll.github.io/2020/04/14/Hive/</id>
     <published>2020-04-14T01:42:43.000Z</published>
-    <updated>2020-04-17T12:19:42.024Z</updated>
+    <updated>2020-04-26T04:12:20.443Z</updated>
     
     <summary type="html">
     
@@ -157,6 +171,14 @@
     </summary>
     
     
+      <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
+    
+    
+      <category term="HBase" scheme="https://xlxlll.github.io/tags/HBase/"/>
+    
+      <category term="Hive" scheme="https://xlxlll.github.io/tags/Hive/"/>
+    
+      <category term="MySQL" scheme="https://xlxlll.github.io/tags/MySQL/"/>
     
   </entry>
   
@@ -165,7 +187,7 @@
     <link href="https://xlxlll.github.io/2020/04/13/flume/"/>
     <id>https://xlxlll.github.io/2020/04/13/flume/</id>
     <published>2020-04-13T09:19:57.000Z</published>
-    <updated>2020-04-16T15:45:12.372Z</updated>
+    <updated>2020-04-26T04:14:48.685Z</updated>
     
     <summary type="html">
     
@@ -181,6 +203,10 @@
     </summary>
     
     
+      <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
+    
+    
+      <category term="Flume" scheme="https://xlxlll.github.io/tags/Flume/"/>
     
   </entry>
   

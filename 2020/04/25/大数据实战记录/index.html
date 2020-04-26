@@ -504,14 +504,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    5.5k
+                    7.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    26 分钟
+                    36 分钟
                 </div>
                 
 				
@@ -568,7 +568,80 @@
 <li>shell</li>
 <li>maven-3.6.0</li>
 </ul>
-<h2 id="架构、数据流程、资源规划"><a href="#架构、数据流程、资源规划" class="headerlink" title="架构、数据流程、资源规划"></a>架构、数据流程、资源规划</h2><h3 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h3><h3 id="数据流程"><a href="#数据流程" class="headerlink" title="数据流程"></a>数据流程</h3><h3 id="服务器节点规划"><a href="#服务器节点规划" class="headerlink" title="服务器节点规划"></a>服务器节点规划</h3><h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="Linux环境准备"><a href="#Linux环境准备" class="headerlink" title="Linux环境准备"></a>Linux环境准备</h3><p>总共使用了3台虚拟机，先配置好1台，然后采用VMware Workstation克隆出另外两台，有两台给2G的内存，1台给1G。</p>
+<h2 id="架构、数据流程、资源规划"><a href="#架构、数据流程、资源规划" class="headerlink" title="架构、数据流程、资源规划"></a>架构、数据流程、资源规划</h2><h3 id="数据流程"><a href="#数据流程" class="headerlink" title="数据流程"></a>数据流程</h3><img src="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/%E6%95%B0%E6%8D%AE%E6%B5%81%E7%A8%8B.png" class="">
+
+<p>（图片来自于所学课程）</p>
+<h3 id="集群资源规划"><a href="#集群资源规划" class="headerlink" title="集群资源规划"></a>集群资源规划</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>bigdata-pro01.bigDAta.com</th>
+<th>bigdata-pro02.bigDAta.com</th>
+<th>bigdata-pro03.bigDAta.com</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HDFS</td>
+<td>NameNode DataNode</td>
+<td>NameNode DataNode</td>
+<td>DataNode</td>
+</tr>
+<tr>
+<td>YARN</td>
+<td>RescourceManager NodeManager</td>
+<td>RescourceManager NodeManager</td>
+<td>NodeManager</td>
+</tr>
+<tr>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>Kafka</td>
+<td>Kafka</td>
+<td>Kafka</td>
+</tr>
+<tr>
+<td>HBase</td>
+<td>Master                RegionServer</td>
+<td>Master                 RegionServer</td>
+<td>RegionServer</td>
+</tr>
+<tr>
+<td>Flume</td>
+<td>日志合并预处理</td>
+<td>日志采集</td>
+<td>日志采集</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>MySQL</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Spark</td>
+<td>Spark worker</td>
+<td>Spark master worker</td>
+<td>Spark  worker</td>
+</tr>
+<tr>
+<td>Hive</td>
+<td></td>
+<td></td>
+<td>Hive</td>
+</tr>
+<tr>
+<td>Hue</td>
+<td></td>
+<td></td>
+<td>Hue</td>
+</tr>
+</tbody></table>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="Linux环境准备"><a href="#Linux环境准备" class="headerlink" title="Linux环境准备"></a>Linux环境准备</h3><p>总共使用了3台虚拟机，先配置好1台，然后采用VMware Workstation克隆出另外两台，有两台给2G的内存，1台给1G。</p>
 <h4 id="常规设置"><a href="#常规设置" class="headerlink" title="常规设置"></a>常规设置</h4><p><strong>1）设置ip地址</strong> 可以直接使用界面修改ip，如果Linux没有安装操作界面，需要使用命令：<code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code>来修改ip地址，然后重启网络服务<code>service network restart</code>即可。</p>
 <p><strong>2）创建用户</strong>  </p>
 <pre class=" language-shell"><code class="language-shell">#创建用户命令：
@@ -622,7 +695,7 @@ java -version</code></pre>
 <p><strong>3)克隆虚拟机</strong> 在克隆虚拟机之前，需要<code>关闭虚拟机</code>，然后右键选中虚拟机——》管理——》克隆——》下一步——》下一步——》选择<code>创建完整克隆</code>，下一步——》选择克隆虚拟机位置（提前创建好），修改虚拟机名称为Hadoop-Linux-pro-2，然后选择完成即可。 然后使用同样的方式创建第三个虚拟机Hadoop-Linux-pro-3。 </p>
 <p> <strong>4）修改克隆虚拟机配置</strong>  对以上配置的常规配置进行相应修改</p>
 <h3 id="ZooKeeper分布式集群部署"><a href="#ZooKeeper分布式集群部署" class="headerlink" title="ZooKeeper分布式集群部署"></a>ZooKeeper分布式集群部署</h3><p><strong>1)完成ZooKeeper版本下载及安装</strong></p>
-<p>**2）相关配置</p>
+<p><strong>2）相关配置</strong></p>
 <p>提前创建数据目录/opt/modules/zookeeper-3.4.5-cdh5.10.0/zkData，并在该目录下创建myid文件，编辑每台机器的myid内容为一个整数x，与zoo.cfg文件中server.x对应</p>
 <pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!--zoo.cfg--></span>
 <span class="token comment" spellcheck="true">&lt;!--The number of milliseconds of each tick--></span>
@@ -640,8 +713,6 @@ server.1=bigdata-pro01.bigDAta.com:2888:3888
 server.2=bigdata-pro02.bigDAta.com:2888:3888
 server.3=bigdata-pro03.bigDAta.com:2888:3888</code></pre>
 <h3 id="Hadoop-HA架构与部署"><a href="#Hadoop-HA架构与部署" class="headerlink" title="Hadoop HA架构与部署"></a>Hadoop HA架构与部署</h3><p><strong>1）完成hadoop版本下载及安装</strong></p>
-<p>下载地址：<a href="https://archive.apache.org/dist" target="_blank" rel="noopener">https://archive.apache.org/dist</a> </p>
-<p>​                   <a href="http://archive.cloudera.com/cdh5/" target="_blank" rel="noopener">http://archive.cloudera.com/cdh5/</a></p>
 <p><strong>2）相关配置</strong></p>
 <p>非HA Hadoop集群文件参考：点击此链接 <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html</a> 进入，左下角有一个<code>Configuration</code>，点击即可查看相应配置文件；HA Hadoop集群配置，参照此链接 <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html" target="_blank" rel="noopener">https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithQJM.html</a> </p>
 <ul>
@@ -873,8 +944,6 @@ export JAVA_HOME=/opt/modules/jdk1.8.0_191</code></pre>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
 <h3 id="HBase分布式集群部署"><a href="#HBase分布式集群部署" class="headerlink" title="HBase分布式集群部署"></a>HBase分布式集群部署</h3><p><strong>1）完成HBase版本下载及安装</strong></p>
-<p>下载地址：<a href="https://archive.apache.org/dist" target="_blank" rel="noopener">https://archive.apache.org/dist</a> </p>
-<p>​                   <a href="http://archive-primary.cloudera.com/cdh5/cdh/5/" target="_blank" rel="noopener">http://archive-primary.cloudera.com/cdh5/cdh/5/</a> </p>
 <p><strong>2）相关配置</strong></p>
 <pre class=" language-sh"><code class="language-sh">#hbase-env.sh
 export JAVA_HOME=/opt/modules/jdk1.8.0_191
@@ -996,7 +1065,7 @@ export HBASE_MANAGES_ZK=false</code></pre>
 <pre class=" language-shell"><code class="language-shell">#/bin/bash
 echo "bigDAta-kafka-consumer.sh start ......"
 bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata-pro02.bigDAta.com:2181,bigdata-pro03.bigDAta.com:2181 --from-beginning --topic weblogs</code></pre>
-<h3 id="Flume数据采集准备"><a href="#Flume数据采集准备" class="headerlink" title="Flume数据采集准备"></a>Flume数据采集准备</h3><p>项目使用2台Flume服务器用于日志收集，另一台用于对前2台收集到的日志进行合并及处理，并将数据分发给Kafka、HBase，但是HBase中涉及到的表结构是自定义的，所以由Flume发送至HBase代码需要进行修改，故需要下载flume源码。并在开发工具IDEA中进行修改。</p>
+<h3 id="Flume数据采集准备"><a href="#Flume数据采集准备" class="headerlink" title="Flume数据采集准备"></a>Flume数据采集准备</h3><p>项目使用2台Flume服务器用于日志收集，另一台用于对前2台收集到的日志进行合并及处理，并将数据分发给Kafka、HBase，但是Flume与HBase集成涉及到的表结构是自定义的（需要的参数如下：表名、列簇名），所以由Flume发送至HBase代码需要进行修改，故需要下载flume源码。并在开发工具IDEA中进行修改。</p>
 <p><strong>1）完成Flume版本下载及安装</strong></p>
 <p><strong>2）源码修改</strong></p>
 <p>在IDEA找到解压后的源码包，选中flume-ng-hbase-sink，按照如下方式修改源码，将修改后的flume-ng-hbase-sink源码打成jar包，将原来Flume自带的包覆盖掉即可。</p>
@@ -1246,7 +1315,303 @@ bin/kafka-console-consumer.sh --zookeeper bigdata-pro01.bigDAta.com:2181,bigdata
 <p>数据采集、处理、分发过程结束，接下来是对数据的分析处理。</p>
 </li>
 </ul>
-<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><h3 id="Hive-HBase集成"><a href="#Hive-HBase集成" class="headerlink" title="Hive+HBase集成"></a>Hive+HBase集成</h3><h3 id="Cloudera-Hue可视化分析"><a href="#Cloudera-Hue可视化分析" class="headerlink" title="Cloudera Hue可视化分析"></a>Cloudera Hue可视化分析</h3><h3 id="Spark环境准备、编译部署及运行"><a href="#Spark环境准备、编译部署及运行" class="headerlink" title="Spark环境准备、编译部署及运行"></a>Spark环境准备、编译部署及运行</h3><h3 id="Structured-Streaming实时分析"><a href="#Structured-Streaming实时分析" class="headerlink" title="Structured Streaming实时分析"></a>Structured Streaming实时分析</h3><h3 id="WEB系统开发"><a href="#WEB系统开发" class="headerlink" title="WEB系统开发"></a>WEB系统开发</h3>
+<h3 id="离线数据处理"><a href="#离线数据处理" class="headerlink" title="离线数据处理"></a>离线数据处理</h3><h4 id="MySQL-Hive"><a href="#MySQL-Hive" class="headerlink" title="MySQL+Hive"></a>MySQL+Hive</h4><p>MySQL一方面用来存储Hive的元数据，另一方面存储离线分析的结果。</p>
+<p><strong>1）MySQL的安装</strong></p>
+<p><strong>2)Hive的安装</strong></p>
+<pre class=" language-sh"><code class="language-sh">#hive-log4j.properties
+#日志目录需要提前创建
+property.hive.log.dir = /opt/modules/hive-2.1.0/logs
+#修改hive-env.sh配置文件
+#Set HADOOP_HOME to point to a specific hadoop install directory
+  HADOOP_HOME=/opt/modules/hadoop-2.6.0
+  HBASE_HOME=/opt/modules/hbase-1.0.0-cdh5.4.0
+# Hive Configuration Directory can be controlled by:
+ export HIVE_CONF_DIR=/opt/modules/hive-2.1.0/conf
+# Folder containing extra ibraries required for hive compilation/execution can be controlled by:
+ export HIVE_AUX_JARS_PATH=/opt/modules/hive-2.1.0/lib
+</code></pre>
+<p><strong>3）Hive与MySQL集成</strong></p>
+<ul>
+<li>创建hive-site.xml文件，配置mysql元数据库metastore</li>
+</ul>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token prolog">&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionURL<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>jdbc:mysql://bigdata-pro01.bigDAta.com/metastore?createDatabaseIfNotExist=true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionDriverName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>com.mysql.jdbc.Driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionUserName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>root<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionPassword<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>123456<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>！--打印表头--</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hive.cli.print.header<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token comment" spellcheck="true">&lt;!--打印当前所在数据库--></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hive.cli.print.current.db<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token comment" spellcheck="true">&lt;!--该属性在Hive与HBase集成时用到，Hive通过该属性去连接HBase集群--></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>   
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com,bigdata-pro02.bigDAta.com,bigdata-pro03.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span></code></pre>
+<ul>
+<li>在MySQL数据中设置用户连接信息，可以无阻碍访问mysql数据库，其次要保证Hive所在节点能无密钥登录其他集群内节点</li>
+</ul>
+<p><strong>4）Hive与MySQL集成测试</strong></p>
+<ul>
+<li>启动HDFS和YARN服务</li>
+<li>启动Hive</li>
+<li>通过Hive服务创建表，并向这个表中加载数据，在Hive查看表中内容</li>
+<li>在MySQL数据库metastore中查看元数据</li>
+</ul>
+<h4 id="Hive-HBase集成"><a href="#Hive-HBase集成" class="headerlink" title="Hive+HBase集成"></a>Hive+HBase集成</h4><p>Hive是一个数据仓库，主要是转为MapReduce完成对大量数据的离线分析和决策，之前完成了Flume集成HBase，此时HBase中能源源不断地插入数据，那么如何使Hive中也有数据呢？使用<code>外部表</code>进行Hive与HBase的关联</p>
+<pre class=" language-xml"><code class="language-xml"> <span class="token comment" spellcheck="true">&lt;!--在hive-site.xml中添加该属性--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>   
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata-pro01.bigDAta.com,bigdata-pro02.bigDAta.com,bigdata-pro03.bigDAta.com<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span></code></pre>
+<p>将 HBase中的部分jar包拷贝到Hive中,如果两者都是CDH版本，就不需要进行拷贝；若hive安装时自带了以下jar包，将其删除。使用软连接的方式</p>
+<pre class=" language-shell"><code class="language-shell">  export HBASE_HOME=/opt/modules/hbase-1.0.0-cdh5.4.0
+  export HIVE_HOME=/opt/modules/hive-2.1.0
+
+  ln -s $HBASE_HOME/lib/hbase-server-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-server-1.0.0-cdh5.4.0.jar
+
+  ln -s $HBASE_HOME/lib/hbase-client-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-client-1.0.0-cdh5.4.0.jar
+
+  ln -s $HBASE_HOME/lib/hbase-protocol-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-protocol-1.0.0-cdh5.4.0.jar 
+
+  ln -s $HBASE_HOME/lib/hbase-it-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-it-1.0.0-cdh5.4.0.jar 
+
+  ln -s $HBASE_HOME/lib/htrace-core-3.0.4.jar $HIVE_HOME/lib/htrace-core-3.0.4.jar
+
+  ln -s $HBASE_HOME/lib/hbase-hadoop2-compat-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-hadoop2-compat-1.0.0-cdh5.4.0.jar 
+
+  ln -s $HBASE_HOME/lib/hbase-hadoop-compat-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-hadoop-compat-1.0.0-cdh5.4.0.jar
+
+  ln -s $HBASE_HOME/lib/high-scale-lib-1.1.1.jar $HIVE_HOME/lib/high-scale-lib-1.1.1.jar 
+
+  ln -s $HBASE_HOME/lib/hbase-common-1.0.0-cdh5.4.0.jar $HIVE_HOME/lib/hbase-common-1.0.0-cdh5.4.0.jar</code></pre>
+<p>在Hive中创建一个与HBase中的表建立关联的外部表</p>
+<pre class=" language-sh"><code class="language-sh">create external table weblogs(
+id string,
+datatime string,
+userid string,
+searchname string,
+retorder string,
+cliorder string,
+cliurl string
+)  
+STORED BY  'org.apache.hadoop.hive.hbase.HBaseStorageHandler' 
+WITH SERDEPROPERTIES("hbase.columns.mapping" = ":key,info:datatime,info:userid,info:searchname,info:retorder,info:cliorder,info:cliurl") 
+TBLPROPERTIES("hbase.table.name" = "weblogs");</code></pre>
+<p>可通过在Hive与HBase中输入count ‘weblogs’，查看数据是否同步。</p>
+<h4 id="Cloudera-Hue可视化分析"><a href="#Cloudera-Hue可视化分析" class="headerlink" title="Cloudera Hue可视化分析"></a>Cloudera Hue可视化分析</h4><p>详细过程，记录在 Hue篇中 <a href="https://xlxlll.github.io/2020/04/17/Hue/">https://xlxlll.github.io/2020/04/17/Hue/</a> ，此处仅是流程。</p>
+<p><strong>1）下载、安装及编译</strong></p>
+<p><strong>2）基本配置</strong></p>
+<pre class=" language-ini"><code class="language-ini">1.配置desktop/conf/hue.ini
+2.修改desktop.db文件权限</code></pre>
+<p><strong>3）集成</strong></p>
+<ul>
+<li><p>与HDFS集成</p>
+<img src="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/HDFS%E6%95%B4%E5%90%88HUE.png" class="">
+</li>
+<li><p>与YARN集成</p>
+<img src="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/YARN%E6%95%B4%E5%90%88HUE.png" class="">
+</li>
+<li><p>与Hive集成</p>
+<img src="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/Hive%E6%95%B4%E5%90%88HUE.png" class="">
+</li>
+<li><p>与MySQL集成</p>
+
+</li>
+<li><p>与HBase集成</p>
+<img src="/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/HBASE%E6%95%B4%E5%90%88HUE.png" class="">
+
+</li>
+</ul>
+<h3 id="实时数据处理"><a href="#实时数据处理" class="headerlink" title="实时数据处理"></a>实时数据处理</h3><h4 id="Spark与Kafka集成"><a href="#Spark与Kafka集成" class="headerlink" title="Spark与Kafka集成"></a>Spark与Kafka集成</h4><p><strong>1）Spark下载 安装与编译</strong></p>
+<p>具体过程看Spark篇 <a href="https://xlxlll.github.io/2020/04/17/Spark/">https://xlxlll.github.io/2020/04/17/Spark/</a> </p>
+<p><strong>2）Structured Streaming 与Kafka集成</strong></p>
+<ul>
+<li><p>将<code>kafka_2.11-0.10.0.0.jar  kafka-clients-0.10.0.0.jar  spark-sql-kafka-0-10_2.11-2.2.0.jar  spark-streaming-kafka-0-10_2.11-2.1.0.jar</code>等包添加到spark下的jars目录下</p>
+</li>
+<li><p>在IDEA中编写如下代码,Structured Streaming从kafka中读取数据，并进行计算</p>
+<pre class=" language-scala"><code class="language-scala"> <span class="token keyword">val</span> spark  <span class="token operator">=</span> SparkSession<span class="token punctuation">.</span>builder<span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>master<span class="token punctuation">(</span><span class="token string">"local[2]"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>appName<span class="token punctuation">(</span><span class="token string">"streaming"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>getOrCreate<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">val</span> df <span class="token operator">=</span> spark
+      <span class="token punctuation">.</span>readStream
+      <span class="token punctuation">.</span>format<span class="token punctuation">(</span><span class="token string">"kafka"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>option<span class="token punctuation">(</span><span class="token string">"kafka.bootstrap.servers"</span><span class="token punctuation">,</span> <span class="token string">"bigdata-pro01.bigDAta.com:9092,bigdata-pro02.bigDAta.com:9092,bigdata-pro03.bigDAta.com:9092"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>option<span class="token punctuation">(</span><span class="token string">"subscribe"</span><span class="token punctuation">,</span> <span class="token string">"weblogs"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>load<span class="token punctuation">(</span><span class="token punctuation">)</span>
+ <span class="token keyword">import</span> spark<span class="token punctuation">.</span>implicits<span class="token punctuation">.</span>_
+    <span class="token keyword">val</span> lines <span class="token operator">=</span> df<span class="token punctuation">.</span>selectExpr<span class="token punctuation">(</span><span class="token string">"CAST(value AS STRING)"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>as<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span>
+    <span class="token keyword">val</span> weblog <span class="token operator">=</span> lines<span class="token punctuation">.</span>map<span class="token punctuation">(</span>_<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>map<span class="token punctuation">(</span>x <span class="token keyword">=></span> Weblog<span class="token punctuation">(</span>x<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> x<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> x<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>x<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span>x<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">,</span>x<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">val</span> titleCount <span class="token operator">=</span> weblog
+      <span class="token punctuation">.</span>groupBy<span class="token punctuation">(</span><span class="token string">"searchname"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>count<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toDF<span class="token punctuation">(</span><span class="token string">"titleName"</span><span class="token punctuation">,</span><span class="token string">"count"</span><span class="token punctuation">)</span></code></pre>
+</li>
+</ul>
+<h4 id="Spark与MySQL集成"><a href="#Spark与MySQL集成" class="headerlink" title="Spark与MySQL集成"></a>Spark与MySQL集成</h4><p>由于这里仅仅需要对报表进行展示，前台展示的字段并不多，MySQL完全可以支撑。在HBase中有几百万条数据（ 一个浏览话题可能有十几万人搜索过，也就是说一个话题就有十几万条数据，这么大量数据当然要存在Hbase中 ），而经过Spark的计算， 这十几万条数据在mysql中就变成了一条数据（titleName，count）。 </p>
+<p>如果需要实时查询用户各种信息（数据量很大，字段很多），那么就需要实时的直接从Hbase里查，而不会在Mysql中。 </p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> url <span class="token operator">=</span><span class="token string">"jdbc:mysql://bigdata-pro01.bigDAta.com:3306/test"</span>
+    <span class="token keyword">val</span> username<span class="token operator">=</span><span class="token string">"root"</span>
+    <span class="token keyword">val</span> password<span class="token operator">=</span><span class="token string">"123456"</span>
+    <span class="token keyword">val</span> writer <span class="token operator">=</span> <span class="token keyword">new</span> JDBCSink<span class="token punctuation">(</span>url<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span>
+    <span class="token keyword">val</span> query <span class="token operator">=</span> titleCount<span class="token punctuation">.</span>writeStream
+      <span class="token punctuation">.</span>foreach<span class="token punctuation">(</span>writer<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>outputMode<span class="token punctuation">(</span><span class="token string">"update"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>trigger<span class="token punctuation">(</span>ProcessingTime<span class="token punctuation">(</span><span class="token string">"5 seconds"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    query<span class="token punctuation">.</span>awaitTermination<span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+<p>其中的JDBCSink具体代码如下所示：</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>_
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>spark<span class="token punctuation">.</span>sql<span class="token punctuation">.</span><span class="token punctuation">{</span>ForeachWriter<span class="token punctuation">,</span> Row<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> JDBCSink<span class="token punctuation">(</span>url<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">,</span> username<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">,</span>password<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> ForeachWriter<span class="token punctuation">[</span>Row<span class="token punctuation">]</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">//var是一个变量</span>
+  <span class="token comment" spellcheck="true">//val常量</span>
+  <span class="token keyword">var</span> statement <span class="token operator">:</span> Statement <span class="token operator">=</span>_
+  <span class="token keyword">var</span> resultSet <span class="token operator">:</span> ResultSet <span class="token operator">=</span>_
+  <span class="token keyword">var</span> connection <span class="token operator">:</span> Connection<span class="token operator">=</span>_
+  <span class="token keyword">override</span> <span class="token keyword">def</span> open<span class="token punctuation">(</span>partitionId<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">,</span> version<span class="token operator">:</span> <span class="token builtin">Long</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Boolean</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    connection <span class="token operator">=</span> <span class="token keyword">new</span> MySqlPool<span class="token punctuation">(</span>url<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span><span class="token punctuation">.</span>getJdbcConn<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    statement <span class="token operator">=</span> connection<span class="token punctuation">.</span>createStatement<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">//处理数据</span>
+  <span class="token keyword">override</span> <span class="token keyword">def</span> process<span class="token punctuation">(</span>value<span class="token operator">:</span> Row<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 将titleName中的[[]]用空格代替。标记一个中括号表达式的开始。要匹配 [，请使用 \[</span>
+    <span class="token keyword">val</span> titleName <span class="token operator">=</span> value<span class="token punctuation">.</span>getAs<span class="token punctuation">[</span><span class="token builtin">String</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">"titleName"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>replaceAll<span class="token punctuation">(</span><span class="token string">"[\\[\\]]"</span><span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">)</span>
+    <span class="token keyword">val</span> count <span class="token operator">=</span> value<span class="token punctuation">.</span>getAs<span class="token punctuation">[</span><span class="token builtin">Long</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token string">"count"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">val</span> querySql <span class="token operator">=</span> <span class="token string">"select 1 from webCount "</span> <span class="token operator">+</span>
+      <span class="token string">"where titleName = '"</span><span class="token operator">+</span>titleName<span class="token operator">+</span><span class="token string">"'"</span>
+
+    <span class="token keyword">val</span> updateSql <span class="token operator">=</span> <span class="token string">"update webCount set "</span> <span class="token operator">+</span>
+      <span class="token string">"count = "</span><span class="token operator">+</span>count<span class="token operator">+</span><span class="token string">" where titleName = '"</span><span class="token operator">+</span>titleName<span class="token operator">+</span><span class="token string">"'"</span>
+
+    <span class="token keyword">val</span> insertSql <span class="token operator">=</span> <span class="token string">"insert into webCount(titleName,count)"</span> <span class="token operator">+</span>
+      <span class="token string">"values('"</span><span class="token operator">+</span>titleName<span class="token operator">+</span><span class="token string">"',"</span><span class="token operator">+</span>count<span class="token operator">+</span><span class="token string">")"</span>
+
+    <span class="token keyword">try</span><span class="token punctuation">{</span>
+      <span class="token keyword">var</span> resultSet <span class="token operator">=</span> statement<span class="token punctuation">.</span>executeQuery<span class="token punctuation">(</span>querySql<span class="token punctuation">)</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>resultSet<span class="token punctuation">.</span>next<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//如果有执行updateSql</span>
+        statement<span class="token punctuation">.</span>executeUpdate<span class="token punctuation">(</span>updateSql<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//没有的话就执行insertSql</span>
+        statement<span class="token punctuation">.</span>execute<span class="token punctuation">(</span>insertSql<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token keyword">catch</span> <span class="token punctuation">{</span>
+      <span class="token keyword">case</span> ex<span class="token operator">:</span> SQLException <span class="token keyword">=></span> <span class="token punctuation">{</span>
+        println<span class="token punctuation">(</span><span class="token string">"SQLException"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">case</span> ex<span class="token operator">:</span> Exception <span class="token keyword">=></span> <span class="token punctuation">{</span>
+        println<span class="token punctuation">(</span><span class="token string">"Exception"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">case</span> ex<span class="token operator">:</span> RuntimeException <span class="token keyword">=></span> <span class="token punctuation">{</span>
+        println<span class="token punctuation">(</span><span class="token string">"RuntimeException"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">case</span> ex<span class="token operator">:</span> Throwable <span class="token keyword">=></span> <span class="token punctuation">{</span>
+        println<span class="token punctuation">(</span><span class="token string">"Throwable"</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">override</span> <span class="token keyword">def</span> close<span class="token punctuation">(</span>errorOrNull<span class="token operator">:</span> Throwable<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>statement<span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      statement<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>connection<span class="token operator">==</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      connection<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<p>而在JDBCSink中用到的MySqlPool连接池的具体代码如下所示</p>
+<pre class=" language-scala"><code class="language-scala"><span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span><span class="token punctuation">{</span>Connection<span class="token punctuation">,</span> DriverManager<span class="token punctuation">}</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util
+<span class="token keyword">class</span> MySqlPool<span class="token punctuation">(</span>url<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">,</span> user<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">,</span> pwd<span class="token operator">:</span><span class="token builtin">String</span><span class="token punctuation">)</span> <span class="token keyword">extends</span> Serializable<span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">val</span> max <span class="token operator">=</span> <span class="token number">3</span>               <span class="token comment" spellcheck="true">//连接池连接总数</span>
+  <span class="token keyword">private</span> <span class="token keyword">val</span> connectionNum <span class="token operator">=</span> <span class="token number">1</span>    <span class="token comment" spellcheck="true">//每次产生连接数</span>
+  <span class="token keyword">private</span> <span class="token keyword">var</span> conNum <span class="token operator">=</span> <span class="token number">0</span>            <span class="token comment" spellcheck="true">//当前连接池已产生的连接数</span>
+  <span class="token keyword">private</span> <span class="token keyword">val</span> pool <span class="token operator">=</span> <span class="token keyword">new</span> util<span class="token punctuation">.</span>LinkedList<span class="token punctuation">[</span>Connection<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    <span class="token comment" spellcheck="true">//连接池</span>
+
+  <span class="token comment" spellcheck="true">//获取连接</span>
+  <span class="token keyword">def</span> getJdbcConn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> Connection <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//同步代码块</span>
+    <span class="token builtin">AnyRef</span><span class="token punctuation">.</span>synchronized<span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>pool<span class="token punctuation">.</span>isEmpty<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//加载驱动</span>
+        preGetConn<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span>i <span class="token keyword">&lt;-</span> <span class="token number">1</span> to connectionNum<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">val</span> conn <span class="token operator">=</span> DriverManager<span class="token punctuation">.</span>getConnection<span class="token punctuation">(</span>url<span class="token punctuation">,</span>user<span class="token punctuation">,</span>pwd<span class="token punctuation">)</span>
+          pool<span class="token punctuation">.</span>push<span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+          conNum <span class="token operator">+=</span>  <span class="token number">1</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      pool<span class="token punctuation">.</span>poll<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment" spellcheck="true">//释放连接</span>
+  <span class="token keyword">def</span> releaseConn<span class="token punctuation">(</span>conn<span class="token operator">:</span>Connection<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span><span class="token punctuation">{</span>
+    pool<span class="token punctuation">.</span>push<span class="token punctuation">(</span>conn<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">//加载驱动</span>
+  <span class="token keyword">private</span> <span class="token keyword">def</span> preGetConn<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token builtin">Unit</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//控制加载</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>conNum <span class="token operator">&lt;</span> max <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>pool<span class="token punctuation">.</span>isEmpty<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      println<span class="token punctuation">(</span><span class="token string">"Jdbc Pool has no connection now, please wait a moments!"</span><span class="token punctuation">)</span>
+      Thread<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+      preGetConn<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+      Class<span class="token punctuation">.</span>forName<span class="token punctuation">(</span><span class="token string">"com.mysql.jdbc.Driver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<h4 id="WEB系统开发"><a href="#WEB系统开发" class="headerlink" title="WEB系统开发"></a>WEB系统开发</h4><ul>
+<li>从MySQL中查询数据 WeblogService：包括查询20条 titleName,count，以及titleSum</li>
+<li>基于WebSocket协议的数据推送服务开发</li>
+<li>基于Echarts框架，编写前端页面的展示index.html</li>
+</ul>
+<h4 id="启动各个服务，展示最终结果"><a href="#启动各个服务，展示最终结果" class="headerlink" title="启动各个服务，展示最终结果"></a>启动各个服务，展示最终结果</h4> 
+
+ 
+
+ 
+
+ 
+
+
+
+
             </div>
             <hr/>
 
@@ -1878,7 +2243,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">25.7k</span>&nbsp;字
+                class="white-color">27.6k</span>&nbsp;字
             
             
             
