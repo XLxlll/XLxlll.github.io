@@ -476,7 +476,7 @@
 <p>可扩展：若要新增内容，只需在原来内容的基础上增加新内容即可；</p>
 <p>灵活性：内容可以稍作修改既可以满足要求。</p>
 <p>封装、继承、多态把程序的耦合度降低，使用设计模式使得程序更加灵活，容易修改并易于复用。</p>
-<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3>
+<h3 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h3><img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/UML.png" class="">
 
 <p>(图片来自大话数据结构)</p>
 <ul>
@@ -513,13 +513,13 @@
 <p>迪米特原则： 一个软件实体应当尽可能少地与其他实体发生相互作用 ，使得系统功能模块相对独立</p>
 <h2 id="常见设计模式"><a href="#常见设计模式" class="headerlink" title="常见设计模式"></a>常见设计模式</h2><h3 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h3><p>解决如何去实例化对象，到底要实例化谁，将来会不会增加实例化；考虑用一个单独的类完成创造实例的过程。</p>
 <p>例子：实现一个计算器功能 </p>
-
+<img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%B7%A5%E5%8E%82.png" class="">
 
 <p>若添加一个开平方根运算，只需要新建一个类继承运算类，同时在简单工厂类里面添加实例化开平方根的类对象即可。</p>
 <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><p>要么不要有，有只能一个；保证一个类仅有一个实例，并提供一个访问它的全局访问点。让类自身负责唯一实例。这个类保证没有其他实例被创建，但可以提供一个访问该实例的方法</p>
 
 
-
+<img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E5%8D%95%E4%BE%8B_%E4%BB%A3%E7%A0%81.png" class="">
 
 <p>单例模式除了可以保证唯一的实例外，还可以严格控制客户怎样访问它以及何时访问它，简单说就是对唯一实例额的受控访问。</p>
 <p>多线程时的单例：</p>
@@ -567,7 +567,7 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
 <h3 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h3><p>定义了一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-
+<img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%A8%A1%E6%9D%BF.png" class="">
 
 <pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//题外话：可以看出抽象类中可以有非抽象方法</span>
 <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractParent</span> <span class="token punctuation">{</span>
@@ -611,13 +611,11 @@
 <p>优势：模板方法是将不变行为搬移到超类，去除子类中重复的代码</p>
 <p>应用：namenode在INode类及其子类INodeWithAdditionalFields中采用模板设计模式</p>
 <h3 id="职责链模式"><a href="#职责链模式" class="headerlink" title="职责链模式"></a>职责链模式</h3><p>职责链模式：使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系，将这个对象连成一条链，并沿着这条链传递下去，直到有一个对象处理它为止</p>
-
+<img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%81%8C%E8%B4%A3%E9%93%BE.png" class="">
 
 <p>应用：HDFS源码</p>
 <h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3><p>观察者模式又叫发布-订阅模式：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一主题对象。这个主题对象在状态发生变化时，会通知所有观察者对象，使它们能够自动更新自己。</p>
-
-
-
+<img src="/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%A7%82%E5%AF%9F%E8%80%85.png" class="">
 
 <p>应用：ZooKeeper的watcher机制</p>
 
