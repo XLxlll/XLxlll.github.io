@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-26T04:16:13.604Z</updated>
+  <updated>2020-04-27T08:47:24.849Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -17,11 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>设计模式</title>
+    <link href="https://xlxlll.github.io/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://xlxlll.github.io/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-04-27T00:49:20.000Z</published>
+    <updated>2020-04-27T08:47:24.849Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;h3 id=&quot;如何学习设计模式&quot;&gt;&lt;a href=&quot;#如何学习设计模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Java基础" scheme="https://xlxlll.github.io/categories/Java%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java" scheme="https://xlxlll.github.io/tags/Java/"/>
+    
+      <category term="设计模式" scheme="https://xlxlll.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>大数据实战记录</title>
     <link href="https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/"/>
     <id>https://xlxlll.github.io/2020/04/25/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%88%98%E8%AE%B0%E5%BD%95/</id>
     <published>2020-04-25T06:59:21.000Z</published>
-    <updated>2020-04-26T04:16:13.604Z</updated>
+    <updated>2020-04-26T04:20:48.310Z</updated>
     
     <summary type="html">
     
@@ -242,7 +272,7 @@
     <link href="https://xlxlll.github.io/2020/04/09/git/"/>
     <id>https://xlxlll.github.io/2020/04/09/git/</id>
     <published>2020-04-09T07:03:28.000Z</published>
-    <updated>2020-04-09T10:12:39.314Z</updated>
+    <updated>2020-04-26T04:43:50.046Z</updated>
     
     <summary type="html">
     
@@ -303,7 +333,7 @@
     <link href="https://xlxlll.github.io/2020/04/07/Linux/"/>
     <id>https://xlxlll.github.io/2020/04/07/Linux/</id>
     <published>2020-04-07T12:24:51.000Z</published>
-    <updated>2020-04-24T12:47:41.957Z</updated>
+    <updated>2020-04-27T00:51:40.867Z</updated>
     
     <summary type="html">
     
@@ -319,9 +349,7 @@
     </summary>
     
     
-      <category term="Linux" scheme="https://xlxlll.github.io/categories/Linux/"/>
-    
-      <category term="基础" scheme="https://xlxlll.github.io/categories/Linux/%E5%9F%BA%E7%A1%80/"/>
+      <category term="Linux基础" scheme="https://xlxlll.github.io/categories/Linux%E5%9F%BA%E7%A1%80/"/>
     
     
       <category term="Linux" scheme="https://xlxlll.github.io/tags/Linux/"/>
@@ -403,7 +431,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/zookeeper/"/>
     <id>https://xlxlll.github.io/2020/04/04/zookeeper/</id>
     <published>2020-04-04T14:00:29.000Z</published>
-    <updated>2020-04-22T09:53:13.419Z</updated>
+    <updated>2020-04-27T06:52:03.465Z</updated>
     
     <summary type="html">
     
