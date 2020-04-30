@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xlxlll.github.io/"/>
-  <updated>2020-04-27T15:17:14.634Z</updated>
+  <updated>2020-04-29T01:45:05.959Z</updated>
   <id>https://xlxlll.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://xlxlll.github.io/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>https://xlxlll.github.io/2020/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
     <published>2020-04-27T00:49:20.000Z</published>
-    <updated>2020-04-27T15:17:14.634Z</updated>
+    <updated>2020-04-29T01:45:05.959Z</updated>
     
     <summary type="html">
     
@@ -361,7 +361,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>https://xlxlll.github.io/2020/04/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</id>
     <published>2020-04-04T14:01:43.000Z</published>
-    <updated>2020-04-23T14:22:23.169Z</updated>
+    <updated>2020-04-29T04:06:01.269Z</updated>
     
     <summary type="html">
     
@@ -399,7 +399,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/HBase/"/>
     <id>https://xlxlll.github.io/2020/04/04/HBase/</id>
     <published>2020-04-04T14:01:22.000Z</published>
-    <updated>2020-04-16T15:24:02.966Z</updated>
+    <updated>2020-04-28T06:36:19.791Z</updated>
     
     <summary type="html">
     
@@ -408,7 +408,7 @@
         
         
           &lt;p&gt;[toc]&lt;/p&gt;
-&lt;h3 id=&quot;启动过程：&quot;&gt;&lt;a href=&quot;#启动过程：&quot; class=&quot;headerlink&quot; title=&quot;启动过程：&quot;&gt;&lt;/a&gt;启动过程：&lt;/h3&gt;&lt;p&gt;1.启动zookeeper：执行&lt;code&gt;./bin/zkServer.sh
+&lt;h3 id=&quot;热点问题&quot;&gt;&lt;a href=&quot;#热点问题&quot; class=&quot;headerlink&quot; title=&quot;热点问题&quot;&gt;&lt;/a&gt;热点问题&lt;/h3&gt;&lt;h3 id=&quot;数据倾斜&quot;&gt;&lt;a href=&quot;#数据倾斜&quot; class=&quot;headerlink&quot;
         
       
     
@@ -431,7 +431,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/zookeeper/"/>
     <id>https://xlxlll.github.io/2020/04/04/zookeeper/</id>
     <published>2020-04-04T14:00:29.000Z</published>
-    <updated>2020-04-27T06:52:03.465Z</updated>
+    <updated>2020-04-29T03:04:47.624Z</updated>
     
     <summary type="html">
     
@@ -439,10 +439,8 @@
       
         
         
-          &lt;p&gt;有关一致性&lt;/p&gt;
-&lt;p&gt;配置文件&lt;/p&gt;
-&lt;h3 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h3&gt;&lt;p&gt;问题描述：&lt;/p&gt;
-&lt;p&gt;​   
+          &lt;p&gt;[toc]&lt;/p&gt;
+&lt;h2 id=&quot;分布式架构&quot;&gt;&lt;a href=&quot;#分布式架构&quot; class=&quot;headerlink&quot; title=&quot;分布式架构&quot;&gt;&lt;/a&gt;分布式架构&lt;/h2&gt;&lt;h3 id=&quot;集中式&quot;&gt;&lt;a href=&quot;#集中式&quot; class=&quot;headerlink&quot;
         
       
     
@@ -451,18 +449,12 @@
     
       <category term="big_data" scheme="https://xlxlll.github.io/categories/big-data/"/>
     
-      <category term="zookeeper" scheme="https://xlxlll.github.io/categories/big-data/zookeeper/"/>
-    
-      <category term="分布式" scheme="https://xlxlll.github.io/categories/big-data/zookeeper/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+      <category term="分布式" scheme="https://xlxlll.github.io/categories/big-data/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
     
-      <category term="zookeeper" scheme="https://xlxlll.github.io/tags/zookeeper/"/>
+      <category term="ZooKeeper" scheme="https://xlxlll.github.io/tags/ZooKeeper/"/>
     
-      <category term="leader选举" scheme="https://xlxlll.github.io/tags/leader%E9%80%89%E4%B8%BE/"/>
-    
-      <category term="ZAB协议" scheme="https://xlxlll.github.io/tags/ZAB%E5%8D%8F%E8%AE%AE/"/>
-    
-      <category term="数据一致性" scheme="https://xlxlll.github.io/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/"/>
+      <category term="分布式" scheme="https://xlxlll.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
     
   </entry>
   
@@ -569,7 +561,7 @@
     <link href="https://xlxlll.github.io/2020/04/01/%E5%89%91%E6%8C%87offer%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
     <id>https://xlxlll.github.io/2020/04/01/%E5%89%91%E6%8C%87offer%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</id>
     <published>2020-04-01T14:50:15.000Z</published>
-    <updated>2020-04-27T15:26:46.416Z</updated>
+    <updated>2020-04-28T14:44:19.654Z</updated>
     
     <summary type="html">
     

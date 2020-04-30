@@ -437,14 +437,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-16
+                    2020-04-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    292
+                    306
                 </div>
                 
 
@@ -468,7 +468,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
+<h3 id="热点问题"><a href="#热点问题" class="headerlink" title="热点问题"></a>热点问题</h3><h3 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h3><h3 id="ROWkey的散列设计"><a href="#ROWkey的散列设计" class="headerlink" title="ROWkey的散列设计"></a>ROWkey的散列设计</h3><h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
 <p>2.启动高可用下的hdfs，会在各个节点启动namenode，datanode，journalnode：执行<code>./sbin/start-dfs.sh</code>；在HA的namenode节点上启动zkfc线程（两个namenode都要启动）<code>./sbin/hadoop-daemon.sh start zkfc</code>;</p>
 <p>3.启动master：<code>./bin/hbase-daemon.sh start master</code></p>
 <p>4.启动regionServer：<code>./bin/hbase-daemon.sh start regionserver</code></p>
@@ -841,11 +841,7 @@ To do so, start the server, then issue the following commands:
                                     big_data
                                 </a>
                             
-                            <a href="/categories/big-data/zookeeper/" class="post-category">
-                                    zookeeper
-                                </a>
-                            
-                            <a href="/categories/big-data/zookeeper/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
+                            <a href="/categories/big-data/%E5%88%86%E5%B8%83%E5%BC%8F/" class="post-category">
                                     分布式
                                 </a>
                             
@@ -856,20 +852,12 @@ To do so, start the server, then issue the following commands:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/zookeeper/">
-                        <span class="chip bg-color">zookeeper</span>
+                    <a href="/tags/ZooKeeper/">
+                        <span class="chip bg-color">ZooKeeper</span>
                     </a>
                     
-                    <a href="/tags/leader%E9%80%89%E4%B8%BE/">
-                        <span class="chip bg-color">leader选举</span>
-                    </a>
-                    
-                    <a href="/tags/ZAB%E5%8D%8F%E8%AE%AE/">
-                        <span class="chip bg-color">ZAB协议</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/">
-                        <span class="chip bg-color">数据一致性</span>
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">
+                        <span class="chip bg-color">分布式</span>
                     </a>
                     
                 </div>
@@ -1057,7 +1045,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29.5k</span>&nbsp;字
+                class="white-color">33.7k</span>&nbsp;字
             
             
             

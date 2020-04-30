@@ -449,14 +449,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-23
+                    2020-04-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    147
+                    317
                 </div>
                 
 
@@ -488,7 +488,15 @@
 <li>常用操作：push()-入栈 </li>
 <li>底层实现：</li>
 </ul>
-<p>队列的特点:</p>
+<p>什么是前中后缀表达式</p>
+<p>前缀表达式：操作符在操作数的前面，比如 +-543</p>
+<p>中缀表达式：操作符在操作数的中间，这也是人类最容易识别的算术表达式 3+4-5</p>
+<p>后缀表达式：操作符在操作数的后面，比如 34+5-</p>
+<p>计算机如何计算后缀表达式：</p>
+<p>1.从左向右扫描</p>
+<p>2.遇到数字，压入栈中；</p>
+<p>3.遇到运算符，淡出栈顶的两个数，并用运算符对这两个数做相应的计算，并将结果入栈；</p>
+<p>4.重复上述2、3步骤，直到表达式的最右端，最后的值即为表达式的结果。</p>
 <p>队列的特点:</p>
 <ul>
 <li>先进先出</li>
@@ -1017,7 +1025,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">29.5k</span>&nbsp;字
+                class="white-color">33.7k</span>&nbsp;字
             
             
             
