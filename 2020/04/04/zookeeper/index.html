@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-29
+                    2020-05-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    4k
+                    4.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    14 分钟
+                    16 分钟
                 </div>
                 
 				
@@ -551,8 +551,19 @@
 <li><code>单调读一致性(Monotonic read consistency)</code> 如果一个进程从系统中读取出一个数据项的某个值后，那么系统对于该进程后续的任何数据访问都不应该返回更旧的值。</li>
 <li><code>单调写一致性(Monotoic write consistency)</code> 一个系统需要保证来自同一个进程的写操作被顺序执行。</li>
 </ol>
-<p>BASE 定理是提出通过牺牲一致性来获得可用性，并允许数据在一段时间内是不一致的，但最终达到一致状态。</p>
-<h3 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h3><h3 id="系统模型"><a href="#系统模型" class="headerlink" title="系统模型"></a>系统模型</h3><h4 id="版本——保证分布式数据原子性操作"><a href="#版本——保证分布式数据原子性操作" class="headerlink" title="版本——保证分布式数据原子性操作"></a>版本——保证分布式数据原子性操作</h4><p>对数据节点的任何更新操作都会引起版本号的变化，ZooKeeper中的版本号是对数据节点的数据内容、子节点列表或节点ACL信息的修改次数（即使两次修改并没有使得数据内容的值发生变化，version的值依旧会变更）。</p>
+<p>BASE 定理是提出通过<code>牺牲一致性来获得可用性</code>，并允许数据在<code>一段时间内是不一致的，但最终达到一致状态</code>。</p>
+<h3 id="ZAB协议"><a href="#ZAB协议" class="headerlink" title="ZAB协议"></a>ZAB协议</h3><p>ZAB协议：ZooKeeper原子消息广播协议，实现一种<code>主备模式</code>框架下保持集群中<code>各个副本</code>之间的<code>数据统一性</code>。</p>
+<p><strong>消息广播</strong>：Leader服务器将每个事务请求生成对应的proposal，并为这个proposal分配一个全局单调递增的唯一ID（ZXID），Leader服务器与每个follower之间都有一个队列，Leader将消息发送到该队列，将proposal广播给所有的Follower服务器，Follower服务器以事务日志的形式写入磁盘，成功写入之后反馈给Leader服务器一个ACK相应，当Leader接收超过半数的ACK后，开始广播commit消息，同时Leader自身完成对事务的提交，每一个Follower服务器接收到commit消息后也完成对事务的提交；</p>
+<p><strong>崩溃恢复</strong>：当Leader服务器出现故障后，就会进入崩溃恢复模式。崩溃恢复模式的要求：（1）确认已经被Leader提交的proposal必须被所有的Follower服务器提交；（2）确认丢弃已经被Leader提出的但没有被提交的proposal。优先选择拥有最大ZXID的proposal的服务器作为Leader，以满足上述要求，之后进行数据同步。</p>
+<p><strong>数据同步</strong>：Leader会将自身的提交的最大proposal的事务ZXID发送给其他的follower节点。follower节点根据Leader的消息进行回退或者数据同步操作。最终目的要保证集群中所有节点的数据副本保持一致。</p>
+<p>ZAB协议原理：</p>
+<p>每个Leader都需要经历：发现、同步、广播</p>
+<ul>
+<li>发现：ZooKeeper集群必须选择出一个Leader进程，同时Leader进程维护一个follower可用列表，客户端和follower列表中的节点进行通信；</li>
+<li>同步：Leader要负责将自身的数据与follower进行同步，做到多副本存储；</li>
+<li>广播：Leader接受客户端新的proposal请求，将新的proposal请求广播给所有的follower。</li>
+</ul>
+<h3 id="系统模型"><a href="#系统模型" class="headerlink" title="系统模型"></a>系统模型</h3><h4 id="版本——保证分布式数据原子性操作"><a href="#版本——保证分布式数据原子性操作" class="headerlink" title="版本——保证分布式数据原子性操作"></a>版本——保证分布式数据原子性操作</h4><p>对数据节点的任何更新操作都会引起版本号的变化，ZooKeeper中的版本号是对数据节点的数据内容、子节点列表或节点ACL信息的修改次数（即使两次修改并没有使得数据内容的值发生变化，version的值依旧会变更）。</p>
 <table>
 <thead>
 <tr>
@@ -576,7 +587,7 @@
 <p>在并发环境下，需要通过一些机制来保证这些数据在某个操作过程中不会被外界修改，这样的机制就称为“锁”。</p>
 <p>悲观锁：又称悲观并发控制（Pessimistic Concurrency Control,PCC）,有效避免不同事务对同一数据并发更新而造成的数据一致性问题。如果事务A正在对数据进行处理，那么整个处理过程中，都会将数据处于锁定状态，直到事务A完成对该数据的处理，释放了对应的锁之后，其他事务才能重新竞争对该数据进行更新操作。悲观锁假定不同事务之间的处理一定会出现相互干扰，从而需要在一个事务从头到尾的过程中都对数据进行加锁处理。</p>
 <p>乐观锁：又称乐观并发控制（Optimistic Concurrency Control,OCC）,乐观锁假定多个事务在处理过程中不会彼此影响，因此在事务处理的绝大部分时间里不需要进行加锁处理。在更新请求提交之前，每个事务都会首先检查当前事务读取数据后，是否有其他事务对该数据进行了修改，如果其他事务有更新，那么正在提交的事务就需要回滚。可以看出乐观锁主要分为数据读取、写入校验、数据写入，关键在于写入校验，如何确保数据一致性？</p>
-<p>CAS：对于值V，每次更新前都会对比其值是否是预期值A，只有符合预期，才会将V原子化地更新到新值B。</p>
+<p>CAS：对于值V，每次更新前都会对比其值是否是预期值A，只有符合预期，才会将V原子化地更新到新值B(比如想修改一个值，当前值为0,先读取当前值E=0，计算修改之后的值P=1，在将1写回时，再次读取当前值N，若N = E，则认为没有线程修改过该值，若N!=E,认为有线程修改过，则读取当前值N为E，循环之前的过程)。—这是一种不加锁的</p>
 <p>其中是否符合预期便是乐观锁中的“写入校验”阶段。</p>
 <h4 id="Watcher——数据变更的通知"><a href="#Watcher——数据变更的通知" class="headerlink" title="Watcher——数据变更的通知"></a>Watcher——数据变更的通知</h4><img src="/2020/04/04/zookeeper/Dubbo.png" class="Watcher.png % } 核心：a.客户端在向Zookeeper服务器注册Watcher的同时，会将Watcher对象存储在客户端的WachManager中。b.当ZooKeeper服务器端触发Watcher事件后，会向客户端发送通知，c.客户端线程从WachManager中取出对应的Watcher对象来执行回调逻辑。 特点：一次性（无论是客户端还是服务端，一旦一个Watcher被触发，ZooKeeper就会将其从相对应的存储中移除）；客户端串行执行；轻量 * 客户端注册Watcher 客户端把需要监测的状态和路径构成对象，发送到服务器，成功返回，保存结果。（核心中的a过程） 注册Watcher：（1）创建一个ZooKeeper客户端对象实例时，可以向构造方法中传入一个默认的Watcher：，这个Watcher将作为整个ZooKeeper会话期间的默认Watcher，会一直被保存在客户端ZKWatchManager的defaultWatcher中。（2）ZooKeeper客户端也可以通过getData、getChildren和exist是三个接口来向ZooKeeper服务器注册Watcher。 注册完Watcher,客户端进行的操作： 客户端会将&#96;Watcher对象和路径封装成一个WatcherRegistration对象&#96;（用于暂时保存数据节点的路径和Watcher的对应关系），之后将&#96;封装成Packet&#96;（ZooKeeper中一个最小的通信协议单元）中然后放入发送队列中等待客户端发送。底层在发送前进行序列化，只序列化packet中的请求头和请求体到字节数组中（尽管WatcherRegistration被封装在Packet中，但是并没有被序列化，这样就不会出现客户端注册的所有Watcher对象都被传递到服务器）ZooKeeper客户端就会向服务器发送这个请求，同时等待请求的返回，客户端&#96;SendThread线程的readResponse方法负责接收来自服务端的响应&#96;。 服务端进行的操作：finishPacket方法会&#96;从Packet中取出对应的Watcher并注册到ZkWatchManager中去&#96;。 客户端将Watcher对象给ZKWatchManager，最终&#96;保存到dataWatches中&#96;去。ZKWatchManager.dataWatches是一个Map&lt;String,Set&lt;Watcher&gt;&gt;类型的数据结构。这样就完成了客户端的注册。 服务端会对是否进行注册Watcher进行判断，通过getDataRequest.getWatch是否等于true来判断，需要注册则最终把数据节点、节点路径、ServerCnxn存储在WatchManager中。 * 服务端处理Watcher 在对指定节点进行数据更新后，通过调用WatchManager的 triggerWatch方法 方法来触发相关事件（触发逻辑——封装WatchedEvent：将通知状态（KeeperState）、事件类型（EventType）以及节点路径（Path）封装成一个WatchedEvent对象；查询Watcher：从WatchManager查询Watcher，有则取出删除，没有直接退出，看出Watcher在服务端是一次触发的；调用process方法触发Watcher：将WatchedEvent包装成WatcherEvent，以便网络传输序列化），向客户端发送通知 * 客户端回调Watcher 客户端&#96;SendThread线程的readResponse方法负责接收来自服务端的响应&#96;。 处理大体分为4个步骤： 1.将字节流转换成WatcherEvent对象； 2.将服务端传递的完整路径进行chrootPath处理，生成客户端一个相对节点路径； 3.将WatcherEvent转换成WatchedEvent； 4.将WatchedEvent对象交给EventThread线程，在下一轮询周期中进行Watcher回调 EventThread处理事件通知 EventThread.queueEvent方法首先会根据该通知事件从ZKWatchManager中的Map集合（dataWatches、existWatches、childWatches，根据EventType识别）取出Watcher并移除原来的存储。（一次触发） 获取到相关的所有Watcher后，会将其放入waitingEvents这个队列中去。WaitingEvents是一个待处理Watcher队列，EventThread的run方法会不断对该队列进行处理。调用process进行真正的回调。 ### Leader选举过程以及底层实现 ### 常见应用场景 Dubbo是一个由Java语言编写的分布式服务框架，致力于提供高性能和透明化的远程服务调用方案和基于服务框架展开的完整SOA服务治理方案。 Dubbo的核心部分： * 远程通信：提供对多种基于长连接的NIO框架抽象封装，包括多种线程模型、序列化，以及“请求-响应”模式的信息交换方式 * 集群容错：提供基于接口方法的远程过程透明调用，包括对多协议的支持，以及对软负载均衡、失败容错、地址路由和动态配置等集群特性的支持 * 自动发现：提供基于注册中心的目录服务，使服务消费方能动态地查找服务提供方，使地址透明，使服务提供方可以平滑地增加或减少机器。 Dubbo中基于ZooKeeper实现的注册中心，注册中心是RPC框架最核心的模块之一，用于服务的注册和订阅。Dubbo对注册中心模块进行了抽象封装，因此可以基于其提供的外部接口来实现各种不同类型的注册中心，如数据库、ZooKeeper、Redis等。ZooKeeper是一个树形结构的目录服务，支持变更推送，因此非常适合Dubbo服务的注册中心 {% asset_img">
 
@@ -1129,7 +1140,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">33.7k</span>&nbsp;字
+                class="white-color">48k</span>&nbsp;字
             
             
             

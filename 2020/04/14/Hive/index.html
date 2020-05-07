@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-26
+                    2020-05-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1.5k
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分钟
+                    9 分钟
                 </div>
                 
 				
@@ -469,16 +469,43 @@
             <div id="articleContent">
                 <p>[toc]</p>
 <h3 id="Hive概述"><a href="#Hive概述" class="headerlink" title="Hive概述"></a>Hive概述</h3><h4 id="什么是Hive"><a href="#什么是Hive" class="headerlink" title="什么是Hive"></a>什么是Hive</h4><ul>
-<li>由Facebook开源用于解决海量结构化日志的数据统计；</li>
-<li>是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射成一张表，并提供类似SQL查询功能；</li>
-<li>构建在Hadoop之上的数据仓库：使用HQL作为查询接口、使用HDFS存储、使用MapReduce计算；</li>
-<li>支持UDF，自定义存储格式；</li>
-<li>适合离线数据处理。</li>
+<li><p>由Facebook开源用于解决海量结构化日志的数据统计；</p>
+</li>
+<li><p>是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射成一张表，并提供类似SQL查询功能；</p>
+</li>
+<li><p>构建在Hadoop之上的数据仓库：使用HQL作为查询接口、使用HDFS存储、使用MapReduce计算；</p>
+</li>
+<li><p>支持UDF，自定义存储格式；</p>
+</li>
+<li><p>适合离线数据处理。</p>
+</li>
 </ul>
-<h4 id="表的类型"><a href="#表的类型" class="headerlink" title="表的类型"></a>表的类型</h4><p>外部表</p>
-<p>内部表</p>
+<h4 id="表的类型"><a href="#表的类型" class="headerlink" title="表的类型"></a>表的类型</h4><p>在Hive中创建表时，默认情况下Hive负责管理数据。这意味这Hive把数据移入它的“仓库目录”(warehouse directory)。创建一个外部表，让Hive到仓库目录以外的位置访问数据。</p>
+<p>外部表</p>
+<p>创建表时需要指明外部数据的位置，EXTERNAL关键字，Hive指导数据并不是由自己管理，一次不会把数据移动到自己的仓库目录；丢弃外部表时，Hive不会碰数据，只会删除元数据。</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE EXTERNAL TABLE external_table(dummy STRING)
+LOCATION '/user/tom/external_table';
+
+LOAD DATA LOCAL INPATH 'input/hive/partitions/file1' INTO TABLE external_table;</code></pre>
+<p>内部（托管）表</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE  TABLE managed_table(dummy STRING)
+LOAD DATA LOCAL INPATH 'input/hive/partitions/file1' INTO TABLE managed_table;</code></pre>
 <p>分区表</p>
+<p>Hive把表组织成分区，这是一种根据<code>分区列的值</code>对表进行粗略划分的机制，使用分区可以加快数据分片的查询速度。一个表可以以多个维度来进行分区(如下：使用PARTITIONED BY 指定分区，根据dt进行分区外，进一步根据country对每个分区进行子分区)；PARTITIONED BY子句中的列定义是表中正式的列（分区列），但是数据文件并不包含这些列的值，因为它们源于目录名。</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE TABLE logs(ts BIGINT,line STRING)
+PARTITIONED BY (dt STRING,country STRING)</code></pre>
+<p>在加载数据到分区表的时候，需要显示指定分区值：</p>
+<pre class=" language-mysql"><code class="language-mysql">LOAD DATA LOCAL INPATH 'input/hive/partitions/file1'
+INTO TABLE logs
+PARTITION(dt='2020-01-01',country='CN')</code></pre>
+<p>在文件系统级别，分区只是表目录下嵌套的子目录</p>
 <p>分桶表</p>
+<p>表或分区可以进一步分为桶；为数据提供额外的结构以获得更高效的查询处理，高效使用“取样”/“采样”,如下，使用id来确定如何划分桶（Hive对值进行哈希并将结果除以桶的个数取余数）</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE TABLE bucketed_users(id INT,name STRING)
+CLUSTERED BY (id) INTO 4 BUCKETS;</code></pre>
+<p>将桶中的数据根据一个或多个列进行排序</p>
+<pre class=" language-mysql"><code class="language-mysql">CREATE TABLE bucketed_users(id INT,name STRING)
+CLUSTERED BY (id) SORTED BY (id ASC) INTO 4 BUCKETS;</code></pre>
 <h4 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h4><ul>
 <li><p>从<code>Apache download mirrors</code>上下载；</p>
 </li>
@@ -510,6 +537,7 @@ $ $HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse</code></pre>
 <p>若是使用mysql存储元数据还需要启动mysql服务</p>
 </li>
 <li><p><code>bin/hive</code>运行</p>
+<p>启动Hive的shell环境，与Hibe进行交互；</p>
 <p>注意：<code>hive 1.x</code>版本时，不需要进行初始化操作，Hive第一次启动的时候会自动进行初始化，但不会生成所有的元数据信息表，只会初始化必要的部分，在之后的时候过程中会自动创建；当使用<code>hive2.x</code>版本时，必须手动初始化元数据库。默认情况下，Hive的元数据保存在了内嵌的derby数据库里，需要在Hive安装目录的bin目录下执行：</p>
 <p><code>./schematool -initSchema -dbType  mysql</code>(根据实际情况填写，因为我安装的是mysql，故。。) </p>
 <pre class=" language-shell"><code class="language-shell">#若没有进行初始化则会出现如下异常：
@@ -519,9 +547,11 @@ Exception in thread "main" java.lang.RuntimeException: org.apache.hadoop.hive.ql
 <h4 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h4><pre class=" language-shell"><code class="language-shell">#创建一个表：ROW FORMAT DELIMITED---规定了数据格式，
 #FIELDS TERMINATED BY '\t'：列间隔为一个制表符，即tab
 #LINES TERMINATED BY '\n'：行间隔'\n'，即换行 
+#声明一个stu2表，包括id、name两列，指明每一列的数据类型分别为int、string；数据文件的每一行是由制表符分割的文本，Hive按照这一格式读取数据。
 CREATE TABLE stu2(id INT,name STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' ;
 #加载数据到表中,注意加载数据的格式是否符合表创建时的要求
-load data local inpath '/opt/datas/stu.txt' into table stu2;
+#OVERWRITE:告诉Hive删除表对应目录中已有的所有文件，不写的话Hive就简单地把新的文件加入目录（若该目录下有同名的文件，则替换原有同名文件）
+load data local inpath '/opt/datas/stu.txt' [OVERWRITE] into table stu2;
 #打印hive启动过程中的log
 $ ./bin/hive -hiveconf hive.root.logger=DEBUG,console
 #进入hive查看有哪些表
@@ -1127,7 +1157,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">33.7k</span>&nbsp;字
+                class="white-color">48k</span>&nbsp;字
             
             
             

@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-28
+                    2020-05-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    306
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    5 分钟
                 </div>
                 
 				
@@ -468,7 +468,29 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
-<h3 id="热点问题"><a href="#热点问题" class="headerlink" title="热点问题"></a>热点问题</h3><h3 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h3><h3 id="ROWkey的散列设计"><a href="#ROWkey的散列设计" class="headerlink" title="ROWkey的散列设计"></a>ROWkey的散列设计</h3><h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
+<h3 id="热点问题-和数据倾斜"><a href="#热点问题-和数据倾斜" class="headerlink" title="热点问题 和数据倾斜"></a>热点问题 和数据倾斜</h3><h4 id="什么是热点问题和数据倾斜"><a href="#什么是热点问题和数据倾斜" class="headerlink" title="什么是热点问题和数据倾斜"></a>什么是热点问题和数据倾斜</h4><p> 热点问题：<code>大量的client直接访问集群的一个或极少数个节点</code>。大量访问会使热点region所在的单个机器超出自身承受能力，引起性能下降甚至region不可用，这也会影响同一个RegionServer上的其他region，由于主机无法服务其他region的请求，造成资源浪费。需要设计良好的数据访问模式以使集群被充分，均衡的利用。</p>
+<p> 数据倾斜： HBase可以被划分为多个Region，但是默认创建时只有一个Region分布在集群的一个节点上，<code>数据一开始时都集中在这个Region</code>，也就是集中在这一个节点上，<code>就算region存储达到临界值时被划分，数据也是存储在少数节点上</code>。</p>
+<h4 id="HBase的存储方式导致热点问题和数据倾斜"><a href="#HBase的存储方式导致热点问题和数据倾斜" class="headerlink" title="HBase的存储方式导致热点问题和数据倾斜"></a>HBase的存储方式导致热点问题和数据倾斜</h4><p>1.HBase中的数据是按照rowkey字典序排序的，当大量连续的rowkey集中写在个别的region上，各个region之间数据分布不平衡；</p>
+<p>HBase中的行是按照rowkey的字典顺序排序的，这种设计优化了scan操作，可以将相关的行以及会被一起读取的行存取在临近位置，便于scan。<br>rowkey设计是热点的源头。</p>
+<p>2.创建表时没有提前预分区，创建的表默认只有一个region，大量的数据写入当前region；</p>
+<p>HBase中，表会被划分为1…n个Region，被托管在RegionServer中。Region有二个重要的属性:StartKey与EndKey表示这个Region维护的rowKey范围，当我们要读/写数据时，如果rowKey落在某个start-end key范围内，那么就会定位到目标region并且读/写到相关的数据。</p>
+<p>HBase默认创建一张表时，只有1个region，start-end key没有边界，所有数据都在这个region里装，然而，当数据越来越多，region的size越来越大时，大到一定的阀值，hbase认为再往这个region里塞数据已经不合适了，就会找到一个midKey将region一分为二，成为2个region,这个过程称为分裂(region-split)。而midKey则为这二个region的临界。<br>此时，我们假设rowkey小于midKey的则被塞到1区，大于等于midKey的则被塞到2区，如果rowkey还是顺序增大的，那数据就总会往2区里面写数据，而1区现在处于一个被冷落的状态，而且是半满的。2区的数据满了会被再次分裂成2个区，如此不断产生被冷落而且不满的Region。</p>
+<p>3.创建表时已经提前预分区，但是rowkey的设计不好。</p>
+<h4 id="预分区和rowkey的散列设计——解决数据倾斜和热点问题"><a href="#预分区和rowkey的散列设计——解决数据倾斜和热点问题" class="headerlink" title="预分区和rowkey的散列设计——解决数据倾斜和热点问题"></a>预分区和rowkey的散列设计——解决数据倾斜和热点问题</h4><ul>
+<li><p>预分区</p>
+<p>让表的数据可以均衡的分散在集群中，而不是默认只有一个region分布在集群的一个节点上。（预分区个数=节点的倍数，看数据量估算，region不足了会被分列，预分区后每个region的rowkey还是有序的） </p>
+<p> <a href="https://blog.csdn.net/qq_31289187/article/details/80869906" target="_blank" rel="noopener">https://blog.csdn.net/qq_31289187/article/details/80869906</a> </p>
+</li>
+<li><p>rowkey设计原则</p>
+<p>（1）越短越好，最好不要超过16个字节：数据的持久化文件HFile中是按照KeyValue存储的，如果rowkey过长，会极大影响HFile的存储效率；MemStore将缓存部分数据到内存，如果rowkey过长，内存的有效利用率就会降低， 系统将无法缓存更多的数据，这会降低检索效率。</p>
+<p>（2）rowkey尽量散列：</p>
+<p>（3）rowkey保证唯一：  必须在设计上保证其唯一性，rowkey是按照字典顺序排序存储的，要充分利用这个排序的特点，将经常读取的数据存储到一块，将最近可能会被访问的数据放到一块。 </p>
+</li>
+</ul>
+<h3 id="regionserver挂了-如何恢复数据-？"><a href="#regionserver挂了-如何恢复数据-？" class="headerlink" title="regionserver挂了 如何恢复数据 ？"></a>regionserver挂了 如何恢复数据 ？</h3><p>引起RegionServer宕机的原因各种各样，有因为Full GC导致、网络异常导致、官方Bug导致（close wait端口未关闭）以及DataNode异常导致等等</p>
+<p>HBase检测宕机是通过Zookeeper实现的， 正常情况下RegionServer会周期性向Zookeeper发送心跳，一旦发生宕机，心跳就会停止，超过一定时间（SessionTimeout）Zookeeper就会认为RegionServer宕机离线，并将该消息通知给Master</p>
+<p>一旦RegionServer发生宕机，HBase都会马上检测到这种宕机，并且在检测到宕机之后会将宕机RegionServer上的所有Region重新分配到集群中其他正常RegionServer上去，再根据HLog进行丢失数据恢复，恢复完成之后就可以对外提供服务，整个过程都是自动完成的，并不需要人工介入.</p>
+<h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
 <p>2.启动高可用下的hdfs，会在各个节点启动namenode，datanode，journalnode：执行<code>./sbin/start-dfs.sh</code>；在HA的namenode节点上启动zkfc线程（两个namenode都要启动）<code>./sbin/hadoop-daemon.sh start zkfc</code>;</p>
 <p>3.启动master：<code>./bin/hbase-daemon.sh start master</code></p>
 <p>4.启动regionServer：<code>./bin/hbase-daemon.sh start regionserver</code></p>
@@ -479,35 +501,7 @@ org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.ipc.StandbyException): O
 </code></pre>
 <p>连接数据库：</p>
 <p><code>./bin/start-hbase.sh</code></p>
-<h3 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><h3 id="mysql在线安装"><a href="#mysql在线安装" class="headerlink" title="mysql在线安装"></a>mysql在线安装</h3><ul>
-<li><p>安装</p>
-<p><code>yum install mysql-server</code></p>
-</li>
-<li><p>查看mysql的位置、状态</p>
-<pre class=" language-shell"><code class="language-shell">#位置
-which mysql
-#状态
-service mysqld status</code></pre>
-</li>
-<li><p>启动mysql</p>
-<p><code>sudo service mysqld start</code></p>
-</li>
-<li><p>设置root用户的密码</p>
-<pre class=" language-shell"><code class="language-shell">PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !
-To do so, start the server, then issue the following commands:
-
-/usr/bin/mysqladmin -u root password 'new-password'
-/usr/bin/mysqladmin -u root -h bigdata-pro01.bigDAta.com password 'new-password'
-</code></pre>
-</li>
-<li><p>使用上述的密码进入mysql</p>
-<p><code>mysql -uroot -p123456</code></p>
-<p>出现问题：</p>
-<p><code>ERROR 1045 (28000): Access denied for user &#39;bigDAta&#39;@&#39;localhost&#39; (using password: YES)</code></p>
-<p>解决方法：</p>
-</li>
-</ul>
-
+<h3 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4>
             </div>
             <hr/>
 
@@ -757,7 +751,7 @@ To do so, start the server, then issue the following commands:
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            记录一些常见的数据结构及常见的知识点，持续更新...
+                            记录一些常见的数据结构及常见算法，持续更新...
                         
                     </div>
                     <div class="publish-info">
@@ -1045,7 +1039,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">33.7k</span>&nbsp;字
+                class="white-color">48k</span>&nbsp;字
             
             
             

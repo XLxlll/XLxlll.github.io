@@ -441,7 +441,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-25
+                    2020-05-02
                 </div>
                 
 
@@ -555,7 +555,14 @@ hadoop fs -chown username:username /user/username
 <li>protobuf</li>
 </ul>
 <h2 id="二、MapReduce"><a href="#二、MapReduce" class="headerlink" title="二、MapReduce"></a>二、MapReduce</h2><p>MapReduce组件为上层框架提供分布式计算的能力；</p>
-<h4 id="三、YARN"><a href="#三、YARN" class="headerlink" title="三、YARN"></a>三、YARN</h4><pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+<h4 id="MapReduce流程"><a href="#MapReduce流程" class="headerlink" title="MapReduce流程"></a>MapReduce流程</h4><h5 id="map端"><a href="#map端" class="headerlink" title="map端"></a>map端</h5><ul>
+<li>由InputFormat类（默认是TextInputFormat）来读取外部文件，它会调用RecordReader的read()方法来读取，返回K,V键值对；</li>
+<li>将K,V键值对传送给map()方法，作为其入参来执行用户定义的map逻辑</li>
+<li>context.write()</li>
+</ul>
+<h5 id="reduce端"><a href="#reduce端" class="headerlink" title="reduce端"></a>reduce端</h5><h5 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h5><p>shuffle的理解：</p>
+<p> <a href="https://blog.csdn.net/u014374284/article/details/49205885" target="_blank" rel="noopener">https://blog.csdn.net/u014374284/article/details/49205885</a> </p>
+<h2 id="三、YARN"><a href="#三、YARN" class="headerlink" title="三、YARN"></a>三、YARN</h2><pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
@@ -1183,7 +1190,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">33.7k</span>&nbsp;字
+                class="white-color">48k</span>&nbsp;字
             
             
             

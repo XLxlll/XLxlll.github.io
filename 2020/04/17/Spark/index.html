@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-26
+                    2020-05-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    4.4k
+                    4.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    18 分钟
+                    19 分钟
                 </div>
                 
 				
@@ -782,7 +782,7 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <p>RDD中以对象为类型参数，Spark框架并不了解内部结构；而DataFrame提供了详细的结构信息，Spark SQL可以清楚地知道该数据集中包含哪些列，每列的名称和类型。RDD是分布式的Java对象的集合，DataFrame也叫做DataSet[Row],是分布式的Row对象的集合。</p>
 <p>如果同样的数据都给这三种数据集，他们分别计算之后，会给出相同的结果，但是执行效率和方式有所不同。</p>
 <p>针对数据查询应用，在RDD之上，封装了DataFrame</p>
-<h4 id="服务架构"><a href="#服务架构" class="headerlink" title="服务架构"></a>服务架构</h4><h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4><p>为什么要进行整合？</p>
+<h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4><p>为什么要进行整合？</p>
 <p>hive原生是基于MapReduce的，导致其查询耗时较长。<br>为了保留Hive的架构解决方案，并优化查询速度，采用SparkSql与hive整合(spark on hive)，通过<code>SparkSql读取hive中表的元数据</code>，把HiveHQL底层采用MapReduce处理任务导致性能慢的特点，改为更加强大的<code>Spark引擎来进行相应的计算处理</code>。</p>
 <ul>
 <li><p>Spark-shell</p>
@@ -810,13 +810,29 @@ hbase-server-x.x.x.jar
 hive-hbase-handler-x.x.x.jar
 htrace-core-x.x.jar
 mysql-connector-java-x.x.x-bin.jar</code></pre>
-<h3 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h3><p>​    Spark Streaming 是对Spark 核心API 的一个扩展，它能够实现对实时数据流的流式处理，并具有很好的可扩展性、高吞吐量和容错性。Spark Streaming 支持从多种数据源提取数据，如：<strong>Kafka、Flume</strong>、Twitter、ZeroMQ、Kinesis 以及 <strong>TCP 套接字</strong>，并且可以提供一些高级 API 来表达复杂的处理算法，如：map、reduce、join 和 window 等。最后，Spark Streaming 支持将处理完的数据推送到文件系统、数据库或者  live dashboards 中展示 。 还可以将 Spark 的机器学习（machine learning） 和 图计算（graph processing）的算法应用于Spark Streaming 的数据流当中 。</p>
+<h3 id="Spark-Streaming"><a href="#Spark-Streaming" class="headerlink" title="Spark Streaming"></a>Spark Streaming</h3><p>​    Spark Streaming 是对<strong>Spark 核心API 的一个扩展</strong>，它能够实现对实时数据流的流式处理，并具有很好的可扩展性、高吞吐量和容错性。Spark Streaming 支持从多种数据源提取数据，如：<strong>Kafka、Flume</strong>、Twitter、ZeroMQ、Kinesis 以及 <strong>TCP 套接字</strong>，并且可以提供一些高级 API 来表达复杂的处理算法，如：map、reduce、join 和 window 等。最后，Spark Streaming 支持将处理完的数据推送到文件系统、数据库或者  live dashboards 中展示 。 还可以将 Spark 的机器学习（machine learning） 和 图计算（graph processing）的算法应用于Spark Streaming 的数据流当中 。</p>
 <img src="/2020/04/17/Spark/streaming-arch.png" class="">
 
-<h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><p>Spark Streaming 接收实时输入数据流并根据<code>自定义的时间间隔</code>将数据划分为一个个小的批次供 Spark Engine （其实是Spark Core）处理，最终生成多个批次的结果流（ 而<strong>Storm是来一条数据处理一条数据，是真正意义上的实时处理</strong>）。 其底层操作还是基于RDD的，只不过针对实时计算的特点，在RDD之上封装了DStream（被分成的一段段的数据）。每一段数据都可以转换成RDD，从而将对DStream的操作变成了对RDD的操作，RDD经过操作之后变成中间结果保存在内存中，也可以根据业务需求对中间结果进行缓存/存储到外部设备。</p>
+<p>工作原理</p>
+<p>Spark Streaming 接收实时输入数据流并根据<code>自定义的时间间隔</code>将数据划分为一个个小的批次供 Spark Engine （其实是Spark Core）处理，最终生成多个批次的结果流（ 而<strong>Storm是来一条数据处理一条数据，是真正意义上的实时处理</strong>）。 其底层操作还是基于RDD的，只不过针对实时计算的特点，在RDD之上封装了DStream（被分成的一段段的数据）。每一段数据都可以转换成RDD，从而将对DStream的操作变成了对RDD的操作，RDD经过操作之后变成中间结果保存在内存中，也可以根据业务需求对中间结果进行缓存/存储到外部设备。</p>
 <img src="/2020/04/17/Spark/streaming-flow.png" class="">
 
-<h4 id="编程模型"><a href="#编程模型" class="headerlink" title="编程模型"></a>编程模型</h4><h3 id="Structured-Streaming"><a href="#Structured-Streaming" class="headerlink" title="Structured Streaming"></a>Structured Streaming</h3><h4 id="编程模型-1"><a href="#编程模型-1" class="headerlink" title="编程模型"></a>编程模型</h4><p>输出模式：update append complete（输出结果是否经过计算）</p>
+<h3 id="Structured-Streaming"><a href="#Structured-Streaming" class="headerlink" title="Structured Streaming"></a>Structured Streaming</h3><p>出现的原因：</p>
+<ul>
+<li>以RDD为核心的API逐步升级到DataSet/DataFrame上；</li>
+<li>以RDD为基础的编程模型对开发人员的要求较高，需要足够的编程背景才能够胜任Spark Streaming的编程工作</li>
+</ul>
+<p>Structured Streaming是一种<strong>基于Spark SQL引擎的可扩展且容错的流处理引擎</strong>。可以像表达静态数据的批处理计算一样表达流式计算。Spark SQL引擎将负责逐步和连续地运行它，并在流数据继续到达时更新最终结果。可以使用Scala，Java，Python或R中的数据集/数据框架API来表示流聚合，事件时间窗口，流到批处理连接等。计算在同一优化的Spark SQL引擎上执行。最后，系统通过检查点和预写日志确保端到端的一次性容错保证。简而言之，<strong>结构化流传输提供快速，可扩展，容错，端到端的精确一次流处理，而无需用户推理流式传输</strong>。</p>
+<p>Structured Streaming 将数据源和计算结果都看做是无限大的表，数据源中每个批次的数据，经过计算，都添加到结果表中作为行。</p>
+
+
+<p>借助官网的例子理解一下Structured Streaming的运作方式，每次流入的数据会作为一行新数据添加到Unbounded Table上，同时将流式计算的结果映射为另外一张表，完全以结构化的方式操作流式数据。</p>
+
+
+<p>输出模式：</p>
+<p>update： 输出只有自上次触发后在结果表中<strong>更新的行</strong>；</p>
+<p> append ： 输出自上次触发后，结果表中<strong>附加的新行</strong>。这仅适用于预计结果表中的现有行不会更改的查询 ；</p>
+<p>complete： 输出<strong>整个更新的结果表</strong>。</p>
 <h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><h4 id="Maven安装与配置"><a href="#Maven安装与配置" class="headerlink" title="Maven安装与配置"></a>Maven安装与配置</h4><p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
 <p>打开官网：<a href="http://maven.apache.org/download.cgi，在`Previous" target="_blank" rel="noopener">http://maven.apache.org/download.cgi，在`Previous</a> Releases<code>处点击</code>archives<code>进入版本下载页面。下载并解压，配置环境变量新增</code>M2_HOME<code>,并修改</code>Path<code>，</code>cmd<code>窗口执行</code>mvn -v`看到maven的当前版本即配置成功。</p>
 <p>修改maven/conf/settings.xml</p>
@@ -1451,7 +1467,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">33.7k</span>&nbsp;字
+                class="white-color">48k</span>&nbsp;字
             
             
             
