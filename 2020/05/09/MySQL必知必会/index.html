@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="MySQL必知必会, 博客乐园">
-    <meta name="description" content="MySQL必知必会 | 博客乐园">
+    <meta name="description" content="一网打尽MySQL知识点，笔记持续更新...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -395,12 +395,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MySQL/">
+                                <span class="chip bg-color">MySQL</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/MySQL/" class="post-category">
+                                MySQL
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -416,21 +429,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-09
+                    2020-05-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    0
+                    984
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    3 分钟
                 </div>
                 
 				
@@ -446,7 +459,51 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>[toc]</p>
+<p>与其他数据库系统相比，MySQL的架构可以在多种不同场景中应用并发挥好的作用。MySQL既可以嵌入到应用程序中也可以支持数据仓库、内容索引和部署软件、高可用的冗余系统、在线事务处理系统(OLTP)等各种应用类型。</p>
+<h2 id="MySQL架构"><a href="#MySQL架构" class="headerlink" title="MySQL架构"></a>MySQL架构</h2><h3 id="逻辑架构"><a href="#逻辑架构" class="headerlink" title="逻辑架构"></a>逻辑架构</h3><p>MySQL的存储引擎架构将<code>查询处理</code>及其他系统任务和<code>数据的存储/提取相分离</code>。</p>
+<p>{ % asset_img mysql_1.png %}</p>
+<p>MySQL在存储引擎和服务层之间吹查询时如何通过API来会交互</p>
+<h3 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h3><p>在处理并发读或写时，可以通过实现一个或两种类型的锁组成的锁系统来解决。</p>
+<p>共享锁（读锁）：</p>
+<p>读锁是共享的，或者说是相互不阻塞的，多个客户在同一时刻可以同时读取同一个资源，而互不干扰。</p>
+<p>排他锁（写锁）：</p>
+<p>写锁是排他的，也就是说一个写锁会阻塞其他的写锁和读锁。</p>
+<p>锁粒度：</p>
+<p>在选择封锁粒度时，需要在锁开销和并发程度之间做一个权衡——<code>应该尽量只锁定需要修改的那部分数据，而不是所有的资源，锁定的数据量越少，发生锁争用的可能就越小，系统的并发程度就越高</code>；但是加锁需要消耗资源，锁的各种操作都会增加系统开销，因此<code>锁粒度越小，系统开销越大</code>。</p>
+<p>锁策略：</p>
+<p>表锁：最基本、开销最小的策略，会锁定整张表；</p>
+<p>行级锁：最大程度地支持并发处理，最大的锁开销，<code>只在存储引擎层实现，MySQL服务器层没有实现</code>。</p>
+<h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><p>InnoDB是MySQL的默认事务型引擎，也是最重要、使用最广泛的存储引擎；</p>
+<p>MySQL 5.1 及之前的版本，MyISAM是默认的存储引擎；MyISAM<code>不支持事务和行级锁</code></p>
+<h2 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h2><p>索引（在MySQL中也叫做“键”）是<code>存储引擎</code>用于快速找到记录的一种数据结构；索引可以包含一个或多个列的值，如果索引包含多个列，那么列的顺序也十分重要，因为<code>MySQL只能高效地使用索引的最左前缀列</code>。</p>
+<p>优点：</p>
+<ul>
+<li>减少查询需要扫描的数据量(加快了查询速度)</li>
+<li>减少服务器的排序操作和创建临时表的操作(加快了groupby和orderby等操作)</li>
+<li>将服务器的随机IO变为顺序IO(加快查询速度).</li>
+</ul>
+<p>缺点：</p>
+<p>首先索引也是数据，需要存储，因此会带来额外的存储空间占用；其次，在插入、更新和删除操作的同时，需要维护索引，因此需要带来二外的时间开销。</p>
+<ul>
+<li>索引占用磁盘或者内存空间</li>
+<li>减慢了插入更新操作的速度</li>
+</ul>
+<p>类型：</p>
+<p>由索引的定义可以看出<code>索引是交给存储引擎去实现的</code>，而MySQL支持多存储引擎，所以不同的存储引擎实现的索引类型不太一样。</p>
+<p>B-树索引/B+树索引：</p>
+<ul>
+<li><code>中间节点不保存数据</code>，那么就可以<code>保存更多的索引，减少数据库磁盘IO的次数</code>；</li>
+<li><code>中间节点不保存数据</code>，所以每一次的查找都会<code>命中到叶子节点</code>，而<code>叶子节点是处在同一层的</code>，因此<code>查询的性能更加稳定</code>；</li>
+<li>所有的<code>叶子节点按顺序链接成链表</code>，因此方便进行<code>范围查询</code>。</li>
+</ul>
+<p>哈希索引 </p>
+<p>空间数据索引</p>
+<p>全文索引</p>
+<h2 id="MySQL查询"><a href="#MySQL查询" class="headerlink" title="MySQL查询"></a>MySQL查询</h2><p>MySQL查询特别慢：</p>
+<h2 id="MySQL事务"><a href="#MySQL事务" class="headerlink" title="MySQL事务"></a>MySQL事务</h2><p>事务——一组原子性的SQL查询，或者说一个独立的工作单元；事务内的语句，要么全部执行成功，要么全部执行失败；</p>
+<p>ACID特性、四种隔离级别</p>
+
             </div>
             <hr/>
 
@@ -508,7 +565,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/MySQL/">
+                                    <span class="chip bg-color">MySQL</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -689,7 +750,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            一网打尽MySQL知识点，笔记持续更新...
                         
                     </div>
                     <div class="publish-info">
@@ -698,13 +759,25 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Mamba_girl
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/MySQL/" class="post-category">
+                                    MySQL
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -942,7 +1015,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.9k</span>&nbsp;字
+                class="white-color">58.4k</span>&nbsp;字
             
             
             

@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-05
+                    2020-05-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    4.8k
+                    6.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分钟
+                    25 分钟
                 </div>
                 
 				
@@ -475,7 +475,7 @@
 <p><a href="https://github.com/apache/spark" target="_blank" rel="noopener">https://github.com/apache/spark</a> —-相关源码</p>
 </li>
 </ul>
-<p>Apache Spark™是用于大规模数据处理的统一分析引擎。</p>
+<p>Apache Spark™是用于大规模数据处理的统一分析引擎。Spark也是基于<code>map、reduce</code>算法模式实现的分布式计算框架，拥有Hadoop MapReduce所具有的优点，并解决了Hadoop MapReduce中的诸多缺陷；</p>
 <h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>官网-download。</p>
 <img src="/2020/04/17/Spark/1_%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD.png" class="">
 
@@ -541,12 +541,11 @@ export PATH=$PATH:$SCALA_HOME/bin
 $ source /etc/profile</code></pre>
 <h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4>
 
-<p>Spark运行模式：</p>
-<ul>
-<li><p>Local</p>
+<h5 id="Spark运行模式："><a href="#Spark运行模式：" class="headerlink" title="Spark运行模式："></a>Spark运行模式：</h5><ul>
+<li><p>Local（运行在一台机器上，通常用于练手或者测试环境）</p>
 <p>将网络切换至内网，进入Spark安装目录，执行<code>./bin/spark-shell</code></p>
 </li>
-<li><p>Standalone(Spark自身的集群管理)</p>
+<li><p>Standalone(构建一个基于Master+Slaves的资源调度集群，Spark任务提交给Master运行，是Spark自身的集群管理)</p>
 <p>需要安装JDK、Scala、Hadoop、Spark Standalone（只需要在集群中每个节点上安装一个Spark的编译版本）</p>
 <img src="/2020/04/17/Spark/spark%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E5%9B%BE.png" class="">
 
@@ -595,7 +594,7 @@ export SPARK_WORKER_WEBUI_PORT=8081</code></pre>
 <p>将应用程序连接到集群,只需要将master的URL（spark://IP:PORT）传递给SparkContext构造器。运行一个交互Spark shell：<code>$./bin/saprk-shell --master spark://IP:ROOT</code>。</p>
 <p><code>spark-submit</code>脚本提交编译的Spark应用程序到集群中。对于standalone集群，Spark有两种deploy modes：1.client（  the driver is launched in the same process as the client that submits the application ）2.cluster（ the driver is launched from one of the Worker processes inside the cluster, and the client process exits as soon as it fulfills its responsibility of submitting the application without waiting for the application to finish ）。如果你的应用程序通过Spark submit运行，则应用程序自动分发给所有的worker节点，应用程序所依赖的jar包，通过–jars jar1,jar2</p>
 </li>
-<li><p>YARN</p>
+<li><p>YARN（Spark客户端直接连接Yarn，不需要额外构建Spark集群）</p>
 <p>确保HADOOP_CONF_DIR或者YARN_CONF_DIR指向包含Hadoop集群客户端配置文件的目录。这些配置用于向HDFS执行写操作合连接YARN ResourceManager。</p>
 <p>在YARN上运行Spark应用程序有两种deploy mode：</p>
 <ul>
@@ -604,6 +603,20 @@ export SPARK_WORKER_WEBUI_PORT=8081</code></pre>
 </ul>
 </li>
 <li><p>Mesos(Spark初期支持)</p>
+</li>
+</ul>
+<h5 id="运行的基本流程"><a href="#运行的基本流程" class="headerlink" title="运行的基本流程"></a>运行的基本流程</h5><ul>
+<li><p>启动：用户程序<code>启动SparkContext</code>，是程序的总入口，<code>初始化DAGScheduler</code>作业调度和<code>TaskScheduler</code>任务调度；</p>
+</li>
+<li><p>生成作业：DAGScheduler根据<code>shuffleDependency（宽依赖）将作业分为不同的stage</code>，根据RDD之间的依赖关系[宽依赖、窄依赖]，<code>划分原则是遇到窄依赖就放进当前stage，遇到宽依赖则断开</code>。相当于shuffleDependency是前后stage分界线，<code>每一个stage里面都会划分一个taskset</code>，也就是任务集，而DAGScheduler的下一个任务是<code>将这个taskset传给TaskScheduler</code>（在最后一个stage划分结束，就会触发作业的提交）</p>
+</li>
+<li><p>提交任务集：TaskScheduler调用TaskSetManager<code>分配Task到哪一个executor上去执行</code>，<code>SchedulerBackend配合TaskScheduler完成具体任务的资源分配</code></p>
+</li>
+<li><p>任务执行：Executor执行实际任务的运行，对每个task创建一个TaskRunner类，交给线程池去运行</p>
+</li>
+<li><p>状态的监控：主要是TaskScheduler通过一些回调函数通知DAGScheduler具体Executor的生命状态；</p>
+</li>
+<li><p>任务结果的获取：对于FinalStage<code>[直接触发作业的RDD(执行action算子的)关联的stage]</code>的返回运算结果的本身，对于其他stage，返回给DAGScheduler是一个<code>MapStaus</code>，维护中间输出结果和block地址、存储位置信息将会作为下一阶段的任务的输入数据的依据。</p>
 </li>
 </ul>
 <h3 id="Spark-Core"><a href="#Spark-Core" class="headerlink" title="Spark Core"></a>Spark Core</h3><h4 id="RDD（resilient-dastributed-dataset）"><a href="#RDD（resilient-dastributed-dataset）" class="headerlink" title="RDD（resilient dastributed dataset）"></a>RDD（resilient dastributed dataset）</h4><h5 id="2大创建："><a href="#2大创建：" class="headerlink" title="2大创建："></a>2大创建：</h5><ul>
@@ -641,7 +654,13 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <li><p><strong>一个列表，存储存取每个Partition 的优先位置（preferred location）</strong>。 对于一个HDFS 文件来说，这个列表保存的就是每个 Partition 所在的块位置。根据<strong>“移动数据不如移动计算”</strong>的理念，Spark 在进行任务调度的时候，会尽可能地将计算任务分配到其所要处理数据块的存储位置。</p>
 </li>
 </ul>
-<h5 id="3大操作方式（算子）："><a href="#3大操作方式（算子）：" class="headerlink" title="3大操作方式（算子）："></a>3大操作方式（算子）：</h5><p>transformations：数据内容不会变化，形式改变，懒加载，只有在actions阶段才执行。</p>
+<h5 id="3大操作方式（算子）："><a href="#3大操作方式（算子）：" class="headerlink" title="3大操作方式（算子）："></a>3大操作方式（算子）：</h5><p>transformations：<code>数据内容不会变化，形式改变</code>，<code>懒加载</code>，只有在actions阶段才执行。</p>
+<ul>
+<li>主要对数据进行切分、封装、转换、聚合、排序等操作；</li>
+<li>每次操作都会创建新的RDD；</li>
+<li>操作都是lazy级别的，需要action算子触发Job后真正执行；</li>
+<li>主要分为普通算子和shuffle算子 </li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -706,7 +725,23 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <td align="center">在类型为(K,V)和(K,W)的RDD上调用，返回一个(K,(Iterable<V>,Iterable<W>))类型的RDD</td>
 </tr>
 </tbody></table>
+<p>map和flatMap的区别：</p>
+<ul>
+<li>map算子对RDD中每个元素进行函数转换操作，形成新的RDD，<code>新的RDD中数据与旧RDD中的数据是一一对应关系</code>；</li>
+<li>flatMap算子对RDD中每个元素进行函数转化操作，然后再<code>扁平化将所有的对象合并成新的RDD</code>，<code>新的RDD中数据与旧RDD中的数据是一对多对应关系</code>；</li>
+</ul>
+<p>两个算子都不会产生shuffle操作，都是窄依赖算子。</p>
+<p>reduceByKey和groupByKey的区别：</p>
+<ul>
+<li>reduceByKey会在<code>结果发送至reduce之前对每个mapper在本地进行merge</code>，这样有减少数据量传输，节省网络资源，并且能够保证reduce端能够很快的进行计算结果；</li>
+<li>groupByKey会对<code>每一个RDD的value值进行聚合形成一个序列，并且该操作发生在reduce端</code>，所以数据通过网络传输会浪费资源，如果<code>数据量十分大，可能会造成OOM异常</code>；groupByKey聚合后的序列是无序的。</li>
+</ul>
 <p>actions：</p>
+<ul>
+<li>可以称为输出算子，其主要作用将<code>RDD中的数据持久化到外部存储设备或Driver端</code>；</li>
+<li>Action算子会触发Job，并且是立即执行；</li>
+<li>可以有返回值，其返回值是Scala中集合对象，将数据返回到Driver端</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -772,6 +807,22 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <td>两者都是用来将一个RDD进行缓存的，避免重复计算，从而节省程序运行的时间。</td>
 </tr>
 </tbody></table>
+<h4 id="RDD的容错机制"><a href="#RDD的容错机制" class="headerlink" title="RDD的容错机制"></a>RDD的容错机制</h4><ul>
+<li><p>利用<code>血缘（Lineage）容错</code>：</p>
+<p>利用<code>依赖关系进行数据恢复</code>，在容错机制中，如果一个节点死机了，</p>
+<ul>
+<li><p>而且运算<code>窄依赖</code>，则只把丢失的父RDD分区重算即可，不依赖于其他节点；</p>
+<p>在窄依赖中，在子RDD的分区丢失，重算父RDD分区时，父RDD相应分区计算所得的数据都是子RDD的数据，并不存在冗余计算。</p>
+</li>
+<li><p>而<code>宽依赖需要父RDD的所有分区都存在，重算花销大</code>；</p>
+<p>在宽依赖的情况下，丢失一个子RDD分区重算的<code>每个父RDD的每个分区的所有数据并不是都给子RDD分区用的</code>，会有一部分数据相当于对应的是未丢失的子RDD分区中需要的数据，所以存在冗余计算 开销</p>
+</li>
+</ul>
+</li>
+<li><p>检查点机制：</p>
+<p>在宽依赖中，如果Lineage过长，重算开销会很大，通过设置<code>检查点</code>，在依赖关系汇总，<code>对关系中间预算的结果进行数据冗余备份</code>，所以数据恢复时，就可以从检查点开始进行重新计算Lineage，减少开销</p>
+</li>
+</ul>
 <h3 id="Spark-SQL"><a href="#Spark-SQL" class="headerlink" title="Spark SQL"></a>Spark SQL</h3><h4 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h4><p>DataFrame是Spark 1.3添加的接口，类似于传统数据库的二维表格或者 R 和 Python 中的一个 data frame，除了数据之外，还记录数据的结构信息，即schema；与Hive类似，DataFrame也支持嵌套数据类型（struct、array、map） DataFrame 是按命名列方式组织的一个 Dataset。DataFrame 可以从很多数据源构造得到，比如：结构化的数据文件，Hive 表，外部数据库或现有的 RDD。</p>
 <pre class=" language-scala"><code class="language-scala"><span class="token keyword">val</span> df <span class="token operator">=</span> spark<span class="token punctuation">.</span>read<span class="token punctuation">.</span>json<span class="token punctuation">(</span><span class="token string">"examples/src/main/resources/people.json"</span><span class="token punctuation">)</span></code></pre>
 <h4 id="DataSet"><a href="#DataSet" class="headerlink" title="DataSet"></a>DataSet</h4><p> Dataset 是一个分布式数据集，它是 <code>Spark 1.6</code> 版本中新增的一个接口, 它结合了 RDD（强类型，可以使用强大的 lambda 表达式函数） 和 Spark SQL 的优化执行引擎的好处。Dataset 可以从 JVM 对象构造得到，可以使用函数式的变换（map，flatMap，filter 等） 进行操作 。</p>
@@ -782,7 +833,10 @@ distFile: org.apache.spark.rdd.RDD[String] = data.txt MapPartitionsRDD[10] at te
 <p>RDD中以对象为类型参数，Spark框架并不了解内部结构；而DataFrame提供了详细的结构信息，Spark SQL可以清楚地知道该数据集中包含哪些列，每列的名称和类型。RDD是分布式的Java对象的集合，DataFrame也叫做DataSet[Row],是分布式的Row对象的集合。</p>
 <p>如果同样的数据都给这三种数据集，他们分别计算之后，会给出相同的结果，但是执行效率和方式有所不同。</p>
 <p>针对数据查询应用，在RDD之上，封装了DataFrame</p>
-<h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4><p>为什么要进行整合？</p>
+<h3 id="三种join方式"><a href="#三种join方式" class="headerlink" title="三种join方式"></a>三种join方式</h3><ul>
+<li><h4 id="与Hive集成"><a href="#与Hive集成" class="headerlink" title="与Hive集成"></a>与Hive集成</h4></li>
+</ul>
+<p>为什么要进行整合？</p>
 <p>hive原生是基于MapReduce的，导致其查询耗时较长。<br>为了保留Hive的架构解决方案，并优化查询速度，采用SparkSql与hive整合(spark on hive)，通过<code>SparkSql读取hive中表的元数据</code>，把HiveHQL底层采用MapReduce处理任务导致性能慢的特点，改为更加强大的<code>Spark引擎来进行相应的计算处理</code>。</p>
 <ul>
 <li><p>Spark-shell</p>
@@ -814,10 +868,10 @@ mysql-connector-java-x.x.x-bin.jar</code></pre>
 <img src="/2020/04/17/Spark/streaming-arch.png" class="">
 
 <p>工作原理</p>
-<p>Spark Streaming 接收实时输入数据流并根据<code>自定义的时间间隔</code>将数据划分为一个个小的批次供 Spark Engine （其实是Spark Core）处理，最终生成多个批次的结果流（ 而<strong>Storm是来一条数据处理一条数据，是真正意义上的实时处理</strong>）。 其底层操作还是基于RDD的，只不过针对实时计算的特点，在RDD之上封装了DStream（被分成的一段段的数据）。每一段数据都可以转换成RDD，从而将对DStream的操作变成了对RDD的操作，RDD经过操作之后变成中间结果保存在内存中，也可以根据业务需求对中间结果进行缓存/存储到外部设备。</p>
+<p>Spark Streaming 接收实时输入数据流并根据<code>自定义的时间间隔</code>将数据划分为一个个小的批次供 Spark Engine （其实是Spark Core）处理，最终生成多个批次的结果流（ 而<strong>Storm是来一条数据处理一条数据，是真正意义上的实时处理</strong>）。 其<code>底层操作还是基于RDD</code>的，只不过针对实时计算的特点，在RDD之上<code>封装了DStream[离散数据流]</code>（被分成的一段段的数据）。每一段数据都可以转换成RDD，从而将对DStream的操作变成了对RDD的操作，RDD经过操作之后变成中间结果保存在内存中，也可以根据业务需求对中间结果进行缓存/存储到外部设备。</p>
 <img src="/2020/04/17/Spark/streaming-flow.png" class="">
 
-<h3 id="Structured-Streaming"><a href="#Structured-Streaming" class="headerlink" title="Structured Streaming"></a>Structured Streaming</h3><p>出现的原因：</p>
+<h4 id="性能调优手段"><a href="#性能调优手段" class="headerlink" title="性能调优手段"></a>性能调优手段</h4><h4 id="反压机制"><a href="#反压机制" class="headerlink" title="反压机制"></a>反压机制</h4><h3 id="Structured-Streaming"><a href="#Structured-Streaming" class="headerlink" title="Structured Streaming"></a>Structured Streaming</h3><p>出现的原因：</p>
 <ul>
 <li>以RDD为核心的API逐步升级到DataSet/DataFrame上；</li>
 <li>以RDD为基础的编程模型对开发人员的要求较高，需要足够的编程背景才能够胜任Spark Streaming的编程工作</li>
@@ -833,7 +887,25 @@ mysql-connector-java-x.x.x-bin.jar</code></pre>
 <p>update： 输出只有自上次触发后在结果表中<strong>更新的行</strong>；</p>
 <p> append ： 输出自上次触发后，结果表中<strong>附加的新行</strong>。这仅适用于预计结果表中的现有行不会更改的查询 ；</p>
 <p>complete： 输出<strong>整个更新的结果表</strong>。</p>
-<h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><h4 id="Maven安装与配置"><a href="#Maven安装与配置" class="headerlink" title="Maven安装与配置"></a>Maven安装与配置</h4><p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
+<h3 id="Spark-解决数据倾斜"><a href="#Spark-解决数据倾斜" class="headerlink" title="Spark 解决数据倾斜"></a>Spark 解决数据倾斜</h3><h4 id="数据倾斜"><a href="#数据倾斜" class="headerlink" title="数据倾斜"></a>数据倾斜</h4><ul>
+<li><p>什么是数据倾斜</p>
+<p>数据倾斜指的是，<code>并行处理的数据集中</code>，某一部分的数据显著多于其它部分，从而使得该部分的处理速度成为整个数据集处理的瓶颈。</p>
+</li>
+<li><p>数据倾斜的现象</p>
+<p>绝大多数task执行得都非常快，但个别task执行极慢；这种情况常见</p>
+<p>原本能够正常执行的spark作业，某天突然爆出OOM（内存溢出）异常，观察异常栈，是业务代码造成的；这种情况比较少见</p>
+</li>
+<li><p>数据倾斜发生的本质原因</p>
+<p>在进行<code>shuffle</code>的时候，必须将<code>各个节点上相同的key拉取到某一个节点上的task</code>来进行处理，比如按照key进行聚合或join等操作。此时如果每个key对应的数据量特别大的话，就会出现数据倾斜。整个Spark作业的运行进度是由<code>运行时间最长的那个task决定的</code>；</p>
+</li>
+<li><p>哪些算子会导致数据倾斜</p>
+<p>数据倾斜<code>只会发生在shuffle过程中</code>，可能会触发shuffle操作的算子：distinct、groupByKey、reduceByKey、aggregateByKey、join、cogroup、repartition等</p>
+</li>
+<li><p>首先，<code>确定数据倾斜发生在第几个stage</code>，无论是yarn-client，还是yarn-cluster模式提交，都可以通过Spark Web UI上查看当前这个stage各个task分配的数据量；其次，<code>根据stage划分原理，推算出发生倾斜的那个stage对应代码中的哪一部分，找能发生shuffle的算子</code></p>
+</li>
+</ul>
+<h4 id="常见解决方案"><a href="#常见解决方案" class="headerlink" title="常见解决方案"></a>常见解决方案</h4><h5 id="使用Hive-ETL-预处理数据"><a href="#使用Hive-ETL-预处理数据" class="headerlink" title="使用Hive ETL 预处理数据"></a>使用Hive ETL 预处理数据</h5><h5 id="过滤少数导致倾斜的key"><a href="#过滤少数导致倾斜的key" class="headerlink" title="过滤少数导致倾斜的key"></a>过滤少数导致倾斜的key</h5><h5 id="提高shuffle操作的并行度"><a href="#提高shuffle操作的并行度" class="headerlink" title="提高shuffle操作的并行度"></a>提高shuffle操作的并行度</h5><h5 id="两阶段聚合（局部聚合-全局聚合）"><a href="#两阶段聚合（局部聚合-全局聚合）" class="headerlink" title="两阶段聚合（局部聚合+全局聚合）"></a>两阶段聚合（局部聚合+全局聚合）</h5><p>将原本相同的key通过附加<code>随机前缀</code>的方式，变成多个不同的key，就可以让原本被一个task处理的数据分散到多个task上去做局部聚合，进而解决单个task处理数据量过多的问题；接着去掉随机前缀，再次进行全局聚合，就可以得到最终的结果</p>
+<h5 id="将reduce-join转为map-join"><a href="#将reduce-join转为map-join" class="headerlink" title="将reduce join转为map join"></a>将reduce join转为map join</h5><h5 id="采用倾斜key并分拆join操作"><a href="#采用倾斜key并分拆join操作" class="headerlink" title="采用倾斜key并分拆join操作"></a>采用倾斜key并分拆join操作</h5><h5 id="使用随机前缀和扩容RDD进行join"><a href="#使用随机前缀和扩容RDD进行join" class="headerlink" title="使用随机前缀和扩容RDD进行join"></a>使用随机前缀和扩容RDD进行join</h5><h3 id="使用IntelliJ-IDEA构建Maven管理的Spark项目"><a href="#使用IntelliJ-IDEA构建Maven管理的Spark项目" class="headerlink" title="使用IntelliJ IDEA构建Maven管理的Spark项目"></a>使用IntelliJ IDEA构建Maven管理的Spark项目</h3><h4 id="Maven安装与配置"><a href="#Maven安装与配置" class="headerlink" title="Maven安装与配置"></a>Maven安装与配置</h4><p>参考文献： <a href="https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere" target="_blank" rel="noopener">https://how2j.cn/k/idea/idea-maven-config/1353.html#nowhere</a> </p>
 <p>打开官网：<a href="http://maven.apache.org/download.cgi，在`Previous" target="_blank" rel="noopener">http://maven.apache.org/download.cgi，在`Previous</a> Releases<code>处点击</code>archives<code>进入版本下载页面。下载并解压，配置环境变量新增</code>M2_HOME<code>,并修改</code>Path<code>，</code>cmd<code>窗口执行</code>mvn -v`看到maven的当前版本即配置成功。</p>
 <p>修改maven/conf/settings.xml</p>
 <pre class=" language-xml"><code class="language-xml"> <span class="token comment" spellcheck="true">&lt;!-- localRepository
@@ -1467,7 +1539,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.9k</span>&nbsp;字
+                class="white-color">58.4k</span>&nbsp;字
             
             
             

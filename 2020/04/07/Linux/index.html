@@ -429,21 +429,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-27
+                    2020-05-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    3k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分钟
+                    15 分钟
                 </div>
                 
 				
@@ -490,7 +490,10 @@
 <p>​                </p>
 </li>
 </ul>
-<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><pre class=" language-markdown"><code class="language-markdown">NAME
+<h2 id="D"><a href="#D" class="headerlink" title="D"></a>D</h2><h3 id="df"><a href="#df" class="headerlink" title="df"></a>df</h3><pre class=" language-shell"><code class="language-shell">#显示目前在Linux系统上的文件系统的磁盘使用情况统计
+</code></pre>
+<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><pre class=" language-shell"><code class="language-shell">#显示指定的目录或文件所占用的磁盘空间</code></pre>
+<h2 id="E"><a href="#E" class="headerlink" title="E"></a>E</h2><h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><pre class=" language-markdown"><code class="language-markdown">NAME
 <span class="token code keyword">       echo - display a line of text</span>
 
 SYNOPSIS
@@ -529,11 +532,13 @@ DESCRIPTION
 
 <span class="token code keyword">       \r     carriage return</span>
 </code></pre>
-<h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>用途：Global Regular Expression Print用于查找文件里符合条件的字符串,默认情况下输出匹配内容所在的行。</p>
+<h2 id="F"><a href="#F" class="headerlink" title="F"></a>F</h2><h2 id="G"><a href="#G" class="headerlink" title="G"></a>G</h2><h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>用途：Global Regular Expression Print用于<code>查找文件里符合条件的字符串</code>,默认情况下输出匹配内容所在的行。</p>
 <p>语法：</p>
 <pre class=" language-shell"><code class="language-shell">#常见格式
 grep [选项] "模式" [文件]</code></pre>
-<h2 id="H"><a href="#H" class="headerlink" title="H"></a>H</h2><h2 id="I"><a href="#I" class="headerlink" title="I"></a>I</h2><h2 id="J"><a href="#J" class="headerlink" title="J"></a>J</h2><h2 id="K"><a href="#K" class="headerlink" title="K"></a>K</h2><h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><p>用途：删除执行中的程序或工作</p>
+<h2 id="H"><a href="#H" class="headerlink" title="H"></a>H</h2><h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><pre class=" language-shell"><code class="language-shell"># head [参数] [文件]
+head -q </code></pre>
+<h2 id="I"><a href="#I" class="headerlink" title="I"></a>I</h2><h2 id="J"><a href="#J" class="headerlink" title="J"></a>J</h2><h2 id="K"><a href="#K" class="headerlink" title="K"></a>K</h2><h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><p>用途：删除执行中的程序或工作</p>
 <p>语法：</p>
 <pre class=" language-shell"><code class="language-shell">#杀死进程
 kill PID
@@ -545,7 +550,19 @@ kill -9 PID
 kill -9 $(ps -ef|grep user)
 kill -u user
 </code></pre>
-<h2 id="L"><a href="#L" class="headerlink" title="L"></a>L</h2><h2 id="M"><a href="#M" class="headerlink" title="M"></a>M</h2><h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>用途： 可以用来创建目录，如果不加创建路径即在本路径下创建一个新的指定的目录，否则即在给出的路径下创建目录 。</p>
+<h2 id="L"><a href="#L" class="headerlink" title="L"></a>L</h2><h3 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h3><p>为某一个文件在另外一个位置建立一个同步的链接；当我们需要<code>在不同的目录，使用相同的文件时，不需要再每一个需要的目录下都放一个必须相同的文件，只需要在某个固定的目录，放上该文件，然后在其他的目录中用ln命令链接它就可以，不必重复的占用磁盘空间</code>。</p>
+<p>链接：</p>
+<ul>
+<li><p>硬链接：A是B的硬链接（A，B都是文件名），则A的目录项中的inode节点号与B的目录项中的inode节点号相同，<code>一个inode节点对应两个不同的文件名</code>，两个文件名指向同一个文件，A、B对文件系统来说是完全平等的，<code>不能跨越文件系统，不能对目录进行链接</code>；</p>
+</li>
+<li><p>软链接：A是B的软链接（A，B都是文件名），则A的目录项中的inode节点号与B的目录项中的inode节点号不相同，<code>A和B指向的是两个不同的inode，继而指向不同的数据块（block），但A的数据块中存放的只是B的路径名</code>。<code>软链接可以跨文件系统，可以对不存在的文件名进行链接，可以对目录进行链接</code></p>
+<pre class=" language-shell"><code class="language-shell">#给log2013.log文件创建软链接link2013，如果log2013.log丢失，link2013将失效
+ln -s log2013.log link2013
+# 为log2013.log创建硬链接ln2013，这两个文件的各项属性相同
+ln log2013.log ln2013</code></pre>
+</li>
+</ul>
+<h2 id="M"><a href="#M" class="headerlink" title="M"></a>M</h2><h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><p>用途： 可以用来创建目录，如果不加创建路径即在本路径下创建一个新的指定的目录，否则即在给出的路径下创建目录 。</p>
 <p>语法：</p>
 <pre class=" language-shell"><code class="language-shell">#在本路径下创建一个名为test的目录
 $ mkdir test
@@ -571,7 +588,12 @@ $ mv /test/a.txt /test/a/b.txt
 #将多个文件同时移动到一个指定目录下
 $ mv a.txt b.txt c.txt -t /test
 </code></pre>
-<h2 id="N"><a href="#N" class="headerlink" title="N"></a>N</h2><h2 id="O"><a href="#O" class="headerlink" title="O"></a>O</h2><h2 id="P"><a href="#P" class="headerlink" title="P"></a>P</h2><h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>用途：pwd（print working directory）需要知道当前所在位置时，使用pwd来显示当前目录在文件系统内的完整路径</p>
+<h2 id="N"><a href="#N" class="headerlink" title="N"></a>N</h2><h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><pre class=" language-shell"><code class="language-shell">#显示整个Linux系统的网络情况
+#显示详细的网络状况
+netstat -a 
+#过滤端口
+netstat -apn | grep 8080</code></pre>
+<h2 id="O"><a href="#O" class="headerlink" title="O"></a>O</h2><h2 id="P"><a href="#P" class="headerlink" title="P"></a>P</h2><h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><p>用途：pwd（print working directory）需要知道当前所在位置时，使用pwd来显示当前目录在文件系统内的完整路径</p>
 <p>语法：</p>
 <p><code>pwd [选项]</code></p>
 <h2 id="Q"><a href="#Q" class="headerlink" title="Q"></a>Q</h2><h2 id="R"><a href="#R" class="headerlink" title="R"></a>R</h2><h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><p>-r:向下递归，不管有多少级目录，一并删除；</p>
@@ -609,7 +631,7 @@ $ rpm -e d.rpm</code></pre>
 </li>
 <li><p><code>scp 文件名 用户名@虚拟机ip地址:目标路径</code></p>
 <pre class=" language-shell"><code class="language-shell">$ scp -r kafka_2.11-0.10.0.0 bigdata-pro01.bigDAta.com:/opt/modules/</code></pre>
-</li>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3></li>
 </ul>
 <h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><ul>
 <li><p>可以重载配置文件或执行shell脚本</p>
@@ -627,6 +649,11 @@ $ rpm -e d.rpm</code></pre>
 <p>-v: 详细报告tar处理的文件信息</p>
 <p>-f: 使用文档名</p>
 <pre class=" language-shell"><code class="language-shell">$ tar -zxf kafka_2.11-0.10.0.0.tgz -C /opt/modules/</code></pre>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><pre class=" language-shell"><code class="language-shell">#查看文件的内容
+tail -n 1000 [文件]:显示文件的尾部1000行
+tail -n +1000 [文件]：从1000行开始显示，至文件末尾
+#常用参数：查阅正在改变的文件，直到您按下Ctrl+C组合键停止显示
+tail -f [文件]</code></pre>
 <h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><ul>
 <li>更新文件的访问和修改时间</li>
 </ul>
@@ -803,6 +830,17 @@ crontab -e
 <pre class=" language-markdown"><code class="language-markdown">http://mirrors.aliyun.com/repo/Centos-6.repo
 Resolving mirrors.aliyun.com... failed: Temporary failure in name resolution.
 wget: unable to resolve host address “mirrors.aliyun.com”</code></pre>
+<h3 id="文件系统的原理"><a href="#文件系统的原理" class="headerlink" title="文件系统的原理"></a>文件系统的原理</h3><ul>
+<li><p>inode:</p>
+<p><code>一个文件占用一个inode</code>，记录文件的属性，同时记录此文件的内容所在的block编号；建立<code>一个目录</code>时，会分配<code>一个inode与至少一个block</code>。block记录的内容是目录下所有文件的inode编号以及文件名。</p>
+<p>每个inode大小均固定为128bytes（新的ext4与xfs可设定到256bytes）</p>
+<p>inode具体包含以下信息：</p>
+<p>权限(read/write/excute)/拥有者与群组(owner/group)/容量/建立或状态修改的时间(ctime)/最近一次的读时间(atime)/最近修改的时间(mtime)/定义文件特性的旗标(flag，SetUID)/文件真正内容的指向(pointer);</p>
+</li>
+<li><p>block：</p>
+<p>记录文件的内容，文件太大时，会占用多个block</p>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -1337,7 +1375,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.9k</span>&nbsp;字
+                class="white-color">58.4k</span>&nbsp;字
             
             
             

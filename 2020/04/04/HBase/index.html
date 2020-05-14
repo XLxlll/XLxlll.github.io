@@ -437,7 +437,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-04
+                    2020-05-13
                 </div>
                 
 
@@ -468,6 +468,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>[toc]</p>
+<p> hbase具体架构、hbase读写过程、hbase的表以及rowkey设计、hbase热点问题带来的危害 </p>
 <h3 id="热点问题-和数据倾斜"><a href="#热点问题-和数据倾斜" class="headerlink" title="热点问题 和数据倾斜"></a>热点问题 和数据倾斜</h3><h4 id="什么是热点问题和数据倾斜"><a href="#什么是热点问题和数据倾斜" class="headerlink" title="什么是热点问题和数据倾斜"></a>什么是热点问题和数据倾斜</h4><p> 热点问题：<code>大量的client直接访问集群的一个或极少数个节点</code>。大量访问会使热点region所在的单个机器超出自身承受能力，引起性能下降甚至region不可用，这也会影响同一个RegionServer上的其他region，由于主机无法服务其他region的请求，造成资源浪费。需要设计良好的数据访问模式以使集群被充分，均衡的利用。</p>
 <p> 数据倾斜： HBase可以被划分为多个Region，但是默认创建时只有一个Region分布在集群的一个节点上，<code>数据一开始时都集中在这个Region</code>，也就是集中在这一个节点上，<code>就算region存储达到临界值时被划分，数据也是存储在少数节点上</code>。</p>
 <h4 id="HBase的存储方式导致热点问题和数据倾斜"><a href="#HBase的存储方式导致热点问题和数据倾斜" class="headerlink" title="HBase的存储方式导致热点问题和数据倾斜"></a>HBase的存储方式导致热点问题和数据倾斜</h4><p>1.HBase中的数据是按照rowkey字典序排序的，当大量连续的rowkey集中写在个别的region上，各个region之间数据分布不平衡；</p>
@@ -1039,7 +1040,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.9k</span>&nbsp;字
+                class="white-color">58.4k</span>&nbsp;字
             
             
             

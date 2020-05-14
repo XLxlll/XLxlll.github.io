@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="剑指offer刷题记录, 博客乐园">
-    <meta name="description" content="使用JAVA语言实现剑指offer全部题目，笔记持续更新中...">
+    <meta name="description" content="使用JAVA语言实现剑指offer全部题目以及LeetCode上的部分题目，笔记持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -449,21 +449,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-08
+                    2020-05-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    8.4k
+                    11.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    36 分钟
+                    48 分钟
                 </div>
                 
 				
@@ -1438,11 +1438,176 @@ TreeNode <span class="token function">Deserialize</span><span class="token punct
 <h3 id="合并两个排序的链表"><a href="#合并两个排序的链表" class="headerlink" title="合并两个排序的链表"></a>合并两个排序的链表</h3><p>题目描述：</p>
 <p> 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。 </p>
 <p>题目解答：</p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="旋转数组的最小数字"><a href="#旋转数组的最小数字" class="headerlink" title="旋转数组的最小数字"></a>旋转数组的最小数字</h3><p>题目描述：</p>
+<p>分析：新建一个新的结果链表result，并定义一个cur变量遍历该链表；while循环先判断list1与list2是否都不为空，若都不为空进入while循环，比较list1与list2链表各个结点值的大小，放到result链表中，如果不满足while循环，说明list1和list2里有一个是空的，那么直接将不为空的结点挂在result链表上即可。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">Merge</span><span class="token punctuation">(</span>ListNode list1<span class="token punctuation">,</span>ListNode list2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//       以下是list1和list2均不为空</span>
+       ListNode result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       ListNode cur <span class="token operator">=</span> result<span class="token punctuation">;</span>
+       <span class="token keyword">while</span> <span class="token punctuation">(</span>list1 <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> list2 <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+           <span class="token keyword">if</span> <span class="token punctuation">(</span>list1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> list2<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token comment" spellcheck="true">//               先将list1与之后的结点断开</span>
+               ListNode temp1 <span class="token operator">=</span> list1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//               将list1放到result里面</span>
+               cur<span class="token punctuation">.</span>next <span class="token operator">=</span> list1<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//               将list1指向原list1的next结点</span>
+               list1 <span class="token operator">=</span> temp1<span class="token punctuation">;</span>
+           <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+               ListNode temp2 <span class="token operator">=</span> list2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+               cur<span class="token punctuation">.</span>next <span class="token operator">=</span> list2<span class="token punctuation">;</span>
+               list2 <span class="token operator">=</span> temp2<span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+           <span class="token comment" spellcheck="true">//               移动cur结点</span>
+               cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//       while循环 当list1/list2还有元素，此时不能进入循环中了，直接将剩下的挂在cur的next上</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>list1 <span class="token operator">!=</span> null <span class="token punctuation">)</span><span class="token punctuation">{</span>
+           cur<span class="token punctuation">.</span>next <span class="token operator">=</span> list1<span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">if</span> <span class="token punctuation">(</span>list2<span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+           cur<span class="token punctuation">.</span>next <span class="token operator">=</span> list2<span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">return</span> result<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="LeetCode-146-LRU-Cache"><a href="#LeetCode-146-LRU-Cache" class="headerlink" title="LeetCode  146. LRU Cache"></a>LeetCode  146. LRU Cache</h3><p>题目描述：</p>
+<p>Design and implement a data structure for <a href="https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU" target="_blank" rel="noopener">Least Recently Used (LRU) cache</a>. It should support the following operations: <code>get</code> and <code>put</code>.</p>
+<p><code>get(key)</code> - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br><code>put(key, value)</code> - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
+<p>The cache is initialized with a <strong>positive</strong> capacity.</p>
+<p><strong>Follow up:</strong><br>Could you do both operations in <strong>O(1)</strong> time complexity?</p>
+<p>题目解答：</p>
+<p>分析：LRU 算法-一种缓存淘汰策略；认为最近使用过的数据应该是有用的，很久没有使用过的数据应该是无用的，内存满了就优先删除那些很久没用过的数据；</p>
+<p>题目的意思是：要接收一个 capacity 参数作为缓存的最大容量，然后实现两个方法，一个是 put(key, val) 方法存入键值对，另一个是 get(key) 方法获取 key 对应的 val，如果 key 不存在则返回 -1。注意，题目要求get和put的时间复杂度均为O(1)，这样的话对于查找、插入、删除都要快，且存储的内容要有顺序[判断是否最近使用过]；</p>
+<p>充分考虑链表及HashMap的优缺点，选择<code>使用双向链表+HashMap</code>实现</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">LRUCache</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//双向链表中每个结点的结构</span>
+     <span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> key<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> value<span class="token punctuation">;</span>
+        ListNode prev<span class="token punctuation">;</span>
+        ListNode next<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">,</span><span class="token keyword">int</span> value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>key <span class="token operator">=</span> key<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//构建双向链表，并实现在双向链表头部插入元素以及删除链表的最后一个元素</span>
+    <span class="token keyword">class</span> <span class="token class-name">DoubleList</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//虚拟头尾结点</span>
+        <span class="token keyword">private</span> ListNode head<span class="token punctuation">,</span>tail<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> size<span class="token punctuation">;</span>
+        <span class="token keyword">public</span> <span class="token function">DoubleList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tail <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            head<span class="token punctuation">.</span>next <span class="token operator">=</span> tail<span class="token punctuation">;</span>
+            tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> head<span class="token punctuation">;</span>
+            size <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/**
+         * 从链表头部添加节点node
+         */</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addFirst</span><span class="token punctuation">(</span>ListNode node<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            node<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            node<span class="token punctuation">.</span>prev <span class="token operator">=</span> head<span class="token punctuation">;</span>
+            head<span class="token punctuation">.</span>next<span class="token punctuation">.</span>prev <span class="token operator">=</span> node<span class="token punctuation">;</span>
+            head<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">;</span>
+            size<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/**
+         * 删除链表中的node结点
+         * @param node
+         */</span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">remove</span><span class="token punctuation">(</span>ListNode node<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            node<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            node<span class="token punctuation">.</span>next<span class="token punctuation">.</span>prev <span class="token operator">=</span> node<span class="token punctuation">.</span>prev<span class="token punctuation">;</span>
+            size <span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">/**
+         * 删除链表中最后一个结点，并返回该结点
+         */</span>
+        <span class="token keyword">public</span> ListNode <span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//此时双向链表为null</span>
+           <span class="token keyword">if</span> <span class="token punctuation">(</span>tail<span class="token punctuation">.</span>prev <span class="token operator">==</span> head<span class="token punctuation">)</span><span class="token punctuation">{</span>
+               <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+           ListNode removeNode <span class="token operator">=</span> tail<span class="token punctuation">.</span>prev<span class="token punctuation">;</span>
+           <span class="token function">remove</span><span class="token punctuation">(</span>removeNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> removeNode<span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> size<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> HashMap<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span>ListNode<span class="token operator">></span> map <span class="token punctuation">;</span>
+    <span class="token keyword">private</span> DoubleList cache<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> capacity<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">LRUCache</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>capacity <span class="token operator">=</span> capacity<span class="token punctuation">;</span>
+        map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        cache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DoubleList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 先去map中查，如有，需要将cache中将数据提前，直接返回
+     * @param key
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> val <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+        <span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> val<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ListNode node <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//删除该结点，并将该结点提到链表头部</span>
+            cache<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cache<span class="token punctuation">.</span><span class="token function">addFirst</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//map中没有的话，就要加入cache中</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>capacity <span class="token operator">==</span> cache<span class="token punctuation">.</span>size<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//如果cache满了，就要删除链表最后一个结点，</span>
+                ListNode last <span class="token operator">=</span> cache<span class="token punctuation">.</span><span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//还需要将map中映射该该结点的key同时删除</span>
+                map<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>last<span class="token punctuation">.</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">//如果没满就要加入链表头部</span>
+            cache<span class="token punctuation">.</span><span class="token function">addFirst</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */</span></code></pre>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h3 id="第一次只出现一次的字符"><a href="#第一次只出现一次的字符" class="headerlink" title="第一次只出现一次的字符"></a>第一次只出现一次的字符</h3><p>哈希表O(1)时间内查找到某一元素</p>
+<h3 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a>数组中出现次数超过一半的数字</h3><h3 id="旋转数组的最小数字"><a href="#旋转数组的最小数字" class="headerlink" title="旋转数组的最小数字"></a>旋转数组的最小数字</h3><p>题目描述：</p>
 <p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。</p>
 <p>输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。<br>例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。<br>NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。 </p>
 <p>题目解答：</p>
-<p>分析：由于输入的是一个非递减排序的数组的一个旋转，那么找到第一个arr[i-1]&gt;arr[i]，返回arr[i]即可，arr[i]即为最小值；若无，则返回arr[0];</p>
+<p>分析：</p>
+<p>根据题目<code>把递增排序数组最开始的若干个元素搬到数组的末尾</code>，因此<code>第一个数字总是大于或者等于最后一个数字</code>；特例：如果把排序数组的前面的0个元素搬到后面，即排序数组本身，这仍然是数组的一个旋转;因此若第一个数字小于最后一个数字，直接返回第一个数字即可。</p>
+<p>1.由于输入的是一个非递减排序的数组的一个旋转，那么找到第一个arr[i-1]&gt;arr[i]，返回arr[i]即可，arr[i]即为最小值；若无，则返回arr[0];</p>
+<p>2.二分查找O（logn）</p>
+<p>用两个指针分别指向数组的第一个元素和最后一个元素，查找中间元素，将中间位置元素与第一个元素和最后一个元素比较，确定该元素位于哪一个递增序列；若三个元素大小相等，无法判断中间的数字是位于前面的子数组还是后面的子数组，也就无法移动两个指针来缩小查找的范围，此时不得不采用顺序查找。</p>
+<p><code>要求在排序的数组（或部分排序的数组）中查找一个数字或者同级某个数字出现的次数</code>尝试使用二分查找算法[前提是有序]。</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minNumberInRotateArray</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>array <span class="token operator">==</span> null <span class="token operator">||</span> array<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -1453,6 +1618,74 @@ TreeNode <span class="token function">Deserialize</span><span class="token punct
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">return</span> array<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="二维数组中的查找"><a href="#二维数组中的查找" class="headerlink" title="二维数组中的查找"></a>二维数组中的查找</h3><p>题目描述：</p>
+<p> 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 </p>
+<p>题目解答：<code>每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序</code>选择从二维数组arr[M][N]的右上角arr[0][N-1]开始遍历，若arr[i][j]=target,返回true；若arr[i][j]&lt;target，跳出内层循环，往下遍历，进行i++；若arr[i][j]&gt;target，往左遍历，进行j–;</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">Find</span><span class="token punctuation">(</span><span class="token keyword">int</span> target<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>array<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>j<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>target <span class="token operator">==</span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>target <span class="token operator">></span> array<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
+<h3 id="数组中的逆序对"><a href="#数组中的逆序对" class="headerlink" title="数组中的逆序对"></a>数组中的逆序对</h3><p>题目描述：</p>
+<p> 在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007 </p>
+<pre><code>题目保证输入的数组中没有的相同的数字数据范围：    对于%50的数据,size&lt;=10^4    对于%75的数据,size&lt;=10^5    对于%100的数据,size&lt;=2*10^5</code></pre><p>题目解答：</p>
+<pre class=" language-java"><code class="language-java"> <span class="token keyword">private</span> <span class="token keyword">long</span> sum<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">InversePairs</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> array<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token function">divide</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>l<span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span>sum<span class="token operator">%</span><span class="token number">1000000007</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">divide</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>l <span class="token operator">!=</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token function">divide</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> l<span class="token punctuation">,</span>mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">divide</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> mid<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">merge</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span>l<span class="token punctuation">,</span>r<span class="token punctuation">,</span>mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> mid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//左区间的起点</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> l<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//右区间的起点</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> mid<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>r<span class="token operator">-</span>l<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//如果见到这种条件，一定要考虑循环结束之后，其中一个还符合自己的条件</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">&lt;=</span>mid <span class="token operator">&amp;&amp;</span> j<span class="token operator">&lt;=</span> r<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> array<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                temp<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> array<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//左区间的i位置上的值大于右区间j位置上的值，那么左区间的所有值与右区间j位置上的值都构成逆序对</span>
+                sum <span class="token operator">+=</span> mid<span class="token operator">-</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                temp<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">&lt;=</span>mid<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> array<span class="token punctuation">[</span>i<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>j<span class="token operator">&lt;=</span>r<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> array<span class="token punctuation">[</span>j<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        index <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span>l<span class="token punctuation">;</span>k<span class="token operator">&lt;=</span>r<span class="token punctuation">;</span>k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            array<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>index<span class="token operator">++</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
     <span class="token punctuation">}</span></code></pre>
 <h2 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h2><h3 id="用两个栈实现队列"><a href="#用两个栈实现队列" class="headerlink" title="用两个栈实现队列"></a>用两个栈实现队列</h3><p>题目描述：</p>
 <p> 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 </p>
@@ -1479,7 +1712,8 @@ TreeNode <span class="token function">Deserialize</span><span class="token punct
 <h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><h3 id="最小的k个数"><a href="#最小的k个数" class="headerlink" title="最小的k个数"></a>最小的k个数</h3><p>题目描述：</p>
 <p>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。</p>
 <p>题目解答：</p>
-<p>分析：题目需求为找出n个整数中<strong>最小的k个数</strong>，考虑使用小顶堆，选k个元素组成一个小顶堆，那么遍历剩下的n-k个元素的时候，如果当前遍历元素大于堆顶元素，该元素还需要继续与小顶堆内的其他元素比较，最差的情况是最初的k个元素就是n个整数中最小的k个数，那么该元素与小顶堆内最后一个元素比较完，该元素大于小顶堆内所有的元素，那么这次比较就是徒劳的，这样性能非常差；<strong>考虑使用大顶堆</strong>，如果当前遍历的元素大于堆顶元素，直接进行下一个遍历，如果当前遍历元素小于堆顶元素，用该元素替换堆顶元素，再进行大顶堆的调整。</p>
+<p>分析：1.适合<code>大数据量</code>：题目需求为找出n个整数中<strong>最小的k个数</strong>，考虑使用小顶堆，选k个元素组成一个小顶堆，那么遍历剩下的n-k个元素的时候，如果当前遍历元素大于堆顶元素，该元素还需要继续与小顶堆内的其他元素比较，最差的情况是最初的k个元素就是n个整数中最小的k个数，那么该元素与小顶堆内最后一个元素比较完，该元素大于小顶堆内所有的元素，那么这次比较就是徒劳的，这样性能非常差；<strong>考虑使用大顶堆</strong>，如果当前遍历的元素大于堆顶元素，直接进行下一个遍历，如果当前遍历元素小于堆顶元素，用该元素替换堆顶元素，再进行大顶堆的调整。</p>
+<p>2.考虑使用快速排序的分区函数，分区函数返回基准数的下标index，分区之后，左边的数字均小于或等于基准数，右边的均大于基准数，判断index和k的关系，当index!=k-1的时候，判断若index&gt;k，则需要缩小范围；若index&lt;k，则需要扩大范围；</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> ArrayList<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">GetLeastNumbers_Solution</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> input<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token comment" spellcheck="true">//如果k>n or k==0，那么就无法找出最小的k个数，根据方法所需的返回类型返回即可</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">></span> input<span class="token punctuation">.</span>length <span class="token operator">||</span> k<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -1538,7 +1772,47 @@ TreeNode <span class="token function">Deserialize</span><span class="token punct
         <span class="token comment" spellcheck="true">//找到最终位置，才进行值的更新</span>
         maxHeap<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>题目描述：</p>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ul>
+<li><p>动态规划问题的<code>一般形式就是求最值</code>——比如：最长递增子序列，最小编辑距离；</p>
+</li>
+<li><p>求解动态规划的核心问题就是<code>穷举</code>；</p>
+<p>动态规划的穷举是有特点的，因为这类问题<code>存在重叠子问题</code>，如果暴力穷举的话效率会很低，所以需要<code>备忘录/dp table</code>来优化穷举过程，避免不必要的计算；</p>
+</li>
+<li><p>动态规划问题一定具备<code>最优子结构</code>，才能通过子问题的最值得到原问题的最值；</p>
+<p>最优子结构要求<code>子问题间必须相互独立</code></p>
+</li>
+<li><p>列出<code>正确的状态转移方程</code>进行正确地穷举；</p>
+<ul>
+<li>先确定状态</li>
+</ul>
+<p>比如斐波那契数列中；把f(n)想做一个状态n，这个状态n是由状态n-1和状态n-2相加转移而来的</p>
+<ul>
+<li>确定dp函数的定义</li>
+<li>确定<code>选择</code>并择优</li>
+<li>明确base case</li>
+</ul>
+</li>
+</ul>
+<p>重叠子问题、最优子结构、状态转移方程是动态规划的三要素；</p>
+<ul>
+<li><p>动态规划是<code>自底向上</code>，从最底下、最简单、问题规模最小的开始往上推</p>
+</li>
+<li><p>常用方法：</p>
+<ul>
+<li><p>暴力递归：递归算法的时间复杂度=子问题个数乘以一个子问题需要的时间；</p>
+</li>
+<li><p>带备忘录的递归解法[自顶向下]：</p>
+</li>
+</ul>
+<p>每次算出某个子问题的答案后，先记录到备忘录中，每次遇到子问题先去备忘录里查一查，若之前已经解决过了，直接把答案拿出来用，不需要耗时计算；</p>
+<ul>
+<li><p>dp数组的迭代解法[自底向上]：</p>
+<p>优化——根据斐波那切数列状态转移方程，当前状态只有之前的两个状态有关系，所以可以不需要很大的DP数组存储所有的状态，只需要存储之前的两个状态就行了；将空间复杂度降低为O(1)。 </p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分糖果"><a href="#分糖果" class="headerlink" title="分糖果"></a>分糖果</h3><p>题目描述：</p>
 <p>有N个小朋友站在一排，每个小朋友都有一个评分</p>
 <p>你现在要按以下的规则给孩子们分糖果：</p>
 <ul>
@@ -1580,12 +1854,67 @@ TreeNode <span class="token function">Deserialize</span><span class="token punct
        <span class="token punctuation">}</span>
        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
     <span class="token punctuation">}</span></code></pre>
-<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><p>题目描述：</p>
+<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><h3 id="知识点-1"><a href="#知识点-1" class="headerlink" title="知识点"></a>知识点</h3><p>贪心算法是动态规划算法的一个特列，相对于动态规划，使用贪心算法需要满足更多的条件；</p>
+<p>题目描述：</p>
 <p>环形路上有n个加油站，第i个加油站的汽油量是gas[i].</p>
 <p>你有一辆车，车的油箱可以无限装汽油。从加油站i走到下一个加油站（i+1）花费的油量是cost[i]，你从一个加油站出发，刚开始的时候油箱里面没有汽油。</p>
 <p>求从哪个加油站出发可以在环形路上走一圈。返回加油站的下标，如果没有答案的话返回-1。</p>
 <p>注意：</p>
 <p>答案保证唯一。</p>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><h3 id="知识点-2"><a href="#知识点-2" class="headerlink" title="知识点"></a>知识点</h3><p>解决一个回溯问题，实际上就是一个决策树的遍历过程：只需要考虑三个问题：</p>
+<ul>
+<li><p>路径：已经做出的选择；</p>
+</li>
+<li><p>选择列表：也就是你当前可以做的选择；</p>
+</li>
+<li><p>结束条件：也就是到达决策树底层，无法再做选择的条件。</p>
+</li>
+<li><p>回溯算法的框架：</p>
+<p>核心在<code>for循环里面的递归，在递归调用之前做选择，在递归调用之后撤销选择</code>。 </p>
+<pre class=" language-java"><code class="language-java">result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+def <span class="token function">backtrack</span><span class="token punctuation">(</span>路径，选择列表<span class="token punctuation">)</span><span class="token operator">:</span>
+    <span class="token keyword">if</span> 满足结束条件<span class="token operator">:</span>
+        result<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>路径<span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+     <span class="token keyword">for</span> 选择 in 选择列表<span class="token operator">:</span>
+        做选择
+        <span class="token function">backtrack</span><span class="token punctuation">(</span>路径，选择列表<span class="token punctuation">)</span>
+        撤销选择</code></pre>
+<p>关于<code>backtrack</code>函数，需要维护走过的<code>路径</code>和当前可以做的<code>选择列表</code>，当触发<code>结束条件</code>时，将路径记入结果集。</p>
+</li>
+<li><p>回溯算法就是个多叉树的遍历问题，关键就是在前序遍历和后序遍历的位置做一些操作。</p>
+</li>
+</ul>
+<h3 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h3><h3 id="N皇后问题"><a href="#N皇后问题" class="headerlink" title="N皇后问题"></a>N皇后问题</h3><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>题目描述：</p>
+<p> 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。 </p>
+<p>题目解答：使用countSpace记录源字符的空格数，计算新字符需要的长度，注意”%20”占两个空格的位置</p>
+<pre class=" language-java"><code class="language-java"> <span class="token keyword">public</span> String <span class="token function">replaceSpace</span><span class="token punctuation">(</span>StringBuffer str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">int</span> lenStr <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">int</span> countSpace <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>lenStr<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           <span class="token keyword">if</span> <span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+               countSpace <span class="token operator">++</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">int</span> len <span class="token operator">=</span> lenStr <span class="token operator">+</span> <span class="token number">2</span><span class="token operator">*</span>countSpace<span class="token punctuation">;</span>
+       str<span class="token punctuation">.</span><span class="token function">setLength</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">int</span> i <span class="token operator">=</span> lenStr <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+       <span class="token keyword">int</span> j <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+       <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+       <span class="token keyword">while</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;</span> countSpace<span class="token punctuation">)</span><span class="token punctuation">{</span>
+           <span class="token keyword">char</span> ch <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">if</span> <span class="token punctuation">(</span>ch <span class="token operator">==</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+               str<span class="token punctuation">.</span><span class="token function">setCharAt</span><span class="token punctuation">(</span>j<span class="token operator">--</span><span class="token punctuation">,</span><span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+               str<span class="token punctuation">.</span><span class="token function">setCharAt</span><span class="token punctuation">(</span>j<span class="token operator">--</span><span class="token punctuation">,</span><span class="token string">'2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+               str<span class="token punctuation">.</span><span class="token function">setCharAt</span><span class="token punctuation">(</span>j<span class="token operator">--</span><span class="token punctuation">,</span><span class="token string">'%'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+               k<span class="token operator">++</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+               str<span class="token punctuation">.</span><span class="token function">setCharAt</span><span class="token punctuation">(</span>j<span class="token operator">--</span><span class="token punctuation">,</span>ch<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+           i<span class="token operator">--</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+       <span class="token keyword">return</span> str<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span></code></pre>
 
             </div>
             <hr/>
@@ -2124,7 +2453,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">51.9k</span>&nbsp;字
+                class="white-color">58.4k</span>&nbsp;字
             
             
             
