@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-04
+                    2020-05-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    2.2k
+                    3.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分钟
+                    13 分钟
                 </div>
                 
 				
@@ -471,27 +471,24 @@
 <h3 id="Hive概述"><a href="#Hive概述" class="headerlink" title="Hive概述"></a>Hive概述</h3><h4 id="什么是Hive"><a href="#什么是Hive" class="headerlink" title="什么是Hive"></a>什么是Hive</h4><ul>
 <li><p>由Facebook开源用于解决海量结构化日志的数据统计；</p>
 </li>
-<li><p>是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射成一张表，并提供类似SQL查询功能；</p>
+<li><p>是基于Hadoop的一个数据仓库工具，可以将<code>结构化的数据文件映射成一张表，并提供类似SQL查询功能</code>；</p>
 </li>
-<li><p>构建在Hadoop之上的数据仓库：使用HQL作为查询接口、使用HDFS存储、使用MapReduce计算；</p>
+<li><p><code>构建在Hadoop之上的数据仓库：使用HQL作为查询接口、使用HDFS存储、使用MapReduce计算</code>；</p>
 </li>
-<li><p>支持UDF，自定义存储格式；</p>
+<li><p><code>支持UDF，自定义存储格式</code>；</p>
 </li>
-<li><p>适合离线数据处理。</p>
+<li><p>适合<code>离线数据处理</code>。</p>
 </li>
 </ul>
 <h4 id="表的类型"><a href="#表的类型" class="headerlink" title="表的类型"></a>表的类型</h4><p>在Hive中创建表时，默认情况下Hive负责管理数据。这意味这Hive把数据移入它的“仓库目录”(warehouse directory)。创建一个外部表，让Hive到仓库目录以外的位置访问数据。</p>
-<p>外部表</p>
-<p>创建表时需要指明外部数据的位置，EXTERNAL关键字，Hive指导数据并不是由自己管理，一次不会把数据移动到自己的仓库目录；丢弃外部表时，Hive不会碰数据，只会删除元数据。</p>
+<h5 id="外部表"><a href="#外部表" class="headerlink" title="外部表"></a>外部表</h5><p>创建表时需要指明外部数据的位置，EXTERNAL关键字，Hive指导数据并不是由自己管理，一次不会把数据移动到自己的仓库目录；丢弃外部表时，Hive不会碰数据，只会删除元数据。</p>
 <pre class=" language-mysql"><code class="language-mysql">CREATE EXTERNAL TABLE external_table(dummy STRING)
 LOCATION '/user/tom/external_table';
 
 LOAD DATA LOCAL INPATH 'input/hive/partitions/file1' INTO TABLE external_table;</code></pre>
-<p>内部（托管）表</p>
-<pre class=" language-mysql"><code class="language-mysql">CREATE  TABLE managed_table(dummy STRING)
+<h5 id="内部（托管）表"><a href="#内部（托管）表" class="headerlink" title="内部（托管）表"></a>内部（托管）表</h5><pre class=" language-mysql"><code class="language-mysql">CREATE  TABLE managed_table(dummy STRING)
 LOAD DATA LOCAL INPATH 'input/hive/partitions/file1' INTO TABLE managed_table;</code></pre>
-<p>分区表</p>
-<p>Hive把表组织成分区，这是一种根据<code>分区列的值</code>对表进行粗略划分的机制，使用分区可以加快数据分片的查询速度。一个表可以以多个维度来进行分区(如下：使用PARTITIONED BY 指定分区，根据dt进行分区外，进一步根据country对每个分区进行子分区)；PARTITIONED BY子句中的列定义是表中正式的列（分区列），但是数据文件并不包含这些列的值，因为它们源于目录名。</p>
+<h5 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h5><p>Hive把表组织成分区，这是一种根据<code>分区列的值</code>对表进行粗略划分的机制，使用分区可以加快数据分片的查询速度。一个表可以以多个维度来进行分区(如下：使用<code>PARTITIONED BY 指定分区</code>，根据dt进行分区外，进一步根据country对每个分区进行子分区)；PARTITIONED BY子句中的列定义是表中正式的列（分区列），但是数据文件并不包含这些列的值，因为它们源于目录名。</p>
 <pre class=" language-mysql"><code class="language-mysql">CREATE TABLE logs(ts BIGINT,line STRING)
 PARTITIONED BY (dt STRING,country STRING)</code></pre>
 <p>在加载数据到分区表的时候，需要显示指定分区值：</p>
@@ -499,13 +496,73 @@ PARTITIONED BY (dt STRING,country STRING)</code></pre>
 INTO TABLE logs
 PARTITION(dt='2020-01-01',country='CN')</code></pre>
 <p>在文件系统级别，分区只是表目录下嵌套的子目录</p>
-<p>分桶表</p>
-<p>表或分区可以进一步分为桶；为数据提供额外的结构以获得更高效的查询处理，高效使用“取样”/“采样”,如下，使用id来确定如何划分桶（Hive对值进行哈希并将结果除以桶的个数取余数）</p>
+<h5 id="分桶表"><a href="#分桶表" class="headerlink" title="分桶表"></a>分桶表</h5><p>表或分区可以进一步分为桶；<code>为数据提供额外的结构以获得更高效的查询处理</code>，<code>高效使用“取样”/&quot;采样&quot;</code>,如下，使用id来确定如何划分桶（Hive对值进行哈希并将结果除以桶的个数取余数）</p>
 <pre class=" language-mysql"><code class="language-mysql">CREATE TABLE bucketed_users(id INT,name STRING)
 CLUSTERED BY (id) INTO 4 BUCKETS;</code></pre>
 <p>将桶中的数据根据一个或多个列进行排序</p>
 <pre class=" language-mysql"><code class="language-mysql">CREATE TABLE bucketed_users(id INT,name STRING)
 CLUSTERED BY (id) SORTED BY (id ASC) INTO 4 BUCKETS;</code></pre>
+<p>与分区不同的是，分区依据的不是真实数据表文件的列，而是我们指定的伪列；但是分桶是依据数据表中真实的列而不是伪列。</p>
+<h4 id="Hive-严格模式"><a href="#Hive-严格模式" class="headerlink" title="Hive 严格模式"></a>Hive 严格模式</h4><p>防止用户执行那些可能产生意想不到的不好的效果的查询：即某些查询在严格模式下无法执行，通过设置<code>hive.mapred.mode=strict</code>可以限制以下3中类型的查询：</p>
+<ul>
+<li>带有分区表的查询：在一个分区表执行hive，where语句中必须包含分区字段过滤条件，否则不能执行；因为数据量太大；</li>
+<li>带有orderby的查询：使用了orderby的查询，必须要有limit语句；</li>
+<li>限制笛卡尔积的查询。</li>
+</ul>
+<h4 id="Hive-排序关键字"><a href="#Hive-排序关键字" class="headerlink" title="Hive 排序关键字"></a>Hive 排序关键字</h4><ul>
+<li>order by :对输入做<code>全局排序</code>，因此只有一个reduce(多个reduce无法保证全局有序)，然而当输入规模较大时，消耗较长的计算时间；</li>
+<li>sort by：不是全局排序，其在数据<code>进入reduce前完成排序</code>，如果使用sort by排序，并设置mapred.reduce.task&gt;1，只会保证每个reduce的输出有序，不会保证全局有序；</li>
+<li>distribute by：控制在<code>map端如何拆分数据给reduce端</code>，sort by为每一个reduce产生一个排序文件；distribute by经常和sort by配合使用。</li>
+<li>cluster by：具有distribute by和sort by的组合功能，但<code>只能升序排序</code></li>
+</ul>
+<h4 id="Hive的join底层实现"><a href="#Hive的join底层实现" class="headerlink" title="Hive的join底层实现"></a>Hive的join底层实现</h4><h5 id="Common-Join"><a href="#Common-Join" class="headerlink" title="Common Join"></a>Common Join</h5><p> 如果不指定MapJoin或者不符合MapJoin的条件，那么Hive解析器会默认把执行Common Join，即在Reduce阶段完成join。整个过程包含Map、Shuffle、Reduce阶段。 </p>
+<ul>
+<li><p>map</p>
+<p>读取源表的数据，<code>Map输出时候以Join on条件中的列为key</code>，如果<code>Join有多个关联键，则以这些关联键的组合作为key</code>；Map输出的<code>value为join之后所关心的(select或者where中需要用到的)列</code>，同时在value中还会包含表的Tag；</p>
+</li>
+<li><p>shuffle</p>
+<p> 根据key的值进行hash，并将key/value按照hash值推送至不同的reduce中，这样确保两个表中相同的key位于同一个reduce中。 </p>
+</li>
+<li><p>reduce</p>
+<p> 根据key的值完成join操作，期间通过Tag来识别不同表中的数据。 </p>
+</li>
+</ul>
+<h5 id="Map-Join"><a href="#Map-Join" class="headerlink" title="Map Join"></a>Map Join</h5><p> 在map端进行join，节省了shuffle阶段要进行的大量数据传输，从而起到优化作用；MapJoin通常用于<code>一个很小的表和一个大表进行join的场景</code>，具体小表有多小，由参数hive.mapjoin.smalltable.filesize来决定，默认值为25M。满足条件的话Hive在执行时候会自动转化为MapJoin </p>
+<h4 id="Hive-数据倾斜"><a href="#Hive-数据倾斜" class="headerlink" title="Hive 数据倾斜"></a>Hive 数据倾斜</h4><ul>
+<li><p>产生的原因</p>
+<p>key分布不均匀、业务数据特性、建表问题、某些SQL语句本身就有数据倾斜问题</p>
+</li>
+<li><p>解决</p>
+<ul>
+<li><p>参数调整</p>
+<p>Map端聚合；有数据倾斜的时候进行负载均衡</p>
+</li>
+<li><p>join</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Hive-性能调优"><a href="#Hive-性能调优" class="headerlink" title="Hive 性能调优"></a>Hive 性能调优</h4><ul>
+<li><p>设置合理的map和reduce task的任务</p>
+</li>
+<li><p>合理利用分区和分桶</p>
+</li>
+<li><p>join优化</p>
+<p>优先过滤再进行Join操作，最大限度的减少参与join的数据量；</p>
+<p>小表join大表，最好启动map join；</p>
+<p>join on的条件相同的话，最好放入同一个job，并且join表的排列顺序从小到大；</p>
+<p>将条目少的表/子查询放在join操作符的左边，因为会被加载到内存</p>
+<p>防止数据倾斜</p>
+</li>
+<li><p>group by 优化</p>
+</li>
+<li><p>启动本地模式：数据量少的时候，没必要去执行分布式协调计算</p>
+</li>
+<li><p>并行执行：让多个并不互相依赖stage（job）并发执行；</p>
+</li>
+<li><p>设置合理的压缩</p>
+</li>
+</ul>
 <h4 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h4><ul>
 <li><p>从<code>Apache download mirrors</code>上下载；</p>
 </li>
@@ -579,7 +636,46 @@ show tables;</code></pre>
     &lt;value>123456&lt;/value>
   &lt;/property>
 &lt;/configuration></code></pre>
-<h3 id="Hive与HBase整合"><a href="#Hive与HBase整合" class="headerlink" title="Hive与HBase整合"></a>Hive与HBase整合</h3><h4 id="整合后的使用场景："><a href="#整合后的使用场景：" class="headerlink" title="整合后的使用场景："></a>整合后的使用场景：</h4><ul>
+<h3 id="Hive与HBase整合"><a href="#Hive与HBase整合" class="headerlink" title="Hive与HBase整合"></a>Hive与HBase整合</h3><h4 id="HBase和Hive的区别"><a href="#HBase和Hive的区别" class="headerlink" title="HBase和Hive的区别"></a>HBase和Hive的区别</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>HBase</th>
+<th>Hive</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>类型</td>
+<td>列式数据库</td>
+<td>数据仓库</td>
+</tr>
+<tr>
+<td>内部机制</td>
+<td>数据库引擎</td>
+<td>MapReduce</td>
+</tr>
+<tr>
+<td>增删改查</td>
+<td>都支持</td>
+<td>只支持导入和查询</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>只需要预先定义列族，不需要具体到列，列可以动态修改</td>
+<td>需要预先定义表格</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>实时</td>
+<td>离线处理</td>
+</tr>
+<tr>
+<td>特点</td>
+<td>以K-V形式存储</td>
+<td>类SQL</td>
+</tr>
+</tbody></table>
+<h4 id="整合后的使用场景："><a href="#整合后的使用场景：" class="headerlink" title="整合后的使用场景："></a>整合后的使用场景：</h4><ul>
 <li>通过Hive把数据加载到HBase中，数据源可以是文件也可以是Hive中的表。</li>
 <li>通过整合，让HBase支持JOIN、GROUP等SQL查询语法。 </li>
 <li>通过整合，不仅可完成HBase的数据实时查询，也可以使用Hive查询HBase中的数据完成复杂的数据分析。 </li>
@@ -1157,7 +1253,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">58.4k</span>&nbsp;字
+                class="white-color">60.5k</span>&nbsp;字
             
             
             

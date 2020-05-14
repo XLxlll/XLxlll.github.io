@@ -437,21 +437,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-13
+                    2020-05-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    1.4k
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分钟
+                    8 分钟
                 </div>
                 
 				
@@ -469,14 +469,65 @@
             <div id="articleContent">
                 <p>[toc]</p>
 <p> hbase具体架构、hbase读写过程、hbase的表以及rowkey设计、hbase热点问题带来的危害 </p>
+<h3 id="HBase架构组成"><a href="#HBase架构组成" class="headerlink" title="HBase架构组成"></a>HBase架构组成</h3><ul>
+<li><p>ZooKeeper</p>
+<ul>
+<li><p>实现HMaster的高可用；</p>
+</li>
+<li><p>记录ROOT表的存储位置，ROOT找到META表位置，META表中的信息确定用户数据存放的位置（region）；</p>
+</li>
+<li><p>监控HRegionServer的状态（当挂了的时候，zk负责向HMaster报告）</p>
+</li>
+</ul>
+</li>
+<li><p>HMaster</p>
+<ul>
+<li>为RegionServer分配region，故障转移；</li>
+<li>负责RegionServer的负载均衡（regionServer中region的均匀分布）</li>
+</ul>
+</li>
+<li><p>HRegionServer</p>
+<ul>
+<li><p>维护region，处理对这些region的IO请求；</p>
+</li>
+<li><p>负责切分在运行过程中变的过大的region；</p>
+</li>
+<li><p>一个table，最初是一个region，随着表增大，分裂出多个region，<code>每个Hregion对应一个region，每个Hregion包含一个或多个Store，每个Store保存一个列族</code>每个Store由一个memstore、0至多个storefile，<code>storefile以Hfile格式存在HDFS中</code>；</p>
+</li>
+<li><p>BlockCache 读缓存、memstore 写缓存；</p>
+</li>
+<li><p>HLog记录数据的变更信息，用来做数据恢复。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="HBase的读写底层实现过程"><a href="#HBase的读写底层实现过程" class="headerlink" title="HBase的读写底层实现过程"></a>HBase的读写底层实现过程</h3><ul>
+<li><p>写过程</p>
+<ul>
+<li>客户端访问ZooKeeper，查找ROOT表，获得META表信息，从META表查找，获取存在目标数据的Region信息，从而找到对应的RegionServer并发送写请求；</li>
+<li>把数据分别写到HLog和MemStore上各一份；</li>
+<li>MemStore达到一个阈值后则把数据刷成一个StoreFile文件(若MemStore中的数据有丢失，则从HLog中恢复)</li>
+<li>当多个StoreFile（Hfile）文件达到一定大小后，会触发Compact合并操作，合并为一个storeFile</li>
+<li>当StoreFile大小超过一定阈值后，会把当前region切分（Split）为两个，并由HMaster分配到相应的HRegionServer，实现负载均衡。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>读过程</p>
+<ul>
+<li>客户端访问ZooKeeper，查找ROOT表，获得META表信息，从META表查找，获取存在目标数据的Region信息，从而找到对应的RegionServer并发送读请求；</li>
+<li>读请求先去MemStore中查数据，查不到就到BlockCache中查，再查不到就到StoreFile上读，并把读的结果放入BlockCache。BlockCache采用LRU策略和分级缓存策略，当BlockCache的大小达到上限后，会触发缓存淘汰机制，将最老的一批数据淘汰掉。</li>
+</ul>
+</li>
+</ul>
 <h3 id="热点问题-和数据倾斜"><a href="#热点问题-和数据倾斜" class="headerlink" title="热点问题 和数据倾斜"></a>热点问题 和数据倾斜</h3><h4 id="什么是热点问题和数据倾斜"><a href="#什么是热点问题和数据倾斜" class="headerlink" title="什么是热点问题和数据倾斜"></a>什么是热点问题和数据倾斜</h4><p> 热点问题：<code>大量的client直接访问集群的一个或极少数个节点</code>。大量访问会使热点region所在的单个机器超出自身承受能力，引起性能下降甚至region不可用，这也会影响同一个RegionServer上的其他region，由于主机无法服务其他region的请求，造成资源浪费。需要设计良好的数据访问模式以使集群被充分，均衡的利用。</p>
 <p> 数据倾斜： HBase可以被划分为多个Region，但是默认创建时只有一个Region分布在集群的一个节点上，<code>数据一开始时都集中在这个Region</code>，也就是集中在这一个节点上，<code>就算region存储达到临界值时被划分，数据也是存储在少数节点上</code>。</p>
-<h4 id="HBase的存储方式导致热点问题和数据倾斜"><a href="#HBase的存储方式导致热点问题和数据倾斜" class="headerlink" title="HBase的存储方式导致热点问题和数据倾斜"></a>HBase的存储方式导致热点问题和数据倾斜</h4><p>1.HBase中的数据是按照rowkey字典序排序的，当大量连续的rowkey集中写在个别的region上，各个region之间数据分布不平衡；</p>
+<h4 id="HBase的存储方式导致热点问题和数据倾斜"><a href="#HBase的存储方式导致热点问题和数据倾斜" class="headerlink" title="HBase的存储方式导致热点问题和数据倾斜"></a>HBase的存储方式导致热点问题和数据倾斜</h4><p>1.HBase中的数据是按照rowkey字典序排序的，当<code>大量连续的rowkey集中写在个别的region上，各个region之间数据分布不平衡</code>；</p>
 <p>HBase中的行是按照rowkey的字典顺序排序的，这种设计优化了scan操作，可以将相关的行以及会被一起读取的行存取在临近位置，便于scan。<br>rowkey设计是热点的源头。</p>
-<p>2.创建表时没有提前预分区，创建的表默认只有一个region，大量的数据写入当前region；</p>
+<p>2.<code>创建表时没有提前预分区，创建的表默认只有一个region，大量的数据写入当前region</code>；</p>
 <p>HBase中，表会被划分为1…n个Region，被托管在RegionServer中。Region有二个重要的属性:StartKey与EndKey表示这个Region维护的rowKey范围，当我们要读/写数据时，如果rowKey落在某个start-end key范围内，那么就会定位到目标region并且读/写到相关的数据。</p>
 <p>HBase默认创建一张表时，只有1个region，start-end key没有边界，所有数据都在这个region里装，然而，当数据越来越多，region的size越来越大时，大到一定的阀值，hbase认为再往这个region里塞数据已经不合适了，就会找到一个midKey将region一分为二，成为2个region,这个过程称为分裂(region-split)。而midKey则为这二个region的临界。<br>此时，我们假设rowkey小于midKey的则被塞到1区，大于等于midKey的则被塞到2区，如果rowkey还是顺序增大的，那数据就总会往2区里面写数据，而1区现在处于一个被冷落的状态，而且是半满的。2区的数据满了会被再次分裂成2个区，如此不断产生被冷落而且不满的Region。</p>
-<p>3.创建表时已经提前预分区，但是rowkey的设计不好。</p>
+<p>3.<code>创建表时已经提前预分区，但是rowkey的设计不好</code>。</p>
 <h4 id="预分区和rowkey的散列设计——解决数据倾斜和热点问题"><a href="#预分区和rowkey的散列设计——解决数据倾斜和热点问题" class="headerlink" title="预分区和rowkey的散列设计——解决数据倾斜和热点问题"></a>预分区和rowkey的散列设计——解决数据倾斜和热点问题</h4><ul>
 <li><p>预分区</p>
 <p>让表的数据可以均衡的分散在集群中，而不是默认只有一个region分布在集群的一个节点上。（预分区个数=节点的倍数，看数据量估算，region不足了会被分列，预分区后每个region的rowkey还是有序的） </p>
@@ -489,8 +540,38 @@
 </li>
 </ul>
 <h3 id="regionserver挂了-如何恢复数据-？"><a href="#regionserver挂了-如何恢复数据-？" class="headerlink" title="regionserver挂了 如何恢复数据 ？"></a>regionserver挂了 如何恢复数据 ？</h3><p>引起RegionServer宕机的原因各种各样，有因为Full GC导致、网络异常导致、官方Bug导致（close wait端口未关闭）以及DataNode异常导致等等</p>
-<p>HBase检测宕机是通过Zookeeper实现的， 正常情况下RegionServer会周期性向Zookeeper发送心跳，一旦发生宕机，心跳就会停止，超过一定时间（SessionTimeout）Zookeeper就会认为RegionServer宕机离线，并将该消息通知给Master</p>
-<p>一旦RegionServer发生宕机，HBase都会马上检测到这种宕机，并且在检测到宕机之后会将宕机RegionServer上的所有Region重新分配到集群中其他正常RegionServer上去，再根据HLog进行丢失数据恢复，恢复完成之后就可以对外提供服务，整个过程都是自动完成的，并不需要人工介入.</p>
+<p>HBase<code>检测宕机是通过Zookeeper</code>实现的， 正常情况下<code>RegionServer会周期性向Zookeeper发送心跳</code>，一旦发生宕机，<code>心跳就会停止，超过一定时间</code>（SessionTimeout）<code>Zookeeper就会认为RegionServer宕机离线，并将该消息通知给Master</code></p>
+<p>一旦RegionServer发生宕机，HBase都会马上检测到这种宕机，并且在检测到宕机之后会<code>将宕机RegionServer上的所有Region重新分配到集群中其他正常RegionServer上去</code>，再根据<code>HLog进行丢失数据恢复</code>，恢复完成之后就可以对外提供服务，整个过程都是自动完成的，并不需要人工介入.</p>
+<h3 id="HBase优化方法"><a href="#HBase优化方法" class="headerlink" title="HBase优化方法"></a>HBase优化方法</h3><ul>
+<li><p>减少调整</p>
+<ul>
+<li>减少region分裂：根据rowkey设计进行预建分区，减少region的动态分裂；</li>
+<li>给HFile设定合适大小：当HFile增加到一定程度后，属于一个region的HFile进行合并，这个步骤会带来开销，甚至后导致region进行分裂；</li>
+</ul>
+</li>
+<li><p>减少启停</p>
+<ul>
+<li>关闭自动compaction，在闲时进行手动compaction；</li>
+<li>当需要写入大量离线数据时建议使用BulkLoad。</li>
+</ul>
+</li>
+<li><p>减少数据量</p>
+<ul>
+<li>开启过滤，提高查询速度，可以减少网络哦IO；</li>
+<li>使用压缩；</li>
+</ul>
+</li>
+<li><p>合理设计</p>
+<p>预分区、rowkey设计、列族设计</p>
+</li>
+</ul>
+<h3 id="每天百亿数据存入HBase，如何保证数据的存储正确和在规定的时间里全部写入完毕，不存留数据"><a href="#每天百亿数据存入HBase，如何保证数据的存储正确和在规定的时间里全部写入完毕，不存留数据" class="headerlink" title="每天百亿数据存入HBase，如何保证数据的存储正确和在规定的时间里全部写入完毕，不存留数据"></a>每天百亿数据存入HBase，如何保证数据的存储正确和在规定的时间里全部写入完毕，不存留数据</h3><p>分析：</p>
+<p>1）百亿数据：证明数据量非常大</p>
+<p>2）存入HBase：证明是跟HBase的写入数据有关</p>
+<p>3）保证数据的正确：要设计正确的数据结构保证正确性</p>
+<p>4）在规定时间内完成：对存入速度是有要求的</p>
+<p>考虑采用批量导入，采用<code>BulkLoad</code>方式。(1)生成Hfiles，然后再批量导入数据；(2)直接将数据批量导入HBase。 </p>
+<p>BulkLoad先将数据按照HBase的内部数据格式生成持久化的HFile文件，然后复制到合适的位置并通知RegionServer，即完成巨量数据的入库，在生成HFile时，无需占用Region资源，降低了HBase节点的写入压力。</p>
 <h3 id="启动过程："><a href="#启动过程：" class="headerlink" title="启动过程："></a>启动过程：</h3><p>1.启动zookeeper：执行<code>./bin/zkServer.sh start</code>；</p>
 <p>2.启动高可用下的hdfs，会在各个节点启动namenode，datanode，journalnode：执行<code>./sbin/start-dfs.sh</code>；在HA的namenode节点上启动zkfc线程（两个namenode都要启动）<code>./sbin/hadoop-daemon.sh start zkfc</code>;</p>
 <p>3.启动master：<code>./bin/hbase-daemon.sh start master</code></p>
@@ -502,7 +583,7 @@ org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.ipc.StandbyException): O
 </code></pre>
 <p>连接数据库：</p>
 <p><code>./bin/start-hbase.sh</code></p>
-<h3 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4>
+
             </div>
             <hr/>
 
@@ -1040,7 +1121,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">58.4k</span>&nbsp;字
+                class="white-color">60.5k</span>&nbsp;字
             
             
             

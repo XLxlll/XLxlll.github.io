@@ -244,7 +244,7 @@
     <link href="https://xlxlll.github.io/2020/04/14/Hive/"/>
     <id>https://xlxlll.github.io/2020/04/14/Hive/</id>
     <published>2020-04-14T01:42:43.000Z</published>
-    <updated>2020-05-04T08:36:45.110Z</updated>
+    <updated>2020-05-14T08:22:41.171Z</updated>
     
     <summary type="html">
     
@@ -276,7 +276,7 @@
     <link href="https://xlxlll.github.io/2020/04/13/flume/"/>
     <id>https://xlxlll.github.io/2020/04/13/flume/</id>
     <published>2020-04-13T09:19:57.000Z</published>
-    <updated>2020-05-13T00:20:24.330Z</updated>
+    <updated>2020-05-14T07:18:16.308Z</updated>
     
     <summary type="html">
     
@@ -459,7 +459,7 @@
     <link href="https://xlxlll.github.io/2020/04/04/HBase/"/>
     <id>https://xlxlll.github.io/2020/04/04/HBase/</id>
     <published>2020-04-04T14:01:22.000Z</published>
-    <updated>2020-05-13T00:18:45.555Z</updated>
+    <updated>2020-05-14T03:06:58.639Z</updated>
     
     <summary type="html">
     
@@ -469,7 +469,7 @@
         
           &lt;p&gt;[toc]&lt;/p&gt;
 &lt;p&gt; hbase具体架构、hbase读写过程、hbase的表以及rowkey设计、hbase热点问题带来的危害 &lt;/p&gt;
-&lt;h3 id=&quot;热点问题-和数据倾斜&quot;&gt;&lt;a href=&quot;#热点问题-和数据倾斜&quot; class=&quot;headerlink&quot;
+&lt;h3 id=&quot;HBase架构组成&quot;&gt;&lt;a href=&quot;#HBase架构组成&quot; class=&quot;headerlink&quot;
         
       
     
