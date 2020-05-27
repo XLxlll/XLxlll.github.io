@@ -449,21 +449,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-08
+                    2020-05-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    7.4k
+                    7.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    32 分钟
+                    33 分钟
                 </div>
                 
 				
@@ -499,6 +499,15 @@
 </li>
 <li><p>完全二叉树中：度为0的结点总数=度为2的结点总数+1;，且完全二叉树中度为1的结点数只有0或1两种可能。</p>
 </li>
+</ul>
+<h4 id="B树-B-树"><a href="#B树-B-树" class="headerlink" title="B树/B+树"></a>B树/B+树</h4><p>M阶B树有以下的性质</p>
+<p>M阶B+树需要满足以下几个要求：</p>
+<ul>
+<li>从根节点到叶节点的所有路径都具有相同的长度；</li>
+<li>所有数据信息都存储在叶子节点，非叶子节点仅作为叶节点的索引存在；</li>
+<li>根节点至少有两个子树；</li>
+<li>每个树节点最多拥有M个子树；</li>
+<li>每个树节点（除了根节点）拥有至少M/2个子树。</li>
 </ul>
 <h3 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h3><p>栈的特点：</p>
 <ul>
@@ -1213,7 +1222,32 @@ HashEntry<span class="token operator">&lt;</span>K<span class="token punctuation
 <li>明确什么是子问题的最优解</li>
 <li>分别求出子问题的最优解再堆叠出全局最优解</li>
 </ul>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>排序效率在O(nlogn)中效率最高，思想是使用分治法策略把一个序列分为两个子序列，基本步骤：</p>
+<ul>
+<li>先从序列中取出一个数作为<code>基准数</code>；</li>
+<li>分区过程：将把这个数<code>大的数全部放到它的右边</code>，<code>小于或者等于它的数全部放到它的左边</code>；</li>
+<li>递归地对左右子序列进行步骤2，直到个区间只有一个数。</li>
+</ul>
+<p>根据大神的解读，可以形象地将此过程描述成<code>挖坑填数+分治法</code></p>
+<p>挖坑填数过程：</p>
+
+
+<p>如上图，此时arr[5]之前的数字都小于等于它，arr[5]之后的数字都大于它，那么就在对arr[0…4]和arr[6…9]进行子区间重复上述步骤。</p>
+<p>时间复杂度：</p>
+<ul>
+<li>最好情况下为O(nlogn)</li>
+<li>最坏情况下为O(n^2)</li>
+</ul>
+<p>时间复杂度与基准数的选择密不可分，所以对于基准数的选择有以下几种方式：</p>
+<ul>
+<li><p>固定基准数</p>
+</li>
+<li><p>随机基准数</p>
+</li>
+<li><p>三数取中：使用左端、右端、中心位置上的是哪个元素的中值作为基准元</p>
+</li>
+</ul>
+
             </div>
             <hr/>
 
@@ -1735,7 +1769,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">60.5k</span>&nbsp;字
+                class="white-color">63.2k</span>&nbsp;字
             
             
             

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="git, 博客乐园">
-    <meta name="description" content="有关git的命令，持续更新...">
+    <meta name="description" content="有关GitHub的使用、git的命令，持续更新...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -433,21 +433,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-04-26
+                    2020-05-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    216
+                    2.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分钟
+                    8 分钟
                 </div>
                 
 				
@@ -463,31 +463,125 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h3><p>创建<code>Mamba_girl</code> 分支，然后切换到<code>Mamba_girl</code>分支</p>
-<pre class=" language-markdown"><code class="language-markdown">$ git checkout -b Mamba<span class="token italic"><span class="token punctuation">_</span>girl
-Switched to a new branch 'Mamba<span class="token punctuation">_</span></span>girl'</code></pre>
+                <h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><h3 id="如何在Github上实现高效搜索"><a href="#如何在Github上实现高效搜索" class="headerlink" title="如何在Github上实现高效搜索"></a>如何在Github上实现高效搜索</h3><pre class=" language-xml"><code class="language-xml">in:description
+</code></pre>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><h3 id="集中式VS分布式"><a href="#集中式VS分布式" class="headerlink" title="集中式VS分布式"></a>集中式VS分布式</h3><h4 id="集中式"><a href="#集中式" class="headerlink" title="集中式"></a>集中式</h4><p>CVS及SVN都是集中式的版本控制系统，版本库是集中存放在中央服务器的，最大的<code>弊端是必须联网才能工作</code></p>
+<h4 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h4><p>Git是分布式版本控制系统，这种分布式版本控制系统<code>没有中央服务器</code>，每个人电脑上都是一个完整的版本库，工作时就不需要联网了。多人协作时，只需要把各自修改推送给对方，就可以了。在实际使用分布式版本控制系统的时候，通常需要一台充当“中央服务器”的电脑，方便“交换”大家的修改，没有该电脑，大家一样工作。</p>
+<p>工作区：<code>Git管理的文件夹</code>（如下文中的learnGit，就是一个工作区）</p>
+<p>版本库：<code>工作区中的.git目录就是版本库</code>；Git版本库中存有很多东西，其中有一个叫<code>stage(index)的暂存区</code>，Git自动创建的第一个分支<code>master</code>,以及指向master的一个指针<code>HEAD</code></p>
+<h3 id="在Windows上安装Git"><a href="#在Windows上安装Git" class="headerlink" title="在Windows上安装Git"></a>在Windows上安装Git</h3><p>从Git官网下载安装程序，默认选项安装即可；安装完成之后，在开始菜单里找到Git Bash，出现命令行，说明Git安装成功。</p>
+<p>安装完成之后，需要进行设置，在命令行中输入：</p>
+<pre class=" language-shell"><code class="language-shell"># git config命令的 --global参数表示这台机器上所有的Git仓库都会使用这个配置
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"</code></pre>
+<h3 id="版本库管理"><a href="#版本库管理" class="headerlink" title="版本库管理"></a>版本库管理</h3><h4 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h4><p>版本库可以理解成一个目录，该目录下的所有文件都可以被Git管理起来，每个文件的修改、删除、Git都能跟踪，以便任意时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+<pre class=" language-shell"><code class="language-shell">#1.选择一个合适的位置，创建一个空目录，注意Windows系统中，确保目录名及其父目录中不包含中文。
+$ mkdir learnGit
+$ cd learnGit
+#显示当前目录
+$ pwd
+#2.通过git init 命令把这个目录变成Git可以管理的仓库；成功之后，告诉你是一个空的仓库，且当前目录下多了一个.git目录，若没有怎说明这个目录默认是隐藏的，用ls -ah命令就可以看见
+$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+#Git不能追踪图片、视频等的变化，也不能跟踪Word文件的改动。千万不要使用Windows的记事本编辑任何文本文件，</code></pre>
+<h4 id="将文件添加到Git版本库中"><a href="#将文件添加到Git版本库中" class="headerlink" title="将文件添加到Git版本库中"></a>将文件添加到Git版本库中</h4><p>Git版本库中添加文件需要add、commit两步：commit可以一次提交多次add的文件；不经过add的内容，不会被提交到版本库里【同时说明Git管理的是修改，并非文件，若管理的是文件，执行commit的时候，把修改的的直接通过文件就提交了也就不需要add操作了】。</p>
+<img src="/2020/04/09/git/%E6%8F%90%E4%BA%A4%E8%BF%87%E7%A8%8B.png" class="">
+
+<pre class=" language-shell"><code class="language-shell">#1.git add 告诉Git，把文件添加到仓库，实际是把文件修改添加到暂存区
+$ git add xx.txt
+#2.git commit 告诉Git，把文件提交到仓库，实际是把暂存区的所有内容提交到当前分支
+$ git commit -m "对本次提交的说明文字"</code></pre>
+<h3 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h3><pre class=" language-shell"><code class="language-shell"># 查看仓库当前的状态
+$ git status
+#查看具体修改了什么内容
+$ git diff xx.txt
+#查看当前工作区和版本库里面最新版本的区别
+$ git diff HEAD -- XX.txt
+#查看提交历史，以便回退到哪个版本:git log显示从最近到最远的提交日志
+$ git log [--pretty=oneline]
+#HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，往上100个写成HEAD~100
+commit id(HEAD->master) message
+#查看命令历史，以便确定回到未来的哪个版本
+$ git reflog
+$ cat xx.txt
+</code></pre>
+<h3 id="回退、撤销、删除等操作"><a href="#回退、撤销、删除等操作" class="headerlink" title="回退、撤销、删除等操作"></a>回退、撤销、删除等操作</h3><h4 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h4><pre class=" language-shell"><code class="language-shell">#将当前版本回退到上一个版本
+$ git reset --hard HEAD^
+#若想由上一个版本回到当前版本，前提是：当前命令行窗口未关掉,commit id不用全写全，可以写前几位，但不要写的太短，以免Git自动匹配多个版本
+$ git reset --hard commit id
+#若是关闭电脑，还想回到执行回退之前的最新版本怎么办，执行git reflog查看commit id</code></pre>
+<h4 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h4><p>如果你修改的内容是错误的，必须要进行纠正。可以使用<code>git checkout --</code>命令<code>丢弃工作区的修改</code>，让文件回到最近一次<code>git commit</code>或<code>git add</code>时的状态。</p>
+<pre class=" language-shell"><code class="language-shell">#把xx.txt文件在工作区的修改全部撤销：
+#1.修改后未执行add，撤销修改之后和版本库一模一样
+#2.修改后已执行add，又进行了修改，撤销修改就回到添加到暂存区后的状态
+$ git checkout -- xx.txt
+#将暂存区的修改撤销掉(unstage)，重新放回工作区
+$ git reset HEAD xx.txt</code></pre>
+<p>要想做到把修改的内容全部撤销，必要保证修改过的工作区、暂存区、版本库[并非远程版本库]都已经执行了回退/撤销命令。</p>
+<h4 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h4><p>将一个新文件执行<code>git add git commit</code>后执行修改操作。</p>
+<pre class=" language-shell"><code class="language-shell">#在文件管理器中把没用的文件删除/使用rm命令
+$ rm xx.txt
+#此时版本库和工作区内容不一致
+#1.从版本库中删除该文件，执行git rm 删除之后再执行git commit
+#2.删除了想恢复[只能恢复到最新版本]，用版本库里的替换工作区内的;从未被添加到版本库就被删除的文件是无法恢复的
+$ git checkout -- xx.txt</code></pre>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><p>远程仓库：找一台电脑充当服务器的角色，24小时开机，其他每个人都从这个服务器仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。GitHub就是免费的Git远程仓库。</p>
+<p><code>本地Git仓库和GitHub仓库之间的传输是通过SSH加密的</code>，所以：</p>
+<ul>
+<li><p>创建SSH key。若用户主目录下有.ssh目录以及该目录下有id_rsa和id_rsa.pub这两个文件，执行下一步；若无，打开Git Bash。</p>
+<pre class=" language-shell"><code class="language-shell">$ ssh-keygen -t rsa -C "youremail@example.com"</code></pre>
+<p>一路回车即可在用户主目录下看到.ssh目录以及该目录下有id_rsa和id_rsa.pub这两个文件</p>
+</li>
+<li><p>登录GitHub，打开Account settings，找到SSH Keys页面，点击”Add SSH Key“，填写任意Title，并在Key文本框里粘贴id_rsa.pub文件的内容，点击Add Key，即可看到已添加的Key。【GitHub允许你添加多个Key】</p>
+</li>
+</ul>
+<h4 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h4><p>将本地Git仓库与远程库进行同步：</p>
+<ul>
+<li><p>在本地创建一个版本库</p>
+</li>
+<li><p>在GitHub上创建一个仓库</p>
+{% asset_img GitHub创建一个远程库 %}
+</li>
+<li><p>将本地与GitHub进行关联</p>
+<pre class=" language-shell"><code class="language-shell">#在本地版本库中运行如下命令：添加后，远程库的名字就是origin-默认叫法
+$ git remote add origin git@github.com:GitHub账户名/新建远程库的名字.git </code></pre>
+</li>
+<li><p>将本地库的所有内容推送到远程库上</p>
+<pre class=" language-shell"><code class="language-shell">#第一次推送master分支时，加上了-u，Git不但把本地的master分支内容推送至远程的master分支，还会将本地的master分支和元和才能的master分支关联起来
+$ git push -u origin master 
+#再次提交本地修改时
+$ git push origin master</code></pre>
+</li>
+</ul>
+<h4 id="从远程库中克隆"><a href="#从远程库中克隆" class="headerlink" title="从远程库中克隆"></a>从远程库中克隆</h4><pre class=" language-shell"><code class="language-shell">$ git clone git@github.com:GitHub账户名/新建远程库的名字.git </code></pre>
+<p>还可以通过https等协议克隆，但ssh速度快。</p>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><h4 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h4><p>创建dev 分支，然后切换到dev分支</p>
+{% asset_img 创建dev分支并切换到dev分支.png %}
+
+<pre class=" language-shell"><code class="language-shell">$ git checkout -b dev
+Switched to a new branch 'dev'</code></pre>
 <p>git checkout 命令加上-b参数表示创建并切换，相等于以下两条命令：</p>
-<pre class=" language-markdown"><code class="language-markdown">$ git branch Mamba<span class="token italic"><span class="token punctuation">_</span>girl
-$ git checkout Mamba<span class="token punctuation">_</span></span>girl</code></pre>
+<pre class=" language-shell"><code class="language-shell">$ git branch dev
+$ git checkout dev</code></pre>
 <p>使用<code>git branch</code>命令查看所有分支，当前分支前面会标一个*号:</p>
-<pre class=" language-markdown"><code class="language-markdown">$ git branch
-<span class="token list punctuation">*</span> Mamba_girl
+<pre class=" language-shell"><code class="language-shell">$ git branch
+* dev
   master</code></pre>
-<p>然后，就可以在<code>Mamba_girl</code>分支上正常提交了，<code>git add</code>，<code>git commit -m</code>提交完成,分支工作结束之后，切换回<code>master</code>分支：</p>
-<pre class=" language-markdown"><code class="language-markdown">$ git checkout master
+<p>然后，就可以在dev分支上正常提交了，<code>git add</code>，<code>git commit -m</code>提交完成,分支工作结束之后，切换回<code>master</code>分支：</p>
+<pre class=" language-shell"><code class="language-shell">$ git checkout master
 Switched to branch 'master'</code></pre>
-<p>将<code>Mamba_girl</code>分支的提交合并到<code>master</code>上 :</p>
-<p><code>$ git merge Mamba_girl</code></p>
+<p>将dev分支的提交合并到<code>master</code>上 :</p>
+<pre class=" language-shell"><code class="language-shell">$ git merge dev</code></pre>
 <p><code>git merge</code>命令用于合并指定分支到当前分支，关于合并模式</p>
 <ul>
-<li>Fast-forward</li>
+<li>Fast-forward:快进模式，直接把master指向dev的当前提交</li>
 <li></li>
 </ul>
-<p>合并完成，可以删除Mamba_girl分支了</p>
-<pre class=" language-markdown"><code class="language-markdown">$ git branch -d Mamba<span class="token italic"><span class="token punctuation">_</span>girl
-Deleted branch Mamba<span class="token punctuation">_</span></span>girl (was 3ba40f4).</code></pre>
-<h3 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h3><p><code>git switch [-c] master</code>切换分支,-c:创建并切换到新的分支。</p>
-
+<p>合并完成，可以删除dev分支了</p>
+<pre class=" language-shell"><code class="language-shell">$ git branch -d dev
+Deleted branch dev (was 3ba40f4).</code></pre>
+<h4 id="切换分支"><a href="#切换分支" class="headerlink" title="切换分支"></a>切换分支</h4><p><code>git switch [-c] master</code>切换分支,-c:创建并切换到新的分支。</p>
+<h4 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h4>
             </div>
             <hr/>
 
@@ -997,7 +1091,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">60.5k</span>&nbsp;字
+                class="white-color">63.2k</span>&nbsp;字
             
             
             
